@@ -14,6 +14,7 @@ import MaterialComunityIcons from 'react-native-vector-icons/MaterialCommunityIc
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import {get} from '../../helper/http';
 import { getFromAsyncStorage } from '../../helper/Storage';
+import kemendikbud from '../../assets/images/kemendikbud.png'
 
 const ProfileIcon = (
   <IonIcons name="person-circle-outline" size={30} color="#E81B7D" />
@@ -112,22 +113,12 @@ export default function index(props) {
         <View>
           <Text style={styles.sectionOneContentTitle}>Profile</Text>
         </View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('EditProfile')}
-          style={styles.editButton}>
-          <MaterialComunityIcons
-            name="account-edit"
-            size={35}
-            color="#FDB242"
-          />
-        </TouchableOpacity>
+        
       </View>
       <View style={{backgroundColor: '#242A61'}}>
-        <IonIcons
-          name="person-circle"
-          size={140}
-          color="#C9CACE"
+      <Image
           style={styles.profilePhoto}
+          source={kemendikbud}
         />
       </View>
       <ScrollView style={{backgroundColor: '#242A61'}}>
@@ -177,12 +168,6 @@ export default function index(props) {
                   <Text style={styles.listItemContentValue}>{id.jabatan}</Text>
                 </View>
               </View>
-              <View style={styles.listItem}>
-                <View>
-                  <Text style={styles.listItemContentAttribute}>Jurusan</Text>
-                  <Text style={styles.listItemContentValue}>{id.jurusan}</Text>
-                </View>
-              </View>
             </View>
           </View>
           <TouchableOpacity
@@ -218,6 +203,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   profilePhoto: {
+    width: 150,
+    height: 120,
     marginTop: 10,
     marginBottom: 20,
     alignItems: 'center',

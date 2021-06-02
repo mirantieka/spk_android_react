@@ -102,7 +102,7 @@ export default function index(props) {
       <View key={`daftarNilai-${item.id}-${index}`}>
         <View style={{marginBottom: 1}}>
           <View style={styles.listItem}>
-            <Text style={styles.listItemContentValue}>{item.kriteria_ahp_id}</Text>
+            <Text style={styles.listItemContentValue}>{item.kriteria_ahp.nama}</Text>
             <Text>{item.nilai}</Text>
           </View>
         </View>

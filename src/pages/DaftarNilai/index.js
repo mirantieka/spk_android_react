@@ -58,7 +58,7 @@ export default function index(props) {
     // get('user/guru').then(response => {
     //   setGuru(response);
     // });
-    get('users').then(response => {
+    get('user/tampil_guru').then(response => {
       console.log('response', response);
       setUsers(response);
     });

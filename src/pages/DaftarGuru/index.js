@@ -12,6 +12,7 @@ import {height} from '../../helper/DEFINED';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import {get, post} from '../../helper/http';
+import kemendikbud from '../../assets/images/kemendikbud.png'
 
 export default function index(props) {
   const navigation = props.navigation;
@@ -19,14 +20,10 @@ export default function index(props) {
   const renderItem = ({item, index}) => {
     return (
       <View key={`daftarGuru-${item.id}-${index}`}>
-        <TouchableOpacity onPress={() => navigation.navigate('DetailGuru', {data: item})}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('DetailGuru', {data: item})}>
           <View style={styles.listItem}>
-            <IonIcons
-              name="person-circle"
-              size={50}
-              color="#C9CACE"
-              style={styles.profile}
-            />
+            <Image style={styles.profilePhoto} source={kemendikbud} />
             <View>
               <Text style={styles.listItemContentName}>{item.nama}</Text>
               <Text style={styles.listItemContentMapel}>
@@ -39,13 +36,11 @@ export default function index(props) {
     );
   };
 
-  
-
   const fetchData = React.useCallback(() => {
     // get('user/guru').then(response => {
     //   setGuru(response);
     // });
-    get('users').then(response => {
+    get('user/tampil_guru').then(response => {
       console.log('response', response);
       setUsers(response);
     });
@@ -94,7 +89,9 @@ const styles = StyleSheet.create({
   backButton: {
     marginRight: 10,
   },
-  profile: {
+  profilePhoto: {
+    width: 50,
+    height: 40,
     marginRight: 10,
   },
   sectionTwo: {

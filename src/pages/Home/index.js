@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   AsyncStorage,
+  Image,
 } from 'react-native';
 import {height, shadow} from '../../helper/DEFINED';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -13,6 +14,7 @@ import FontAwesome5Icons from 'react-native-vector-icons/FontAwesome5';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import {getFromAsyncStorage} from '../../helper/Storage';
+import kemendikbud from '../../assets/images/kemendikbud.png'
 
 export default function index(props) {
   const navigation = props.navigation;
@@ -30,11 +32,9 @@ export default function index(props) {
   return (
     <>
       <View style={styles.sectionOne}>
-        <IonIcons
-          name="person-circle"
-          size={60}
-          color="#F0F2F5"
+      <Image
           style={styles.profile}
+          source={kemendikbud}
         />
         <View>
           <Text style={styles.sectionOneContentHello}>Hello,</Text>
@@ -64,10 +64,10 @@ export default function index(props) {
               style={[styles.menu, {backgroundColor: '#E4E9FF'}]}>
               <View style={styles.menuContent}>
                 <FontAwesome5Icons
-                  name="book"
+                  name="puzzle-piece"
                   size={27}
                   color="#11CBBF"
-                  style={{marginTop: 10, marginBottom: 3}}
+                  style={{marginTop: 10, marginBottom: 3, marginLeft: 8}}
                 />
                 <Text style={[styles.menuText, {color: '#11CBBF'}]}>
                   Daftar Kriteria
@@ -91,7 +91,7 @@ export default function index(props) {
               style={[styles.menu, {backgroundColor: '#D9D2FF'}]}>
               <View style={styles.menuContent}>
                 <MaterialIcons
-                  name="assignment"
+                  name="assignment-turned-in"
                   size={30}
                   color="#3330EE"
                   style={{marginTop: 5, marginBottom: 2}}
@@ -158,9 +158,9 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   profile: {
-    width: 60,
+    width: 80,
     height: 60,
-    marginRight: 10,
+    marginRight: 10
   },
   sectionTwo: {
     height: height * 0.8,

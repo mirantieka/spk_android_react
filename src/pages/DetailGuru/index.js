@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Image,
   StyleSheet,
   Text,
   View,
@@ -11,6 +12,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import {get} from '../../helper/http';
 import {useEffect} from 'react/cjs/react.development';
+import kemendikbud from '../../assets/images/kemendikbud.png'
 
 const data = [
   {
@@ -57,11 +59,9 @@ export default function index(props) {
         </View>
       </View>
       <View style={{backgroundColor: '#242A61'}}>
-        <IonIcons
-          name="person-circle"
-          size={200}
-          color="#C9CACE"
+      <Image
           style={styles.profilePhoto}
+          source={kemendikbud}
         />
       </View>
       <ScrollView style={{backgroundColor: '#242A61', height: height * 0.5}}>
@@ -118,10 +118,9 @@ const styles = StyleSheet.create({
   backButton: {
     marginRight: 10,
   },
-  profile: {
-    marginRight: 10,
-  },
   profilePhoto: {
+    width: 220,
+    height: 200,
     marginTop: 30,
     marginBottom: 20,
     alignItems: 'center',

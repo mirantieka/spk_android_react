@@ -76,7 +76,6 @@ export default function index(props) {
                 },
               ]}>
               <View style={styles.menuContent}>
-                
                 <Text style={[styles.menuText, {color: '#AC20DD'}]}>
                   Perankingan WP
                 </Text>

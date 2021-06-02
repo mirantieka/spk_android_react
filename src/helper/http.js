@@ -1,6 +1,6 @@
 import axios from 'axios';
 // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTkyZjk5NzAtMTAwYS00MDNlLThhMWEtMzUwZGI3ZWM3ZWQ5IiwiaWF0IjoxNjAxNjQzNjk3fQ.q5zkKVBtaioe4wbaP_87I6gRUCFIOpIsjO23CUa4F_s'
-const domain = '192.168.1.25:8000';
+const domain = '192.168.43.176:8000';
 const baseUrl = 'http://'+domain+'/api/';
 export const get = async (url, query = "", options = {}) => {
     if (!url) {

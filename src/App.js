@@ -13,10 +13,11 @@ import DaftarKriteria from './pages/DaftarKriteria'
 import DetailKriteria from './pages/DetailKriteria'
 import DaftarNilai from './pages/DaftarNilai'
 import Profile from './pages/Profile'
-import EditProfile from './pages/EditProfile'
 import DetailNilai from './pages/DetailNilai'
 import Init from './pages/Init'
 import WPMethod from './pages/WPMethod'
+import PerankinganWP from './pages/PerankinganWP'
+import HasilWP from './pages/HasilWP'
 import AHPMethod from './pages/AHPMethod'
 
 const AppNavigator = createStackNavigator({
@@ -47,21 +48,24 @@ const AppNavigator = createStackNavigator({
   Profile: {
     screen: Profile
   },
-  EditProfile: {
-    screen: EditProfile
-  },
   Init: {
     screen: Init
   },
   WPMethod: {
     screen: WPMethod
   },
+  PerankinganWP: {
+    screen: PerankinganWP
+  },
+  HasilWP: {
+    screen: HasilWP
+  },
   AHPMethod: {
     screen: AHPMethod
   }
 },{
   headerMode: 'none',
-  initialRouteName: 'Home'
+  initialRouteName: 'Login'
 });
 
 const RootComponent = createAppContainer(AppNavigator);

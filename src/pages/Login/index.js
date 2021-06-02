@@ -86,6 +86,7 @@ export default function index(props) {
               style={{marginStart: 30}}
             />
             <TextInput
+            secureTextEntry={true}
              style={{paddingHorizontal: 20, fontSize: 15}} 
              placeholder="Password"
               placeholderTextColor='#ADAFB2' 
