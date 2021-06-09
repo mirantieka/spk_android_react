@@ -68,7 +68,7 @@ export default function index(props) {
 
   React.useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
 
   return (
     <>

@@ -1,86 +1,56 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React from 'react';
+import {View, Text, StyleSheet, Button, Image, Slider} from 'react-native';
 // import * as Font from ''
 // import {useFonts} from '@use-expo/font'
-import 'react-native-gesture-handler'
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import Login from './pages/Login'
+import 'react-native-gesture-handler';
+import {createAppContainer} from 'react-navigation';
+import {createDrawerNavigator} from 'react-navigation-drawer';
+import FontAwesome5Icons from 'react-native-vector-icons/FontAwesome5';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {createStackNavigator} from 'react-navigation-stack';
+import Login from './pages/Login';
 import Home from './pages/Home';
-import DaftarGuru from './pages/DaftarGuru'
-import DetailGuru from './pages/DetailGuru'
-import DaftarKriteria from './pages/DaftarKriteria'
-import DetailKriteria from './pages/DetailKriteria'
-import DaftarNilai from './pages/DaftarNilai'
-import Profile from './pages/Profile'
-import EditProfile from './pages/EditProfile'
-import DetailNilai from './pages/DetailNilai'
-import Init from './pages/Init'
-import WPMethod from './pages/WPMethod'
-import AHPMethod from './pages/AHPMethod'
+import DaftarGuru from './pages/DaftarGuru';
+import DetailGuru from './pages/DetailGuru';
+import DaftarKriteria from './pages/DaftarKriteria';
+import DetailKriteria from './pages/DetailKriteria';
+import DaftarNilai from './pages/DaftarNilai';
+import Profile from './pages/Profile';
+import EditProfile from './pages/EditProfile';
+import DetailNilai from './pages/DetailNilai';
+import Init from './pages/Init';
+import WPMethod from './pages/WPMethod';
+import AHPMethod from './pages/AHPMethod';
 
-const AppNavigator = createStackNavigator({
-  Home: {
-    screen: Home
+const styles = StyleSheet.create({
+  icon: {
+    width: 24,
+    height: 24,
   },
-  DaftarGuru: {
-    screen: DaftarGuru
-  },
-  DetailGuru: {
-    screen: DetailGuru
-  },
-  DaftarKriteria: {
-    screen: DaftarKriteria
-  },
-  DetailKriteria: {
-    screen: DetailKriteria
-  },
-  DaftarNilai: {
-    screen: DaftarNilai
-  },
-  DetailNilai: {
-    screen: DetailNilai
-  },
-  Login: {
-    screen: Login
-  },
-  Profile: {
-    screen: Profile
-  },
-  EditProfile: {
-    screen: EditProfile
-  },
-  Init: {
-    screen: Init
-  },
-  WPMethod: {
-    screen: WPMethod
-  },
-  AHPMethod: {
-    screen: AHPMethod
-  }
-},{
-  headerMode: 'none',
-  initialRouteName: 'Home'
 });
 
-const RootComponent = createAppContainer(AppNavigator);
+const MyDrawerNavigator = createDrawerNavigator({
+  Home: {
+    screen: Home,
+    navigationOptions: {
+      drawerIcon: () => (
+        <MaterialIcons name="home" size={20} color="#242A61" />
+      ) 
+    }
+  },  
+  'Daftar Guru': {
+    screen: DaftarGuru,
+  },
+  'Daftar Kriteria': {
+    screen: DaftarKriteria,
+  },
+  'Daftar Nilai': {
+    screen: DaftarNilai,
+  },
+});
 
-// const customFonts = {
-//   QuicksandLight:  require("../src/assets/fonts/Quicksand-Light.ttf")
-// }
+const RootComponent = createAppContainer(MyDrawerNavigator);
 
 export default function App() {
-
-  // const [isLoaded] = useFonts(customFonts);
-
-  // if(!isLoaded) {
-  //   return <AppLoading />
-  // }
-  return <RootComponent/>
-  // return (
-  //   <View>
-  //     <Home />
-  //   </View>
-  // )
+  return <RootComponent />;
 }

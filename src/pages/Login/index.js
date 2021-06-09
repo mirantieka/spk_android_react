@@ -6,20 +6,21 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
-  TextInput,
-  AsyncStorage,
+  TextInput
 } from 'react-native';
 import {shadowButton} from '../../helper/DEFINED';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import Login from '../../assets/images/login.png';
-import { post } from '../../helper/http';
+import {post} from '../../helper/http';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function index(props) {
-  console.log("props", props);
+  // console.log("props", props);
+
   const navigation = props.navigation;
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
   const login = React.useCallback(() => {
     let body = {
@@ -27,37 +28,30 @@ export default function index(props) {
       password: password,
     };
     post('users/postapilogin', body).then(async response => {
-      console.log("response login", response);
-      if(response.success === true){
+      // console.log("response login", response);
+      if (response.success === true) {
         //pindah layar
         await Promise.all([
           AsyncStorage.setItem('userId', response.data.id.toString()),
-          AsyncStorage.setItem('userName', response.data.nama)
+          AsyncStorage.setItem('userName', response.data.nama),
         ]);
 
         navigation.navigate('Home');
-      }
-      else{
+      } else {
         alert(response.message);
         //alert username atau pass salah
       }
     });
   });
 
-
   return (
     <ScrollView style={{backgroundColor: 'white'}}>
       <View style={{backgroundColor: 'white'}}>
-        <Image
-          source={Login}
-          style={styles.logo}
-        />
-        <Text
-          style={[styles.title, {color: '#242A61'}]}>
+        <Image source={Login} style={styles.logo} />
+        <Text style={[styles.title, {color: '#242A61'}]}>
           WELCOME TO SPK PENILAIAN GURU
         </Text>
-        <Text
-          style={[styles.description, {color: '#242A61'}]}>
+        <Text style={[styles.description, {color: '#242A61'}]}>
           Please login to continue
         </Text>
       </View>
@@ -71,14 +65,13 @@ export default function index(props) {
               style={{marginStart: 30}}
             />
             <TextInput
-             style={{paddingHorizontal: 20, fontSize: 15}} 
-             placeholder="Username" 
-             placeholderTextColor='#ADAFB2'
-              onChangeText={text=>setUsername(text)}
+              style={{paddingHorizontal: 20, fontSize: 15}}
+              placeholder="Username"
+              placeholderTextColor="#ADAFB2"
+              onChangeText={text => setUsername(text)}
             />
           </View>
-          <View
-            style={[styles.textInput, {marginTop:15}]}>
+          <View style={[styles.textInput, {marginTop: 15}]}>
             <MaterialIcons
               name="lock"
               size={25}
@@ -86,20 +79,15 @@ export default function index(props) {
               style={{marginStart: 30}}
             />
             <TextInput
-             style={{paddingHorizontal: 20, fontSize: 15}} 
-             placeholder="Password"
-              placeholderTextColor='#ADAFB2' 
-              onChangeText={text=>setPassword(text)}
-
-              />
+              style={{paddingHorizontal: 20, fontSize: 15}}
+              placeholder="Password"
+              placeholderTextColor="#ADAFB2"
+              secureTextEntry={true}
+              onChangeText={text => setPassword(text)}
+            />
           </View>
-          <TouchableOpacity
-            onPress={login}
-            style={styles.button}>
-            <Text
-              style={styles.buttonText}>
-              LOGIN
-            </Text>
+          <TouchableOpacity onPress={login} style={styles.button}>
+            <Text style={styles.buttonText}>LOGIN</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -125,7 +113,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 15,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   sectionOneContentTitle: {
     fontSize: 23,
@@ -160,5 +148,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 17,
     color: '#fff',
-  }
+  },
 });

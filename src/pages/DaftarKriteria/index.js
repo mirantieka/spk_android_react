@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
-  Image,
+  ActivityIndicator,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import {height, shadow, shadowButton, width} from '../../helper/DEFINED';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {get} from '../../helper/http'
+import {shadowButton} from '../../helper/DEFINED';
+import {get} from '../../helper/http';
 
 const data = [
   {
@@ -28,8 +28,8 @@ const data = [
 
 export default function index(props) {
   const navigation = props.navigation;
-  const [kriteria, setKriteria] = React.useState([{}])
-  
+  const [kriteria, setKriteria] = React.useState([{}]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const renderItem = ({item, index}) => {
     return (
@@ -45,33 +45,41 @@ export default function index(props) {
             <Text style={styles.listItemContentName}>{item.nama}</Text>
           </View>
           <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-          <Text style={styles.listItemContentAttribute}>
-            Attribut: {item.tipe}
-          </Text>
-          <Text style={styles.listItemContentAttribute}>Bobot: {item.bobot}</Text>
+            <Text style={styles.listItemContentAttribute}>
+              Attribut: {item.tipe}
+            </Text>
+            <View style={[styles.loading]}>
+              <ActivityIndicator
+                animating={isLoading}
+                size="large"
+                color="#0000ff"
+              />
+            </View>
+            <Text style={styles.listItemContentAttribute}>
+              Bobot: {item.bobot}
+            </Text>
           </View>
           <TouchableOpacity
-          onPress={()=> navigation.navigate('DetailKriteria', {id:item.id})}
+            onPress={() => navigation.navigate('DetailKriteria', {id: item.id})}
             style={styles.button}>
-            <Text
-              style={styles.buttonText}>
-              DETAIL KRITERIA
-            </Text>
+            <Text style={styles.buttonText}>DETAIL KRITERIA</Text>
           </TouchableOpacity>
         </View>
       </View>
     );
   };
 
-  const fetchData = React.useCallback(()=>{
-    get('kri_ahp').then(response=> {
+  const fetchData = React.useCallback(() => {
+    setIsLoading(true);
+    get('kri_ahp').then(response => {
       setKriteria(response);
+      setIsLoading(false);
     });
   });
 
-  React.useEffect(()=> {
+  React.useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
 
   return (
     <>
@@ -89,17 +97,32 @@ export default function index(props) {
         </View>
       </View>
       <ScrollView style={{backgroundColor: '#242A61'}}>
-      <View style={styles.sectionTwo}>
-      {kriteria.map((item, index) => renderItem({item, index}))}
-     
-      </View>
-     
+        <View style={styles.sectionTwo}>
+          {kriteria.map((item, index) => renderItem({item, index}))}
+        </View>
       </ScrollView>
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  loading: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
   sectionOne: {
     backgroundColor: '#242A61',
     padding: 20,
@@ -188,5 +211,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 15,
     color: '#11CBBF',
-  }
+  },
 });

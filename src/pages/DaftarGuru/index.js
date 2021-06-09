@@ -19,7 +19,8 @@ export default function index(props) {
   const renderItem = ({item, index}) => {
     return (
       <View key={`daftarGuru-${item.id}-${index}`}>
-        <TouchableOpacity onPress={() => navigation.navigate('DetailGuru', {data: item})}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('DetailGuru', {data: item})}>
           <View style={styles.listItem}>
             <IonIcons
               name="person-circle"
@@ -39,8 +40,6 @@ export default function index(props) {
     );
   };
 
-  
-
   const fetchData = React.useCallback(() => {
     // get('user/guru').then(response => {
     //   setGuru(response);
@@ -53,7 +52,7 @@ export default function index(props) {
 
   React.useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
 
   return (
     <>

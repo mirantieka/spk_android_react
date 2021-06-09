@@ -4,8 +4,7 @@ import {
   Text,
   View,
   ScrollView,
-  TouchableOpacity,
-  AsyncStorage,
+  TouchableOpacity
 } from 'react-native';
 import {height, shadow} from '../../helper/DEFINED';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -13,6 +12,8 @@ import FontAwesome5Icons from 'react-native-vector-icons/FontAwesome5';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import {getFromAsyncStorage} from '../../helper/Storage';
+
+
 
 export default function index(props) {
   const navigation = props.navigation;
@@ -25,7 +26,7 @@ export default function index(props) {
 
   React.useEffect(() => {
     getNama();
-  });
+  }, []);
 
   return (
     <>
@@ -43,7 +44,7 @@ export default function index(props) {
       </View>
       <ScrollView style={{backgroundColor: '#242A61', height: height * 0.75}}>
         <View style={styles.sectionTwo}>
-          <View style={styles.wrapper}>
+          {/* <View style={styles.wrapper}>
             <TouchableOpacity
               onPress={() => navigation.navigate('DaftarGuru')}
               style={[
@@ -74,18 +75,66 @@ export default function index(props) {
                 </Text>
               </View>
             </TouchableOpacity>
+          </View> */}
+          <View style={styles.wrapper}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('DaftarGuru')}
+              style={[
+                styles.menu,
+                {
+                  backgroundColor: '#FFD2F8',
+                },
+              ]}>
+              <View style={styles.menuContent}>
+                <MaterialIcons name="people" size={40} color="#AC20DD" />
+                <Text style={[styles.menuText, {color: '#AC20DD'}]}>
+                  Daftar Guru
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
+          <View style={styles.wrapper}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('DaftarKriteria')}
+              style={[styles.menu, {backgroundColor: '#E4E9FF'}]}>
+              <View style={styles.menuContent}>
+                <FontAwesome5Icons
+                  name="book"
+                  size={27}
+                  color="#11CBBF"
+                  style={styles.menuIcon}
+                />
+                <Text style={[styles.menuText, {color: '#11CBBF'}]}>
+                  Daftar Kriteria
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+
+
           <View style={styles.wrapper}>
             <TouchableOpacity
               onPress={() => navigation.navigate('DaftarNilai')}
               style={[styles.menu, {backgroundColor: '#FDDCDC'}]}>
               <View style={styles.menuContent}>
-                <SimpleLineIcons name="graph" size={35} color="#F2475B" />
+                <SimpleLineIcons name="graph" size={35} color="#F2475B" style={styles.menuIcon} />
                 <Text style={[styles.menuText, {color: '#F2475B'}]}>
                   Daftar Nilai
                 </Text>
               </View>
             </TouchableOpacity>
+          </View>
+
+          <View
+            style={{
+              borderBottomColor: '#bfbfbf',
+              borderBottomWidth: 1,
+              marginBottom: 22,
+            }}
+          />
+
+          <View style={styles.wrapper}>
             <TouchableOpacity
               onPress={() => navigation.navigate('WPMethod')}
               style={[styles.menu, {backgroundColor: '#D9D2FF'}]}>
@@ -94,7 +143,7 @@ export default function index(props) {
                   name="assignment"
                   size={30}
                   color="#3330EE"
-                  style={{marginTop: 5, marginBottom: 2}}
+                  style={styles.menuIcon}
                 />
                 <Text style={[styles.menuText, {color: '#3330EE'}]}>
                   WP Method
@@ -118,6 +167,17 @@ export default function index(props) {
                 </Text>
               </View>
             </TouchableOpacity>
+          </View>
+
+          <View
+            style={{
+              borderBottomColor: '#bfbfbf',
+              borderBottomWidth: 1,
+              marginBottom: 22,
+            }}
+          />
+
+          <View style={styles.wrapper}>
             <TouchableOpacity
               onPress={() => navigation.navigate('Profile')}
               style={[styles.menu, {backgroundColor: '#FFD2E2'}]}>
@@ -126,7 +186,7 @@ export default function index(props) {
                   name="person"
                   size={35}
                   color="#E81B7D"
-                  style={{marginTop: 5}}
+                  style={styles.menuIcon}
                 />
                 <Text style={[styles.menuText, {color: '#E81B7D'}]}>
                   Profile
@@ -176,20 +236,27 @@ const styles = StyleSheet.create({
     marginBottom: 22,
   },
   menu: {
-    width: 165,
-    height: 120,
+    width: 350,
+    height: 50,
 
-    borderRadius: 30,
+    borderRadius: 15,
     ...shadow,
   },
   menuContent: {
     alignItems: 'center',
-    padding: 20,
+    justifyContent: 'center',
+    paddingLeft: 'auto',
+    flexDirection: "row"
+  },
+  menuIcon: {
+    paddingHorizontal: 5,
+    marginVertical: 5,
   },
   menuText: {
     alignItems: 'center',
-    fontSize: 15,
+    fontSize: 19,
     fontWeight: '700',
-    marginTop: 10,
+    marginVertical: 5,
+    paddingHorizontal: 10,
   },
 });

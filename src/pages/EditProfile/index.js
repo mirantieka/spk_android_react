@@ -59,7 +59,7 @@ export default function index(props) {
       jabatan: jabatan
     };
     put(`user/update/${userIdFromStorage}`, body).then(async response => {
-      console.log("response update", response);
+      // console.log("response update", response);
       if(response.success === true){
         //pindah layar ke halaman profile
         await Promise.all([
@@ -80,7 +80,7 @@ export default function index(props) {
   const getUserId = React.useCallback(async () => {
     let userIdFromStorage = await getFromAsyncStorage('userId');
     get(`user/${userIdFromStorage}/profile`).then(response => {
-      console.log(response);
+      // console.log(response);
       setId(response[0]);
     });
   });

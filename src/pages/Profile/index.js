@@ -1,19 +1,17 @@
 import React from 'react';
 import {
-  Image,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
   TouchableOpacity,
-  FlatList,
+  View,
 } from 'react-native';
-import {height, shadowButton, width} from '../../helper/DEFINED';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import MaterialComunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
+import MaterialComunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {shadowButton} from '../../helper/DEFINED';
 import {get} from '../../helper/http';
-import { getFromAsyncStorage } from '../../helper/Storage';
+import {getFromAsyncStorage} from '../../helper/Storage';
 
 const ProfileIcon = (
   <IonIcons name="person-circle-outline" size={30} color="#E81B7D" />
@@ -58,17 +56,17 @@ export default function index(props) {
   const navigation = props.navigation;
   const [id, setId] = React.useState('-');
 
-  const getUserId = React.useCallback(async()=>{
+  const getUserId = React.useCallback(async () => {
     let userIdFromStorage = await getFromAsyncStorage('userId');
-    get(`user/${userIdFromStorage}/profile`).then(response =>{
-      console.log(response)
-      setId(response[0])
-    })
-  })
+    get(`user/${userIdFromStorage}/profile`).then(response => {
+      // console.log(response)
+      setId(response[0]);
+    });
+  });
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     getUserId();
-  })
+  }, []);
 
   const renderItem = ({item, index}) => {
     return (
@@ -151,12 +149,8 @@ export default function index(props) {
 
               <View style={styles.listItem}>
                 <View>
-                  <Text style={styles.listItemContentAttribute}>
-                    Username
-                  </Text>
-                  <Text style={styles.listItemContentValue}>
-                    {id.username}
-                  </Text>
+                  <Text style={styles.listItemContentAttribute}>Username</Text>
+                  <Text style={styles.listItemContentValue}>{id.username}</Text>
                 </View>
               </View>
 

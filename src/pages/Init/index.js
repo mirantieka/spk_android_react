@@ -1,19 +1,11 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
 import {
-  Image,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  TextInput,
-  AsyncStorage,
+  View
 } from 'react-native';
-import {shadowButton} from '../../helper/DEFINED';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import IonIcons from 'react-native-vector-icons/Ionicons';
-import Login from '../../assets/images/login.png';
-import {post} from '../../helper/http';
+import { shadowButton } from '../../helper/DEFINED';
 
 export default function index(props) {
   const navigation = props.navigation;

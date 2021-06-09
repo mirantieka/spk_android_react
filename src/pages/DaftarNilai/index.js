@@ -1,25 +1,26 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
-  Image,
+  ActivityIndicator,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
   TouchableOpacity,
-  FlatList,
+  View,
 } from 'react-native';
-import {height} from '../../helper/DEFINED';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {height} from '../../helper/DEFINED';
 import {get, post} from '../../helper/http';
 
 export default function index(props) {
   const navigation = props.navigation;
   const [users, setUsers] = React.useState([{}]);
+  const [isLoading, setIsLoading] = useState(false);
   const renderItem = ({item, index}) => {
     return (
       <View key={`daftarNilai-${item.id}-${index}`}>
-        <TouchableOpacity onPress={() => navigation.navigate('DetailNilai', {data: item})}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('DetailNilai', {data: item})}>
           <View style={styles.listItem}>
             <IonIcons
               name="person-circle"
@@ -29,6 +30,13 @@ export default function index(props) {
             />
             <View>
               <Text style={styles.listItemContentName}>{item.nama}</Text>
+              <View style={[styles.loading]}>
+                <ActivityIndicator
+                  animating={isLoading}
+                  size="large"
+                  color="#0000ff"
+                />
+              </View>
               <Text style={styles.listItemContentMapel}>
                 {item.jurusan || item.jabatan}
               </Text>
@@ -45,10 +53,9 @@ export default function index(props) {
       password: '',
     };
     post('user/login', body).then(response => {
-      if(response.success === true){
+      if (response.success === true) {
         //pindah layar
-      }
-      else{
+      } else {
         //alert username atau pass salah
       }
     });
@@ -66,7 +73,7 @@ export default function index(props) {
 
   React.useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
 
   return (
     <>
@@ -93,6 +100,15 @@ export default function index(props) {
 }
 
 const styles = StyleSheet.create({
+  loading: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   sectionOne: {
     backgroundColor: '#242A61',
     padding: 20,
