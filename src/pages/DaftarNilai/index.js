@@ -12,7 +12,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {height} from '../../helper/DEFINED';
 import {get, post} from '../../helper/http';
 
-export default function index(props) {
+export default function DaftarNilai(props) {
   const navigation = props.navigation;
   const [users, setUsers] = React.useState([{}]);
   const [isLoading, setIsLoading] = useState(false);

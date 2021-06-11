@@ -31,7 +31,7 @@ const item = [
   },
 ];
 
-export default function index(props) {
+export default function AHPMethod(props) {
   const navigation = props.navigation;
   // const keyExtractor = (item, index) => index.toString()
   // const renderItem = ({item}) => {

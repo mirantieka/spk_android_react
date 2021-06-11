@@ -1,36 +1,23 @@
-import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {createStackNavigator} from '@react-navigation/stack';
+import React from 'react';
+import Main from './components/Main';
 import Login from './pages/Login';
-import Home from './pages/Home';
+import Splash from './pages/Splash';
 
 export default function App() {
-  const Drawer = createDrawerNavigator();
+  const Stack = createStackNavigator();
+
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Login">
-        <Drawer.Screen
-          name="Login"
-          component={Login}
-          navigationOptions={{
-            drawerIcon: () => (
-              <MaterialIcons name="home" size={20} color="#242A61" />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="Home"
-          component={Home}
-          navigationOptions={{
-            drawerIcon: () => (
-              <MaterialIcons name="home" size={20} color="#242A61" />
-            ),
-          }}
-        />
-        {/* <Drawer.Screen name="Daftar Kriteria" />
-        <Drawer.Screen name="Daftar Nilai" /> */}
-      </Drawer.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen name="Splash" component={Splash} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Main" component={Main} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

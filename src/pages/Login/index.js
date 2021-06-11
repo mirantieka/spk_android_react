@@ -85,7 +85,7 @@ export default function Login(props) {
       let res = await httpPost('auth/login', data);
       console.log(res.key);
       AsyncStorage.setItem('authToken', res.key);
-      navigation.navigate('Home');
+      navigation.navigate('Main');
     } catch (err) {
       alert(err?.message);
     }

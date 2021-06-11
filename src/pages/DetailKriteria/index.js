@@ -43,7 +43,7 @@ const DATA = [
 //   </View>
 // );
 
-export default function index(props) {
+export default function DaftarKriteria(props) {
   const navigation = props.navigation;
   const kriAhpId = navigation.state.params.id;
   const [detailKriteria, setDetailKriteria] = React.useState([{}]);

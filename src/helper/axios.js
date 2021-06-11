@@ -6,7 +6,8 @@ export default (history = null) => {
   const baseUrl = `https://${domain}/api/`;
 
   let headers = {};
-  let token = AsyncStorage.getItem('authToken');
+  let token = undefined;
+  AsyncStorage.getItem('authToken').then(tkn => (token = tkn));
 
   if (token) {
     headers.Authorization = `Bearer ${token}`;
@@ -31,11 +32,7 @@ export default (history = null) => {
 
       if (error.response.status === 401) {
         AsyncStorage.removeItem('authToken');
-        //  if (history) {
-        //    history.push('/auth/login');
-        //  } else {
-        //    window.location = '/auth/login';
-        //  }
+        navigation.navigate('Login');
       } else {
         return new Promise((resolve, reject) => {
           reject(error?.response?.data);

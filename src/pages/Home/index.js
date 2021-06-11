@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     backgroundColor: 'white',
-    display: 'flex'
+    display: 'flex',
   },
   wrapper: {
     marginBottom: 22,
@@ -71,15 +71,11 @@ const styles = StyleSheet.create({
 
 export default function Home(props) {
   const navigation = props.navigation;
-  const [nama, setNama] = React.useState('-');
+  const [nama, setNama] = useState('-');
 
-  const getNama = React.useCallback(async () => {
+  useEffect(async () => {
     let namaFromStorage = await getFromAsyncStorage('userName');
     setNama(namaFromStorage);
-  });
-
-  React.useEffect(() => {
-    getNama();
   }, []);
 
   return (

@@ -52,7 +52,7 @@ const data = [
   },
 ];
 
-export default function index(props) {
+export default function Profile(props) {
   const navigation = props.navigation;
   const [id, setId] = React.useState('-');
 

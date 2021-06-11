@@ -13,7 +13,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import {get, post} from '../../helper/http';
 
-export default function index(props) {
+export default function DaftarGuru(props) {
   const navigation = props.navigation;
   const [users, setUsers] = React.useState([{}]);
   const renderItem = ({item, index}) => {
