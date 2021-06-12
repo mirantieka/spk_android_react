@@ -11,7 +11,7 @@ import {
 import {shadowButton} from '../../helper/DEFINED';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
-import {httpPost} from '../../helper/http';
+import {httpGet, httpPost} from '../../helper/http';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
 
 export default function Login(props) {
   const navigation = props.navigation;
-  console.log(navigation);
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -82,9 +81,15 @@ export default function Login(props) {
       password: password,
     };
     try {
-      let res = await httpPost('auth/login', data);
-      console.log(res.key);
-      AsyncStorage.setItem('authToken', res.key);
+      // Get an auth token
+      let token = await httpPost('auth/login', data);
+      await AsyncStorage.setItem('authToken', token.key);
+
+      // Get an user object
+      let user = await httpGet('/user/profile');
+      console.log(user);
+      // await AsyncStorage.setItem('user', user);
+
       navigation.navigate('Main');
     } catch (err) {
       alert(err?.message);

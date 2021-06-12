@@ -1,4 +1,5 @@
-import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -10,8 +11,7 @@ import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialComunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {shadowButton} from '../../helper/DEFINED';
-import {get} from '../../helper/http';
-import {getFromAsyncStorage} from '../../helper/Storage';
+import {httpGet} from '../../helper/http';
 
 const ProfileIcon = (
   <IonIcons name="person-circle-outline" size={30} color="#E81B7D" />
@@ -54,19 +54,40 @@ const data = [
 
 export default function Profile(props) {
   const navigation = props.navigation;
-  const [id, setId] = React.useState('-');
+  const [id, setId] = useState('-');
+  const [user, setUser] = useState();
 
-  const getUserId = React.useCallback(async () => {
-    let userIdFromStorage = await getFromAsyncStorage('userId');
-    get(`user/${userIdFromStorage}/profile`).then(response => {
-      // console.log(response)
-      setId(response[0]);
-    });
-  });
+  const getUser = async () => {
+    let user = await AsyncStorage.getItem('user');
+    if (!user) {
+      // Get an user objacet
+      try {
+        user = await httpGet('user/profile');
+        // await AsyncStorage.setItem('user', user);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    console.log(user);
+    return user;
+  };
 
-  React.useEffect(() => {
-    getUserId();
-  }, []);
+  const onLogoutClick = async () => {
+    // Do logout
+    await httpPost('auth/logout');
+    // Remove token and user object in async storage
+    await AsyncStorage.removeItem('authToken');
+    await AsyncStorage.removeItem('user');
+
+    // navigation.navigate('Login');
+  };
+
+  useEffect(async () => {
+    let usr = await getUser();
+    setUser(usr);
+
+    console.log(usr);
+  }, [user]);
 
   const renderItem = ({item, index}) => {
     return (
@@ -85,17 +106,6 @@ export default function Profile(props) {
       </View>
     );
   };
-
-  // const fetchData = React.useCallback(() => {
-  //   get('users').then(response => {
-  //     setUsers(response);
-  //   });
-  // });
-
-  // React.useEffect(() => {
-  //   fetchData();
-  // }, [fetchData]);
-
   return (
     <>
       <View style={styles.sectionOne}>
@@ -179,9 +189,7 @@ export default function Profile(props) {
               </View>
             </View>
           </View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
-            style={styles.button}>
+          <TouchableOpacity onPress={onLogoutClick} style={styles.button}>
             <Text style={styles.buttonText}>LOGOUT</Text>
           </TouchableOpacity>
         </View>
