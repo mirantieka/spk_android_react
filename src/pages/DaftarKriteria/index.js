@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {shadowButton} from '../../helper/DEFINED';
-import { httpGet } from '../../helper/http';
+import {httpGet} from '../../helper/http';
 
 const data = [
   {
@@ -28,7 +28,7 @@ const data = [
 
 export default function index(props) {
   const navigation = props.navigation;
-  const [kriteria, setKriteria] = useState([]);
+  const [kriteria, setKriteria] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const renderItem = ({item, index}) => {
@@ -48,13 +48,6 @@ export default function index(props) {
             <Text style={styles.listItemContentAttribute}>
               Attribut: {item.tipe}
             </Text>
-            <View style={[styles.loading]}>
-              <ActivityIndicator
-                animating={isLoading}
-                size="large"
-                color="#0000ff"
-              />
-            </View>
             <Text style={styles.listItemContentAttribute}>
               Bobot: {item.bobot}
             </Text>
@@ -80,18 +73,18 @@ export default function index(props) {
   // React.useEffect(() => {
   //   fetchData();
   // }, []);
-  {
-    data: fetchedData
-  }
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const {kriteria_list} = await httpGet('penilaian');
-        // setIsLoading(true)
         setKriteria(kriteria_list);
-        console.log('\n', kriteria_list)
-      } catch (error) {}
+        console.log('\n', kriteria_list);
+      } catch (error) {
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchData();
   }, []);
@@ -111,9 +104,26 @@ export default function index(props) {
           <Text style={styles.sectionOneContentTitle}>Daftar Kriteria</Text>
         </View>
       </View>
+      <View style={[styles.loading]}>
+        <ActivityIndicator animating={isLoading} size="large" color="#0000ff" />
+      </View>
       <ScrollView style={{backgroundColor: '#242A61'}}>
         <View style={styles.sectionTwo}>
-          {kriteria.map((item, index) => renderItem({item, index}))}
+          {kriteria == null ? (
+            <View style={[styles.loading]}>
+              <ActivityIndicator
+                animating={true}
+                size="large"
+                color="#0000ff"
+              />
+            </View>
+          ) : kriteria.length == 0 ? (
+            <View>
+              <Text>No Data Available</Text>
+            </View>
+          ) : (
+            kriteria.map((item, index) => renderItem({item, index}))
+          )}
         </View>
       </ScrollView>
     </>

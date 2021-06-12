@@ -47,24 +47,7 @@ export default function DaftarNilai(props) {
     );
   };
 
-  // const login = React.useCallback(() => {
-  //   let body = {
-  //     username: '',
-  //     password: '',
-  //   };
-  //   post('user/login', body).then(response => {
-  //     if (response.success === true) {
-  //       //pindah layar
-  //     } else {
-  //       //alert username atau pass salah
-  //     }
-  //   });
-  // });
-
   const fetchData = React.useCallback(() => {
-    // get('user/guru').then(response => {
-    //   setGuru(response);
-    // });
     get('users').then(response => {
       console.log('response', response);
       setUsers(response);
