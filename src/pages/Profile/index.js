@@ -11,7 +11,7 @@ import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialComunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {shadowButton} from '../../helper/DEFINED';
-import {httpGet} from '../../helper/http';
+import {httpGet, httpPost} from '../../helper/http';
 
 const ProfileIcon = (
   <IonIcons name="person-circle-outline" size={30} color="#E81B7D" />
@@ -52,60 +52,47 @@ const data = [
   },
 ];
 
-export default function Profile(props) {
-  const navigation = props.navigation;
-  const [id, setId] = useState('-');
+export default function Profile({navigation}) {
   const [user, setUser] = useState();
-
-  const getUser = async () => {
-    let user = await AsyncStorage.getItem('user');
-    if (!user) {
-      // Get an user objacet
-      try {
-        user = await httpGet('user/profile');
-        // await AsyncStorage.setItem('user', user);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    console.log(user);
-    return user;
-  };
 
   const onLogoutClick = async () => {
     // Do logout
-    await httpPost('auth/logout');
+    try {
+      await httpPost('auth/logout');
+    } catch (error) {}
     // Remove token and user object in async storage
     await AsyncStorage.removeItem('authToken');
     await AsyncStorage.removeItem('user');
 
-    // navigation.navigate('Login');
+    navigation.navigate('Login');
   };
 
   useEffect(async () => {
-    let usr = await getUser();
-    setUser(usr);
+    const getUser = async () => {
+      const fetchedUser = await AsyncStorage.getItem('user');
+      console.log(fetchedUser);
+      setUser(JSON.parse(fetchedUser));
+    };
+    getUser();
+  }, []);
 
-    console.log(usr);
-  }, [user]);
-
-  const renderItem = ({item, index}) => {
-    return (
-      <View key={`profile-${item.id}-${index}`}>
-        <View style={styles.listItem}>
-          <View style={{flexDirection: 'row'}}>
-            {/* <Text style={{marginRight: 15, marginTop: 18}}>{item.icon}</Text> */}
-            <View>
-              <Text style={styles.listItemContentAttribute}>
-                {item.attribut}
-              </Text>
-              <Text style={styles.listItemContentValue}>{item.nip}</Text>
-            </View>
-          </View>
-        </View>
-      </View>
-    );
-  };
+  // const renderItem = ({item, index}) => {
+  //   return (
+  //     <View key={`profile-${item.id}-${index}`}>
+  //       <View style={styles.listItem}>
+  //         <View style={{flexDirection: 'row'}}>
+  //           {/* <Text style={{marginRight: 15, marginTop: 18}}>{item.icon}</Text> */}
+  //           <View>
+  //             <Text style={styles.listItemContentAttribute}>
+  //               {item.attribut}
+  //             </Text>
+  //             <Text style={styles.listItemContentValue}>{item.nip}</Text>
+  //           </View>
+  //         </View>
+  //       </View>
+  //     </View>
+  //   );
+  // };
   return (
     <>
       <View style={styles.sectionOne}>
@@ -138,62 +125,72 @@ export default function Profile(props) {
           style={styles.profilePhoto}
         />
       </View>
-      <ScrollView style={{backgroundColor: '#242A61'}}>
-        <View style={styles.sectionTwo}>
-          <View>
-            <Text style={styles.listItemContentName}>Account Info</Text>
-
-            <View style={styles.listItem}>
-              <View>
-                <Text style={styles.listItemContentAttribute}>NIP</Text>
-                <Text style={styles.listItemContentValue}>{id.nip}</Text>
-              </View>
-            </View>
+      {user && (
+        <ScrollView style={{backgroundColor: '#242A61'}}>
+          <View style={styles.sectionTwo}>
             <View>
-              <View style={styles.listItem}>
-                <View>
-                  <Text style={styles.listItemContentAttribute}>Nama</Text>
-                  <Text style={styles.listItemContentValue}>{id.nama}</Text>
-                </View>
-              </View>
+              <Text style={styles.listItemContentName}>Account Info</Text>
 
               <View style={styles.listItem}>
                 <View>
-                  <Text style={styles.listItemContentAttribute}>Username</Text>
-                  <Text style={styles.listItemContentValue}>{id.username}</Text>
+                  <Text style={styles.listItemContentAttribute}>NIP</Text>
+                  <Text style={styles.listItemContentValue}>{user.nip}</Text>
                 </View>
               </View>
+              <View>
+                <View style={styles.listItem}>
+                  <View>
+                    <Text style={styles.listItemContentAttribute}>Nama</Text>
+                    <Text style={styles.listItemContentValue}>{user.nama}</Text>
+                  </View>
+                </View>
 
-              <View style={styles.listItem}>
-                <View>
-                  <Text style={styles.listItemContentAttribute}>
-                    Jenis Kelamin
-                  </Text>
-                  <Text style={styles.listItemContentValue}>
-                    {id.jenis_kelamin}
-                  </Text>
+                <View style={styles.listItem}>
+                  <View>
+                    <Text style={styles.listItemContentAttribute}>
+                      Username
+                    </Text>
+                    <Text style={styles.listItemContentValue}>
+                      {user.username}
+                    </Text>
+                  </View>
                 </View>
-              </View>
 
-              <View style={styles.listItem}>
-                <View>
-                  <Text style={styles.listItemContentAttribute}>Jabatan</Text>
-                  <Text style={styles.listItemContentValue}>{id.jabatan}</Text>
+                <View style={styles.listItem}>
+                  <View>
+                    <Text style={styles.listItemContentAttribute}>
+                      Jenis Kelamin
+                    </Text>
+                    <Text style={styles.listItemContentValue}>
+                      {user.jenis_kelamin}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-              <View style={styles.listItem}>
-                <View>
-                  <Text style={styles.listItemContentAttribute}>Jurusan</Text>
-                  <Text style={styles.listItemContentValue}>{id.jurusan}</Text>
+
+                <View style={styles.listItem}>
+                  <View>
+                    <Text style={styles.listItemContentAttribute}>Jabatan</Text>
+                    <Text style={styles.listItemContentValue}>
+                      {user.jabatan}
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.listItem}>
+                  <View>
+                    <Text style={styles.listItemContentAttribute}>Jurusan</Text>
+                    <Text style={styles.listItemContentValue}>
+                      {user.jurusan}
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
+            <TouchableOpacity onPress={onLogoutClick} style={styles.button}>
+              <Text style={styles.buttonText}>LOGOUT</Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={onLogoutClick} style={styles.button}>
-            <Text style={styles.buttonText}>LOGOUT</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      )}
     </>
   );
 }

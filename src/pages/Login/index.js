@@ -82,13 +82,12 @@ export default function Login(props) {
     };
     try {
       // Get an auth token
-      let token = await httpPost('auth/login', data);
+      const token = await httpPost('auth/login', data);
       await AsyncStorage.setItem('authToken', token.key);
 
       // Get an user object
-      let user = await httpGet('/user/profile');
-      console.log(user);
-      // await AsyncStorage.setItem('user', user);
+      const user = await httpGet('/user/profile');
+      await AsyncStorage.setItem('user', JSON.stringify(user));
 
       navigation.navigate('Main');
     } catch (err) {

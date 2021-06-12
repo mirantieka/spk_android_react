@@ -7,8 +7,9 @@ export default function Splash(props) {
 
   useEffect(async () => {
     const token = await AsyncStorage.getItem('authToken');
+    const user = await AsyncStorage.getItem('user');
     setTimeout(() => {
-      if (token) {
+      if (token && user) {
         navigation.navigate('Main');
       } else {
         navigation.navigate('Login');

@@ -74,8 +74,9 @@ export default function Home(props) {
   const [nama, setNama] = useState('-');
 
   useEffect(async () => {
-    let namaFromStorage = await getFromAsyncStorage('userName');
-    setNama(namaFromStorage);
+    const user = await getFromAsyncStorage('user');
+    const nama = JSON.parse(user).nama;
+    setNama(nama);
   }, []);
 
   return (
