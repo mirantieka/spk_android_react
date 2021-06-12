@@ -1,21 +1,19 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  Image,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
   TouchableOpacity,
-  FlatList,
+  View,
 } from 'react-native';
-import {height} from '../../helper/DEFINED';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
-import {get, post} from '../../helper/http';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {height} from '../../helper/DEFINED';
+import {httpGet} from '../../helper/http';
 
 export default function DaftarGuru(props) {
   const navigation = props.navigation;
-  const [users, setUsers] = React.useState([{}]);
+  const [users, setUsers] = useState([]);
   const renderItem = ({item, index}) => {
     return (
       <View key={`daftarGuru-${item.id}-${index}`}>
@@ -40,17 +38,13 @@ export default function DaftarGuru(props) {
     );
   };
 
-  const fetchData = React.useCallback(() => {
-    // get('user/guru').then(response => {
-    //   setGuru(response);
-    // });
-    get('users').then(response => {
-      console.log('response', response);
-      setUsers(response);
-    });
-  });
-
-  React.useEffect(() => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchedUsers = await httpGet('users');
+        setUsers(fetchedUsers);
+      } catch (error) {}
+    };
     fetchData();
   }, []);
 

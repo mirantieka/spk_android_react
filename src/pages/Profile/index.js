@@ -13,45 +13,6 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {shadowButton} from '../../helper/DEFINED';
 import {httpGet, httpPost} from '../../helper/http';
 
-const ProfileIcon = (
-  <IonIcons name="person-circle-outline" size={30} color="#E81B7D" />
-);
-
-const UserIcon = <IonIcons name="person" size={30} color="#E81B7D" />;
-
-const PassIcon = <IonIcons name="lock-closed" size={30} color="#E81B7D" />;
-
-const RoleIcon = (
-  <IonIcons name="information-circle-outline" size={30} color="#E81B7D" />
-);
-
-const data = [
-  {
-    id: 1,
-    attribut: 'Nama:',
-    value: 'Nur Ismi Fahmia',
-    icon: ProfileIcon,
-  },
-  {
-    id: 2,
-    attribut: 'Username:',
-    value: 'ismiee',
-    icon: UserIcon,
-  },
-  {
-    id: 3,
-    attribut: 'Password:',
-    value: '*********',
-    icon: PassIcon,
-  },
-  {
-    id: 4,
-    attribut: 'Role:',
-    value: 'Tim PKG',
-    icon: RoleIcon,
-  },
-];
-
 export default function Profile({navigation}) {
   const [user, setUser] = useState();
 
@@ -68,31 +29,15 @@ export default function Profile({navigation}) {
   };
 
   useEffect(async () => {
-    const getUser = async () => {
-      const fetchedUser = await AsyncStorage.getItem('user');
-      console.log(fetchedUser);
-      setUser(JSON.parse(fetchedUser));
+    const fetchUser = async () => {
+      try {
+        const fetchedUser = await httpGet('user/profile');
+        setUser(fetchedUser);
+      } catch (error) {}
     };
-    getUser();
+    fetchUser();
   }, []);
 
-  // const renderItem = ({item, index}) => {
-  //   return (
-  //     <View key={`profile-${item.id}-${index}`}>
-  //       <View style={styles.listItem}>
-  //         <View style={{flexDirection: 'row'}}>
-  //           {/* <Text style={{marginRight: 15, marginTop: 18}}>{item.icon}</Text> */}
-  //           <View>
-  //             <Text style={styles.listItemContentAttribute}>
-  //               {item.attribut}
-  //             </Text>
-  //             <Text style={styles.listItemContentValue}>{item.nip}</Text>
-  //           </View>
-  //         </View>
-  //       </View>
-  //     </View>
-  //   );
-  // };
   return (
     <>
       <View style={styles.sectionOne}>

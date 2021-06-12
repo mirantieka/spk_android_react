@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axiosInstance from './axios';
 import {getAuthToken} from './Storage';
 
-export const httpGet = async (url, query = '', options = {}) => {
+export const httpGet = async (url, options = {}) => {
   if (!url) {
     return {
       isSuccess: false,
@@ -12,7 +12,7 @@ export const httpGet = async (url, query = '', options = {}) => {
 
   const token = await getAuthToken();
   let res = await axiosInstance(token)
-    .get(url + query, {
+    .get(url, {
       ...options,
     })
     .then(res => {
