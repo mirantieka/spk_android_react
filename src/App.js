@@ -5,7 +5,7 @@ import Main from './components/Main';
 import Login from './pages/Login';
 import Splash from './pages/Splash';
 
-export default function App() {
+const App = () => {
   const Stack = createStackNavigator();
 
   return (
@@ -20,4 +20,6 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
+
+export default App;

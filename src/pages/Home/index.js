@@ -189,7 +189,7 @@ export default function Home(props) {
           </View>
           <View style={styles.wrapper}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('Profile')}
+              onPress={() => navigation.navigate('ProfileStacks')}
               style={[styles.menu, {backgroundColor: '#FFD2E2'}]}>
               <View style={styles.menuContent}>
                 <MaterialIcons

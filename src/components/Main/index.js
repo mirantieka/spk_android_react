@@ -7,6 +7,7 @@ import DaftarNilai from '../../pages/DaftarNilai';
 import DaftarKriteria from '../../pages/DetailKriteria';
 import Home from '../../pages/Home/index';
 import Profile from '../../pages/Profile';
+import ProfileStacks from '../../pages/Profile/ProfileStacks';
 
 export default function Main() {
   const Drawer = createDrawerNavigator();
@@ -26,7 +27,7 @@ export default function Main() {
       <Drawer.Screen name="DaftarKriteria" component={DaftarKriteria} />
       {/* <Drawer.Screen name="WPMethod" component={} /> */}
       <Drawer.Screen name="AHPMethod" component={AHPMethod} />
-      <Drawer.Screen name="Profile" component={Profile} />
+      <Drawer.Screen name="ProfileStacks" component={ProfileStacks} />
     </Drawer.Navigator>
   );
 }
