@@ -1,4 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axiosInstance from './axios';
+import {getAuthToken} from './Storage';
 
 export const httpGet = async (url, query = '', options = {}) => {
   if (!url) {
@@ -8,7 +10,8 @@ export const httpGet = async (url, query = '', options = {}) => {
     };
   }
 
-  let res = await axiosInstance()
+  const token = await getAuthToken();
+  let res = await axiosInstance(token)
     .get(url + query, {
       ...options,
     })
@@ -31,7 +34,8 @@ export const httpPost = async (url, body, options = {}) => {
     };
   }
 
-  let res = await axiosInstance()
+  const token = await getAuthToken();
+  let res = await axiosInstance(token)
     .post(url, body, {
       ...options,
     })
@@ -54,7 +58,8 @@ export const httpPut = async (url, body, options = {}) => {
     };
   }
 
-  let res = await axiosInstance()
+  const token = await getAuthToken();
+  let res = await axiosInstance(token)
     .put(url, body, {
       ...options,
     })
@@ -77,7 +82,8 @@ export const httpDelete = async (url, options = {}) => {
     };
   }
 
-  let res = await axiosInstance()
+  const token = await getAuthToken();
+  let res = await axiosInstance(token)
     .delete(url, {
       ...options,
     })
