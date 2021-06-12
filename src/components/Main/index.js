@@ -4,7 +4,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AHPMethod from '../../pages/AHPMethod';
 import DaftarGuru from '../../pages/DaftarGuru';
 import DaftarNilai from '../../pages/DaftarNilai';
-import DaftarKriteria from '../../pages/DetailKriteria';
+import DaftarKriteria from '../../pages/DaftarKriteria';
 import Home from '../../pages/Home/index';
 import Profile from '../../pages/Profile';
 import ProfileStacks from '../../pages/Profile/ProfileStacks';

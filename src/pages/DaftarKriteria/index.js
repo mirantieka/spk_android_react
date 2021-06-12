@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   ActivityIndicator,
   ScrollView,
@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {shadowButton} from '../../helper/DEFINED';
-import {get} from '../../helper/http';
+import { httpGet } from '../../helper/http';
 
 const data = [
   {
@@ -28,7 +28,7 @@ const data = [
 
 export default function index(props) {
   const navigation = props.navigation;
-  const [kriteria, setKriteria] = React.useState([{}]);
+  const [kriteria, setKriteria] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const renderItem = ({item, index}) => {
@@ -69,15 +69,30 @@ export default function index(props) {
     );
   };
 
-  const fetchData = React.useCallback(() => {
-    setIsLoading(true);
-    get('kri_ahp').then(response => {
-      setKriteria(response);
-      setIsLoading(false);
-    });
-  });
+  // const fetchData = React.useCallback(() => {
+  //   setIsLoading(true);
+  //   get('kri_ahp').then(response => {
+  //     setKriteria(response);
+  //     setIsLoading(false);
+  //   });
+  // });
 
-  React.useEffect(() => {
+  // React.useEffect(() => {
+  //   fetchData();
+  // }, []);
+  {
+    data: fetchedData
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const {kriteria_list} = await httpGet('penilaian');
+        // setIsLoading(true)
+        setKriteria(kriteria_list);
+        console.log('\n', kriteria_list)
+      } catch (error) {}
+    };
     fetchData();
   }, []);
 

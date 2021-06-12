@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   ActivityIndicator,
   ScrollView,
@@ -10,7 +10,7 @@ import {
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {height} from '../../helper/DEFINED';
-import {get, post} from '../../helper/http';
+import {httpGet, httpPost} from '../../helper/http';
 
 export default function DaftarNilai(props) {
   const navigation = props.navigation;
@@ -47,19 +47,19 @@ export default function DaftarNilai(props) {
     );
   };
 
-  const login = React.useCallback(() => {
-    let body = {
-      username: '',
-      password: '',
-    };
-    post('user/login', body).then(response => {
-      if (response.success === true) {
-        //pindah layar
-      } else {
-        //alert username atau pass salah
-      }
-    });
-  });
+  // const login = React.useCallback(() => {
+  //   let body = {
+  //     username: '',
+  //     password: '',
+  //   };
+  //   post('user/login', body).then(response => {
+  //     if (response.success === true) {
+  //       //pindah layar
+  //     } else {
+  //       //alert username atau pass salah
+  //     }
+  //   });
+  // });
 
   const fetchData = React.useCallback(() => {
     // get('user/guru').then(response => {
