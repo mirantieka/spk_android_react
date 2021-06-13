@@ -57,8 +57,8 @@ export default function Profile({navigation}) {
       <View style={{backgroundColor: '#242A61'}}>
       <Image
           style={styles.profilePhoto}
-          source={kemendikbud}
-        />
+          source={require('../../assets/images/kemendikbud.png')}
+          />
       </View>
       {user && (
         <ScrollView style={{backgroundColor: '#242A61'}}>

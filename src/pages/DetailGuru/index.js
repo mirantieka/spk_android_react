@@ -61,8 +61,8 @@ export default function index(props) {
       <View style={{backgroundColor: '#242A61'}}>
       <Image
           style={styles.profilePhoto}
-          source={kemendikbud}
-        />
+          source={require('../../assets/images/kemendikbud.png')}
+          />
       </View>
       <ScrollView style={{backgroundColor: '#242A61', height: height * 0.5}}>
         <View style={styles.sectionTwo}>
