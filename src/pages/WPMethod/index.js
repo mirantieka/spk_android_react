@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,9 +13,13 @@ import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {height, shadow, width} from '../../helper/DEFINED';
 import {httpGet} from '../../helper/http';
+import {writeFile, DownloadDirectoryPath} from 'react-native-fs';
+import XLSX from 'xlsx';
 
 export default function index(props) {
   const navigation = props.navigation;
+  const input = res => res;
+  const output = str => str;
   const [WPs, setWPs] = useState();
   const renderItem = ({item, index}) => {
     return (
@@ -62,6 +67,30 @@ export default function index(props) {
     fetchData();
   }, []);
 
+  const exportFile = () => {
+    const data = WPs.map(w => {
+      return {...w, user: w.user.nama};
+    });
+    /* convert JSON back to worksheet */
+    const ws = XLSX.utils.json_to_sheet(data);
+
+    /* build new workbook */
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'WP Method');
+
+    /* write file */
+    const wbout = XLSX.write(wb, {type: 'binary', bookType: 'xlsx'});
+    const DDP = DownloadDirectoryPath + '/';
+    const file = DDP + 'WPMethod.xlsx';
+    writeFile(file, wbout, 'ascii')
+      .then(res => {
+        Alert.alert('exportFile success', 'Exported to ' + file);
+      })
+      .catch(err => {
+        Alert.alert('exportFile Error', 'Error ' + err.message);
+      });
+  };
+
   return (
     <>
       <View style={styles.sectionOne}>
@@ -96,7 +125,7 @@ export default function index(props) {
               </View>
             </TouchableOpacity>
             <TouchableOpacity
-              // onPress={() => navigation.navigate('DaftarGuru')}
+              onPress={exportFile}
               style={[
                 styles.menu,
                 {
@@ -113,7 +142,7 @@ export default function index(props) {
             style={{
               borderBottomColor: 'black',
               borderBottomWidth: 1,
-              width: width * 0.85
+              width: width * 0.85,
             }}
           />
           <View style={styles.wrapper}>
@@ -135,7 +164,6 @@ export default function index(props) {
               )}
             </View>
           </View>
-          
           {/* <View style={styles.wrapper}>
             <TouchableOpacity
               onPress={() => navigation.navigate('PerankinganWP')}

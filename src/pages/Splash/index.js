@@ -30,9 +30,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
+<<<<<<< HEAD
   },
   title: {
     color: '#000',
+=======
+    backgroundColor: '#242A61'
+  },
+  title: {
+    color: '#fff',
+>>>>>>> development
     fontSize: 40,
     fontWeight: 'bold',
     textTransform: 'uppercase',
