@@ -1,35 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import {Divider} from 'react-native-elements';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {height, shadow, width} from '../../helper/DEFINED';
 import {httpGet} from '../../helper/http';
-
-const item = [
-  {
-    id: 1,
-    nama: 'Normalisasi Bobot',
-  },
-  {
-    id: 2,
-    nama: 'Vektor S',
-  },
-  {
-    id: 3,
-    nama: 'Vektor V',
-  },
-  {
-    id: 4,
-    nama: 'Perankingan',
-  },
-];
+import {writeFile, DownloadDirectoryPath} from 'react-native-fs';
+import XLSX from 'xlsx';
 
 export default function AHPMethod(props) {
   const navigation = props.navigation;
@@ -53,6 +38,30 @@ export default function AHPMethod(props) {
       const fetchedAhp = await httpGet('ahp/generate');
       setAHPs(fetchedAhp);
     } catch (error) {}
+  };
+
+  const exportFile = () => {
+    const data = AHPs.map(ahp => {
+      return {...ahp, user: ahp.user.nama};
+    });
+    /* convert JSON back to worksheet */
+    const ws = XLSX.utils.json_to_sheet(data);
+
+    /* build new workbook */
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'AHP Method');
+
+    /* write file */
+    const wbout = XLSX.write(wb, {type: 'binary', bookType: 'xlsx'});
+    const DDP = DownloadDirectoryPath + '/';
+    const file = DDP + 'AHPMethod.xlsx';
+    writeFile(file, wbout, 'ascii')
+      .then(res => {
+        Alert.alert('exportFile success', 'Exported to ' + file);
+      })
+      .catch(err => {
+        Alert.alert('exportFile Error', 'Error ' + err.message);
+      });
   };
 
   useEffect(() => {
@@ -99,7 +108,7 @@ export default function AHPMethod(props) {
               </View>
             </TouchableOpacity>
             <TouchableOpacity
-              // onPress={() => navigation.navigate('DaftarGuru')}
+              onPress={exportFile}
               style={[
                 styles.menu,
                 {
