@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {cos} from 'react-native-reanimated';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {height} from '../../helper/DEFINED';
@@ -14,7 +15,7 @@ import {httpGet} from '../../helper/http';
 
 export default function DaftarNilai(props) {
   const navigation = props.navigation;
-  const [penilaian, setPenilaian] = React.useState([{}]);
+  const [penilaian, setPenilaian] = React.useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const renderItem = ({item, index}) => {
     return (
@@ -29,18 +30,15 @@ export default function DaftarNilai(props) {
               style={styles.profile}
             />
             <View>
-              <Text style={styles.listItemContentName}>{item.id}</Text>
-              {/* <View style={[styles.loading]}>
-                <ActivityIndicator
-                  animating={isLoading}
-                  size="large"
-                  color="#0000ff"
-                />
-              </View> */}
-              <Text style={styles.listItemContentMapel}>
-                {item.nilai || item.jabatan}
-              </Text>
-              {/* {Object.values(penilaian.nilai).map} */}
+              <Text style={styles.listItemContentName}>{item?.user?.nama}</Text>
+              <View style={styles.listItemWrapper}>
+                {Object.entries(item.nilai).map(val => (
+                  <View style={styles.listItemRow}>
+                    <Text style={styles.listItemContentMapel}>{val[0]}:</Text>
+                    <Text style={styles.listItemContentMapel}>{val[1]}</Text>
+                  </View>
+                ))}
+              </View>
             </View>
           </View>
         </TouchableOpacity>
@@ -48,23 +46,11 @@ export default function DaftarNilai(props) {
     );
   };
 
-  // const fetchData = React.useCallback(() => {
-  //   get('users').then(response => {
-  //     console.log('response', response);
-  //     setUsers(response);
-  //   });
-  // });
-
-  // React.useEffect(() => {
-  //   fetchData();
-  // }, []);
-
-  useEffect(() => {
+  useEffect(async () => {
     const fetchData = async () => {
       try {
         const fetchedNilai = await httpGet('penilaian');
         setPenilaian(fetchedNilai);
-        console.log(fetchedNilai);
       } catch (error) {}
     };
     fetchData();
@@ -87,7 +73,17 @@ export default function DaftarNilai(props) {
       </View>
       <ScrollView style={{backgroundColor: '#242A61', height: height * 0.85}}>
         <View style={styles.sectionTwo}>
-          {penilaian.map((item, index) => renderItem({item, index}))}
+          {penilaian == null ? (
+            <View style={[styles.loading]}>
+              <ActivityIndicator
+                animating={true}
+                size="large"
+                color="#0000ff"
+              />
+            </View>
+          ) : (
+            penilaian.map((item, index) => renderItem({item, index}))
+          )}
         </View>
       </ScrollView>
     </>
@@ -129,7 +125,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   listItem: {
-    height: 100,
     padding: 20,
     backgroundColor: 'white',
     borderColor: '#F0F2F5',
@@ -143,6 +138,13 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: '#242A61',
     fontWeight: 'bold',
+  },
+  listItemWrapper: {
+    display: 'flex',
+  },
+  listItemRow: {
+    display: 'flex',
+    flexDirection: 'row',
   },
   listItemContentMapel: {
     fontSize: 14,

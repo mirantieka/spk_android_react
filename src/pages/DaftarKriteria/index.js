@@ -32,7 +32,6 @@ export default function DaftarKriteria(props) {
   const [isLoading, setIsLoading] = useState(false);
 
   const renderItem = ({item, index}) => {
-    console.log(item)
     return (
       <View key={`daftarKriteria-${item.id}-${index}`}>
         <View
