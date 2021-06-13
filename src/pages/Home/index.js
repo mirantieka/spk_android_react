@@ -1,17 +1,17 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
   TouchableOpacity,
+  View
 } from 'react-native';
-import {height, shadow, width} from '../../helper/DEFINED';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5Icons from 'react-native-vector-icons/FontAwesome5';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
-import {getFromAsyncStorage} from '../../helper/Storage';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import { height, shadow } from '../../helper/DEFINED';
+import { getFromAsyncStorage } from '../../helper/Storage';
 
 const styles = StyleSheet.create({
   sectionOne: {

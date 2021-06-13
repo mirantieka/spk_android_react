@@ -1,12 +1,12 @@
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AHPMethod from '../../pages/AHPMethod';
+import WPMethod from '../../pages/WPMethod';
 import DaftarGuru from '../../pages/DaftarGuru';
-import DaftarNilai from '../../pages/DaftarNilai';
 import DaftarKriteria from '../../pages/DaftarKriteria';
+import DaftarNilai from '../../pages/DaftarNilai';
 import Home from '../../pages/Home/index';
-import Profile from '../../pages/Profile';
 import ProfileStacks from '../../pages/Profile/ProfileStacks';
 
 export default function Main() {
@@ -25,7 +25,7 @@ export default function Main() {
       <Drawer.Screen name="DaftarGuru" component={DaftarGuru} />
       <Drawer.Screen name="DaftarNilai" component={DaftarNilai} />
       <Drawer.Screen name="DaftarKriteria" component={DaftarKriteria} />
-      {/* <Drawer.Screen name="WPMethod" component={} /> */}
+      <Drawer.Screen name="WPMethod" component={WPMethod} />
       <Drawer.Screen name="AHPMethod" component={AHPMethod} />
       <Drawer.Screen name="ProfileStacks" component={ProfileStacks} />
     </Drawer.Navigator>

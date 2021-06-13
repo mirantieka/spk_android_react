@@ -7,10 +7,12 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import {height, shadow, width} from '../../helper/DEFINED';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
+import {httpGet} from '../../helper/http';
 
 const item = [
   {
@@ -33,6 +35,19 @@ const item = [
 
 export default function index(props) {
   const navigation = props.navigation;
+  const [WPs, setWPs] = useState();
+  const renderItem = ({item, index}) => {
+    return (
+      <View key={`daftarWP-${item.id}-${index}`}>
+        <View style={styles.listItem}>
+          <View>
+            <Text style={styles.listItemContentName}>{item.user_id}</Text>
+            <Text style={styles.listItemContentMapel}>{item.wp_value}</Text>
+          </View>
+        </View>
+      </View>
+    );
+  };
   // const keyExtractor = (item, index) => index.toString()
   // const renderItem = ({item}) => {
   //   return (
@@ -48,6 +63,17 @@ export default function index(props) {
   //     </View>
   //   );
   // };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchedWP = await httpGet('wp');
+        setWPs(fetchedWP);
+        console.log(fetchedWP);
+      } catch (error) {}
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -68,6 +94,56 @@ export default function index(props) {
         <View style={styles.sectionTwo}>
           <View style={styles.wrapper}>
             <TouchableOpacity
+              // onPress={() => navigation.navigate('DaftarGuru')}
+              style={[
+                styles.menu,
+                {
+                  backgroundColor: '#FFD2F8',
+                },
+              ]}>
+              <View style={styles.menuContent}>
+                <IonIcons name="settings" size={25} color="#AC20DD" />
+                <Text style={[styles.menuText, {color: '#AC20DD'}]}>
+                  Hitung
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              // onPress={() => navigation.navigate('DaftarGuru')}
+              style={[
+                styles.menu,
+                {
+                  backgroundColor: '#FFD2F8',
+                },
+              ]}>
+              <View style={styles.menuContent}>
+                <IonIcons name="download" size={25} color="#AC20DD" />
+                <Text style={[styles.menuText, {color: '#AC20DD'}]}>Cetak</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.wrapper}>
+            <View style={styles.sectionTwo}>
+              {WPs == null ? (
+                <View style={[styles.loading]}>
+                  <ActivityIndicator
+                    animating={true}
+                    size="large"
+                    color="#0000ff"
+                  />
+                </View>
+              ) : WPs.length == 0 ? (
+                <View>
+                  <Text>No Data Available</Text>
+                </View>
+              ) : (
+                WPs.map((item, index) => renderItem({item, index}))
+              )}
+            </View>
+          </View>
+
+          {/* <View style={styles.wrapper}>
+            <TouchableOpacity
               onPress={() => navigation.navigate('PerankinganWP')}
               style={[
                 styles.menu,
@@ -76,28 +152,25 @@ export default function index(props) {
                 },
               ]}>
               <View style={styles.menuContent}>
-                
                 <Text style={[styles.menuText, {color: '#AC20DD'}]}>
                   Perankingan WP
                 </Text>
               </View>
             </TouchableOpacity>
-            </View>
-            <View style={styles.wrapper}>
+          </View>
+          <View style={styles.wrapper}>
             <TouchableOpacity
               onPress={() => navigation.navigate('DaftarPenilaianWP')}
               style={[styles.menu, {backgroundColor: '#E4E9FF'}]}>
               <View style={styles.menuContent}>
                 <Text style={[styles.menuText, {color: '#11CBBF'}]}>
-                Daftar Penilaian WP
+                  Daftar Penilaian WP
                 </Text>
               </View>
             </TouchableOpacity>
-          </View>
-          
-          
+          </View> */}
         </View>
-        </ScrollView>
+      </ScrollView>
     </>
   );
 }
@@ -126,6 +199,23 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     backgroundColor: 'white',
+    alignItems: 'center',
+  },
+  listItem: {
+    height: 100,
+    padding: 20,
+    backgroundColor: 'white',
+    borderColor: '#F0F2F5',
+    borderWidth: 2,
+    borderRadius: 30,
+    marginBottom: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: width * 0.85,
+    // height: 100,
+    // alignSelf: 'center',
+    // borderRadius: 30,
+    ...shadow,
   },
   wrapper: {
     flexDirection: 'row',
@@ -134,19 +224,49 @@ const styles = StyleSheet.create({
     marginBottom: 17,
   },
   menu: {
-    width: width * 0.85,
-    height: 100,
-    alignSelf: 'center',
-    borderRadius: 30,
+    height: 50,
+    borderRadius: 15,
+    width: 150,
+    marginHorizontal: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
     ...shadow,
+    // width: width * 0.85,
+    // height: 100,
+    // alignSelf: 'center',
+    // borderRadius: 30,
+    // ...shadow,
   },
   menuContent: {
+    margin: 2,
     alignItems: 'center',
-    padding: 20,
+    justifyContent: 'center',
+    flexDirection: 'row',
+    // alignItems: 'center',
+    // padding: 20,
+  },
+  menuIcon: {
+    paddingHorizontal: 5,
+    marginVertical: 5,
   },
   menuText: {
-    fontSize: 17,
+    alignItems: 'center',
+    fontSize: 19,
     fontWeight: '700',
-    marginTop: 17
+    marginVertical: 5,
+    paddingHorizontal: 10,
+    // fontSize: 17,
+    // fontWeight: '700',
+    // marginTop: 17,
+  },
+  listItemContentName: {
+    fontSize: 17,
+    color: '#242A61',
+    fontWeight: 'bold',
+  },
+  listItemContentMapel: {
+    fontSize: 14,
+    color: '#3330EE',
+    fontWeight: 'normal',
   },
 });

@@ -10,11 +10,11 @@ import {
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {height} from '../../helper/DEFINED';
-import {httpGet, httpPost} from '../../helper/http';
+import {httpGet} from '../../helper/http';
 
 export default function DaftarNilai(props) {
   const navigation = props.navigation;
-  const [users, setUsers] = React.useState([{}]);
+  const [penilaian, setPenilaian] = React.useState([{}]);
   const [isLoading, setIsLoading] = useState(false);
   const renderItem = ({item, index}) => {
     return (
@@ -29,17 +29,18 @@ export default function DaftarNilai(props) {
               style={styles.profile}
             />
             <View>
-              <Text style={styles.listItemContentName}>{item.nama}</Text>
-              <View style={[styles.loading]}>
+              <Text style={styles.listItemContentName}>{item.id}</Text>
+              {/* <View style={[styles.loading]}>
                 <ActivityIndicator
                   animating={isLoading}
                   size="large"
                   color="#0000ff"
                 />
-              </View>
+              </View> */}
               <Text style={styles.listItemContentMapel}>
-                {item.jurusan || item.jabatan}
+                {item.nilai || item.jabatan}
               </Text>
+              {/* {Object.values(penilaian.nilai).map} */}
             </View>
           </View>
         </TouchableOpacity>
@@ -47,14 +48,25 @@ export default function DaftarNilai(props) {
     );
   };
 
-  const fetchData = React.useCallback(() => {
-    get('users').then(response => {
-      console.log('response', response);
-      setUsers(response);
-    });
-  });
+  // const fetchData = React.useCallback(() => {
+  //   get('users').then(response => {
+  //     console.log('response', response);
+  //     setUsers(response);
+  //   });
+  // });
 
-  React.useEffect(() => {
+  // React.useEffect(() => {
+  //   fetchData();
+  // }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchedNilai = await httpGet('penilaian');
+        setPenilaian(fetchedNilai);
+        console.log(fetchedNilai);
+      } catch (error) {}
+    };
     fetchData();
   }, []);
 
@@ -75,7 +87,7 @@ export default function DaftarNilai(props) {
       </View>
       <ScrollView style={{backgroundColor: '#242A61', height: height * 0.85}}>
         <View style={styles.sectionTwo}>
-          {users.map((item, index) => renderItem({item, index}))}
+          {penilaian.map((item, index) => renderItem({item, index}))}
         </View>
       </ScrollView>
     </>

@@ -1,19 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {height} from '../../helper/DEFINED';
-import {httpGet} from '../../helper/http';
+import { height } from '../../helper/DEFINED';
+import { httpGet } from '../../helper/http';
 
 export default function DaftarGuru(props) {
   const navigation = props.navigation;
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState();
   const renderItem = ({item, index}) => {
     return (
       <View key={`daftarGuru-${item.id}-${index}`}>
@@ -65,7 +66,22 @@ export default function DaftarGuru(props) {
       </View>
       <ScrollView style={{backgroundColor: '#242A61', height: height * 0.85}}>
         <View style={styles.sectionTwo}>
-          {users.map((item, index) => renderItem({item, index}))}
+          {users == null ? (
+            <View style={[styles.loading]}>
+              <ActivityIndicator
+                animating={true}
+                size="large"
+                color="#0000ff"
+              />
+            </View>
+          ) : users.length == 0 ? (
+            <View>
+              <Text>No Data Available</Text>
+            </View>
+          ) : (
+            users.map((item, index) => renderItem({item, index}))
+          )}
+           {/* {users.map((item, index) => renderItem({item, index}))} */}
         </View>
       </ScrollView>
     </>

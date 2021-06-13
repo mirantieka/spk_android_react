@@ -1,15 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {shadowButton} from '../../helper/DEFINED';
-import {httpGet} from '../../helper/http';
+import { shadowButton, height } from '../../helper/DEFINED';
+import { httpGet } from '../../helper/http';
 
 const data = [
   {
@@ -76,15 +76,10 @@ export default function index(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
       try {
-        const {kriteria_list} = await httpGet('penilaian');
-        setKriteria(kriteria_list);
-        console.log('\n', kriteria_list);
-      } catch (error) {
-      } finally {
-        setIsLoading(false);
-      }
+        const fetchedKriteria = await httpGet('kri_ahp');
+        setKriteria(fetchedKriteria);
+      } catch (error) {}
     };
     fetchData();
   }, []);
@@ -104,10 +99,7 @@ export default function index(props) {
           <Text style={styles.sectionOneContentTitle}>Daftar Kriteria</Text>
         </View>
       </View>
-      <View style={[styles.loading]}>
-        <ActivityIndicator animating={isLoading} size="large" color="#0000ff" />
-      </View>
-      <ScrollView style={{backgroundColor: '#242A61'}}>
+      <ScrollView style={{backgroundColor: '#242A61',height: height * 0.85}}>
         <View style={styles.sectionTwo}>
           {kriteria == null ? (
             <View style={[styles.loading]}>
