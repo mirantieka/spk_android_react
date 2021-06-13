@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,9 +13,14 @@ import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {height, shadow, width} from '../../helper/DEFINED';
 import {httpGet} from '../../helper/http';
+import {writeFile, readFile, DocumentDirectoryPath} from 'react-native-fs';
+import XLSX from 'xlsx';
 
 export default function index(props) {
   const navigation = props.navigation;
+  const DDP = DocumentDirectoryPath + '/excel/';
+  const input = res => res;
+  const output = str => str;
   const [WPs, setWPs] = useState();
   const renderItem = ({item, index}) => {
     return (
@@ -57,10 +63,32 @@ export default function index(props) {
       try {
         const fetchedWP = await httpGet('wp');
         setWPs(fetchedWP);
+        console.log(fetchedWP);
       } catch (error) {}
     };
     fetchData();
   }, []);
+
+  const exportFile = () => {
+    /* convert AOA back to worksheet */
+    const ws = XLSX.utils.aoa_to_sheet([WPs]);
+
+    /* build new workbook */
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'WP Method');
+
+    /* write file */
+    const wbout = XLSX.write(wb, {type: 'binary', bookType: 'xlsx'});
+    const file = DDP + 'WPMethod.xlsx';
+    console.log(file);
+    writeFile(file, output(wbout), 'ascii')
+      .then(res => {
+        Alert.alert('exportFile success', 'Exported to ' + file);
+      })
+      .catch(err => {
+        Alert.alert('exportFile Error', 'Error ' + err.message);
+      });
+  };
 
   return (
     <>
@@ -96,7 +124,7 @@ export default function index(props) {
               </View>
             </TouchableOpacity>
             <TouchableOpacity
-              // onPress={() => navigation.navigate('DaftarGuru')}
+              onPress={exportFile}
               style={[
                 styles.menu,
                 {
@@ -113,7 +141,7 @@ export default function index(props) {
             style={{
               borderBottomColor: 'black',
               borderBottomWidth: 1,
-              width: width * 0.85
+              width: width * 0.85,
             }}
           />
           <View style={styles.wrapper}>
@@ -135,7 +163,7 @@ export default function index(props) {
               )}
             </View>
           </View>
-          
+
           {/* <View style={styles.wrapper}>
             <TouchableOpacity
               onPress={() => navigation.navigate('PerankinganWP')}
