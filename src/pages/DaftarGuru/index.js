@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { height } from '../../helper/DEFINED';
-import { httpGet } from '../../helper/http';
+import {height} from '../../helper/DEFINED';
+import {httpGet} from '../../helper/http';
 
 export default function DaftarGuru(props) {
   const navigation = props.navigation;
@@ -21,7 +21,10 @@ export default function DaftarGuru(props) {
         <TouchableOpacity
           onPress={() => navigation.navigate('DetailGuru', {data: item})}>
           <View style={styles.listItem}>
-            <Image style={styles.profilePhoto} source={kemendikbud} />
+            <Image
+              style={styles.profilePhoto}
+              source={require('../../assets/images/kemendikbud.png')}
+            />
             <View>
               <Text style={styles.listItemContentName}>{item.nama}</Text>
               <Text style={styles.listItemContentMapel}>
@@ -76,7 +79,7 @@ export default function DaftarGuru(props) {
           ) : (
             users.map((item, index) => renderItem({item, index}))
           )}
-           {/* {users.map((item, index) => renderItem({item, index}))} */}
+          {/* {users.map((item, index) => renderItem({item, index}))} */}
         </View>
       </ScrollView>
     </>

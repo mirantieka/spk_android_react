@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  Image,
 } from 'react-native';
 import FontAwesome5Icons from 'react-native-vector-icons/FontAwesome5';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import { height, shadow } from '../../helper/DEFINED';
-import { getFromAsyncStorage } from '../../helper/Storage';
+import {height, shadow} from '../../helper/DEFINED';
+import {getFromAsyncStorage} from '../../helper/Storage';
 
 const styles = StyleSheet.create({
   sectionOne: {
@@ -82,9 +83,9 @@ export default function Home(props) {
   return (
     <>
       <View style={styles.sectionOne}>
-      <Image
+        <Image
           style={styles.profile}
-          source={kemendikbud}
+          source={require('../../assets/images/kemendikbud.png')}
         />
         <View>
           <Text style={styles.sectionOneContentHello}>Hello,</Text>
