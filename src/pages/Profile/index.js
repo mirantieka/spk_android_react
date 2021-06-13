@@ -1,103 +1,42 @@
-import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
-  Image,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
   TouchableOpacity,
-  FlatList,
+  View,
 } from 'react-native';
-import {height, shadowButton, width} from '../../helper/DEFINED';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import MaterialComunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
-import {get} from '../../helper/http';
-import { getFromAsyncStorage } from '../../helper/Storage';
-import kemendikbud from '../../assets/images/kemendikbud.png'
+import MaterialComunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {shadowButton} from '../../helper/DEFINED';
+import {httpGet, httpPost} from '../../helper/http';
 
-const ProfileIcon = (
-  <IonIcons name="person-circle-outline" size={30} color="#E81B7D" />
-);
+export default function Profile({navigation}) {
+  const [user, setUser] = useState();
 
-const UserIcon = <IonIcons name="person" size={30} color="#E81B7D" />;
+  const onLogoutClick = async () => {
+    // Do logout
+    try {
+      await httpPost('auth/logout');
+    } catch (error) {}
+    // Remove token and user object in async storage
+    await AsyncStorage.removeItem('authToken');
+    await AsyncStorage.removeItem('user');
 
-const PassIcon = <IonIcons name="lock-closed" size={30} color="#E81B7D" />;
-
-const RoleIcon = (
-  <IonIcons name="information-circle-outline" size={30} color="#E81B7D" />
-);
-
-const data = [
-  {
-    id: 1,
-    attribut: 'Nama:',
-    value: 'Nur Ismi Fahmia',
-    icon: ProfileIcon,
-  },
-  {
-    id: 2,
-    attribut: 'Username:',
-    value: 'ismiee',
-    icon: UserIcon,
-  },
-  {
-    id: 3,
-    attribut: 'Password:',
-    value: '*********',
-    icon: PassIcon,
-  },
-  {
-    id: 4,
-    attribut: 'Role:',
-    value: 'Tim PKG',
-    icon: RoleIcon,
-  },
-];
-
-export default function index(props) {
-  const navigation = props.navigation;
-  const [id, setId] = React.useState('-');
-
-  const getUserId = React.useCallback(async()=>{
-    let userIdFromStorage = await getFromAsyncStorage('userId');
-    get(`user/${userIdFromStorage}/profile`).then(response =>{
-      console.log(response)
-      setId(response[0])
-    })
-  })
-
-  React.useEffect(()=>{
-    getUserId();
-  })
-
-  const renderItem = ({item, index}) => {
-    return (
-      <View key={`profile-${item.id}-${index}`}>
-        <View style={styles.listItem}>
-          <View style={{flexDirection: 'row'}}>
-            {/* <Text style={{marginRight: 15, marginTop: 18}}>{item.icon}</Text> */}
-            <View>
-              <Text style={styles.listItemContentAttribute}>
-                {item.attribut}
-              </Text>
-              <Text style={styles.listItemContentValue}>{item.nip}</Text>
-            </View>
-          </View>
-        </View>
-      </View>
-    );
+    navigation.navigate('Login');
   };
 
-  // const fetchData = React.useCallback(() => {
-  //   get('users').then(response => {
-  //     setUsers(response);
-  //   });
-  // });
-
-  // React.useEffect(() => {
-  //   fetchData();
-  // }, [fetchData]);
+  useEffect(async () => {
+    const fetchUser = async () => {
+      try {
+        const fetchedUser = await httpGet('user/profile');
+        setUser(fetchedUser);
+      } catch (error) {}
+    };
+    fetchUser();
+  }, []);
 
   return (
     <>
@@ -121,62 +60,72 @@ export default function index(props) {
           source={kemendikbud}
         />
       </View>
-      <ScrollView style={{backgroundColor: '#242A61'}}>
-        <View style={styles.sectionTwo}>
-          <View>
-            <Text style={styles.listItemContentName}>Account Info</Text>
-
-            <View style={styles.listItem}>
-              <View>
-                <Text style={styles.listItemContentAttribute}>NIP</Text>
-                <Text style={styles.listItemContentValue}>{id.nip}</Text>
-              </View>
-            </View>
+      {user && (
+        <ScrollView style={{backgroundColor: '#242A61'}}>
+          <View style={styles.sectionTwo}>
             <View>
-              <View style={styles.listItem}>
-                <View>
-                  <Text style={styles.listItemContentAttribute}>Nama</Text>
-                  <Text style={styles.listItemContentValue}>{id.nama}</Text>
-                </View>
-              </View>
+              <Text style={styles.listItemContentName}>Account Info</Text>
 
               <View style={styles.listItem}>
                 <View>
-                  <Text style={styles.listItemContentAttribute}>
-                    Username
-                  </Text>
-                  <Text style={styles.listItemContentValue}>
-                    {id.username}
-                  </Text>
+                  <Text style={styles.listItemContentAttribute}>NIP</Text>
+                  <Text style={styles.listItemContentValue}>{user.nip}</Text>
                 </View>
               </View>
-
-              <View style={styles.listItem}>
-                <View>
-                  <Text style={styles.listItemContentAttribute}>
-                    Jenis Kelamin
-                  </Text>
-                  <Text style={styles.listItemContentValue}>
-                    {id.jenis_kelamin}
-                  </Text>
+              <View>
+                <View style={styles.listItem}>
+                  <View>
+                    <Text style={styles.listItemContentAttribute}>Nama</Text>
+                    <Text style={styles.listItemContentValue}>{user.nama}</Text>
+                  </View>
                 </View>
-              </View>
 
-              <View style={styles.listItem}>
-                <View>
-                  <Text style={styles.listItemContentAttribute}>Jabatan</Text>
-                  <Text style={styles.listItemContentValue}>{id.jabatan}</Text>
+                <View style={styles.listItem}>
+                  <View>
+                    <Text style={styles.listItemContentAttribute}>
+                      Username
+                    </Text>
+                    <Text style={styles.listItemContentValue}>
+                      {user.username}
+                    </Text>
+                  </View>
+                </View>
+
+                <View style={styles.listItem}>
+                  <View>
+                    <Text style={styles.listItemContentAttribute}>
+                      Jenis Kelamin
+                    </Text>
+                    <Text style={styles.listItemContentValue}>
+                      {user.jenis_kelamin}
+                    </Text>
+                  </View>
+                </View>
+
+                <View style={styles.listItem}>
+                  <View>
+                    <Text style={styles.listItemContentAttribute}>Jabatan</Text>
+                    <Text style={styles.listItemContentValue}>
+                      {user.jabatan}
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.listItem}>
+                  <View>
+                    <Text style={styles.listItemContentAttribute}>Jurusan</Text>
+                    <Text style={styles.listItemContentValue}>
+                      {user.jurusan}
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
+            <TouchableOpacity onPress={onLogoutClick} style={styles.button}>
+              <Text style={styles.buttonText}>LOGOUT</Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
-            style={styles.button}>
-            <Text style={styles.buttonText}>LOGOUT</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      )}
     </>
   );
 }

@@ -9,7 +9,7 @@ export const shadow = {
     height: 5,
   },
   shadowOpacity: 0.36,
-  shadowRadius: 6.68,
+shadowRadius: 6.68,
 
   elevation: 7,
 };

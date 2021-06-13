@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {height} from '../../helper/DEFINED';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {get} from '../../helper/http';
+import {get, httpGet} from '../../helper/http';
 
 const DATA = [
   {
@@ -43,9 +43,8 @@ const DATA = [
 //   </View>
 // );
 
-export default function index(props) {
-  const navigation = props.navigation;
-  const kriAhpId = navigation.state.params.id;
+export default function DetailKriteria({route, navigation}) {
+  const {kriAhpId} = route.params;
   const [detailKriteria, setDetailKriteria] = React.useState([{}]);
   const renderItem = ({item, index}) => {
     return (
@@ -60,15 +59,15 @@ export default function index(props) {
     );
   };
 
-  const fetchData = React.useCallback(() => {
-    get(`kri_ahp/${kriAhpId}/detail`).then(response => {
-      setDetailKriteria(response);
-    });
-  });
-
-  React.useEffect(() => {
+  React.useEffect(async () => {
+    const fetchData = async () => {
+      try {
+        const kriteria = await httpGet(`kri_ahp/${kriAhpId}/detail`);
+        setDetailKriteria(kriteria);
+      } catch (error) {}
+    };
     fetchData();
-  }, [fetchData]);
+  }, []);
 
   return (
     <>
@@ -100,9 +99,10 @@ export default function index(props) {
       /> */}
         <ScrollView style={{backgroundColor: '#242A61', height: height * 0.85}}>
           <View style={styles.sectionTwo}>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text style={styles.listItemTitle}>Kompetensi</Text>
-            <Text style={styles.listItemTitle}>Nilai</Text>
+            <View
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text style={styles.listItemTitle}>Kompetensi</Text>
+              <Text style={styles.listItemTitle}>Nilai</Text>
             </View>
             {detailKriteria.map((item, index) => renderItem({item, index}))}
           </View>

@@ -1,25 +1,27 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
-  Image,
+  ActivityIndicator,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
   TouchableOpacity,
-  FlatList,
+  View,
 } from 'react-native';
-import {height} from '../../helper/DEFINED';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {cos} from 'react-native-reanimated';
 import IonIcons from 'react-native-vector-icons/Ionicons';
-import {get, post} from '../../helper/http';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {height} from '../../helper/DEFINED';
+import {httpGet} from '../../helper/http';
 
-export default function index(props) {
+export default function DaftarNilai(props) {
   const navigation = props.navigation;
-  const [users, setUsers] = React.useState([{}]);
+  const [penilaian, setPenilaian] = React.useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const renderItem = ({item, index}) => {
     return (
       <View key={`daftarNilai-${item.id}-${index}`}>
-        <TouchableOpacity onPress={() => navigation.navigate('DetailNilai', {data: item})}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('DetailNilai', {data: item})}>
           <View style={styles.listItem}>
             <IonIcons
               name="person-circle"
@@ -28,10 +30,15 @@ export default function index(props) {
               style={styles.profile}
             />
             <View>
-              <Text style={styles.listItemContentName}>{item.nama}</Text>
-              <Text style={styles.listItemContentMapel}>
-                {item.jurusan || item.jabatan}
-              </Text>
+              <Text style={styles.listItemContentName}>{item?.user?.nama}</Text>
+              <View style={styles.listItemWrapper}>
+                {Object.entries(item.nilai).map(val => (
+                  <View style={styles.listItemRow}>
+                    <Text style={styles.listItemContentMapel}>{val[0]}:</Text>
+                    <Text style={styles.listItemContentMapel}>{val[1]}</Text>
+                  </View>
+                ))}
+              </View>
             </View>
           </View>
         </TouchableOpacity>
@@ -39,34 +46,15 @@ export default function index(props) {
     );
   };
 
-  const login = React.useCallback(() => {
-    let body = {
-      username: '',
-      password: '',
+  useEffect(async () => {
+    const fetchData = async () => {
+      try {
+        const fetchedNilai = await httpGet('penilaian');
+        setPenilaian(fetchedNilai);
+      } catch (error) {}
     };
-    post('user/login', body).then(response => {
-      if(response.success === true){
-        //pindah layar
-      }
-      else{
-        //alert username atau pass salah
-      }
-    });
-  });
-
-  const fetchData = React.useCallback(() => {
-    // get('user/guru').then(response => {
-    //   setGuru(response);
-    // });
-    get('user/tampil_guru').then(response => {
-      console.log('response', response);
-      setUsers(response);
-    });
-  });
-
-  React.useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
 
   return (
     <>
@@ -85,7 +73,17 @@ export default function index(props) {
       </View>
       <ScrollView style={{backgroundColor: '#242A61', height: height * 0.85}}>
         <View style={styles.sectionTwo}>
-          {users.map((item, index) => renderItem({item, index}))}
+          {penilaian == null ? (
+            <View style={[styles.loading]}>
+              <ActivityIndicator
+                animating={true}
+                size="large"
+                color="#0000ff"
+              />
+            </View>
+          ) : (
+            penilaian.map((item, index) => renderItem({item, index}))
+          )}
         </View>
       </ScrollView>
     </>
@@ -93,6 +91,15 @@ export default function index(props) {
 }
 
 const styles = StyleSheet.create({
+  loading: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   sectionOne: {
     backgroundColor: '#242A61',
     padding: 20,
@@ -118,7 +125,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   listItem: {
-    height: 100,
     padding: 20,
     backgroundColor: 'white',
     borderColor: '#F0F2F5',
@@ -132,6 +138,13 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: '#242A61',
     fontWeight: 'bold',
+  },
+  listItemWrapper: {
+    display: 'flex',
+  },
+  listItemRow: {
+    display: 'flex',
+    flexDirection: 'row',
   },
   listItemContentMapel: {
     fontSize: 14,

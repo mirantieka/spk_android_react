@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  Image,
+  ActivityIndicator,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import {height, shadow, shadowButton, width} from '../../helper/DEFINED';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {get} from '../../helper/http'
+import {shadowButton, height} from '../../helper/DEFINED';
+import {httpGet} from '../../helper/http';
 
 const data = [
   {
@@ -26,10 +26,10 @@ const data = [
   },
 ];
 
-export default function index(props) {
+export default function DaftarKriteria(props) {
   const navigation = props.navigation;
-  const [kriteria, setKriteria] = React.useState([{}])
-  
+  const [kriteria, setKriteria] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const renderItem = ({item, index}) => {
     return (
@@ -45,33 +45,44 @@ export default function index(props) {
             <Text style={styles.listItemContentName}>{item.nama}</Text>
           </View>
           <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-          <Text style={styles.listItemContentAttribute}>
-            Attribut: {item.tipe}
-          </Text>
-          <Text style={styles.listItemContentAttribute}>Bobot: {item.bobot}</Text>
+            <Text style={styles.listItemContentAttribute}>
+              Attribut: {item.tipe}
+            </Text>
+            <Text style={styles.listItemContentAttribute}>
+              Bobot: {item.bobot}
+            </Text>
           </View>
           <TouchableOpacity
-          onPress={()=> navigation.navigate('DetailKriteria', {id:item.id})}
+            onPress={() => navigation.navigate('DetailKriteria', {id: item.id})}
             style={styles.button}>
-            <Text
-              style={styles.buttonText}>
-              DETAIL KRITERIA
-            </Text>
+            <Text style={styles.buttonText}>DETAIL KRITERIA</Text>
           </TouchableOpacity>
         </View>
       </View>
     );
   };
 
-  const fetchData = React.useCallback(()=>{
-    get('kri_ahp').then(response=> {
-      setKriteria(response);
-    });
-  });
+  // const fetchData = React.useCallback(() => {
+  //   setIsLoading(true);
+  //   get('kri_ahp').then(response => {
+  //     setKriteria(response);
+  //     setIsLoading(false);
+  //   });
+  // });
 
-  React.useEffect(()=> {
+  // React.useEffect(() => {
+  //   fetchData();
+  // }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchedKriteria = await httpGet('kri_ahp');
+        setKriteria(fetchedKriteria);
+      } catch (error) {}
+    };
     fetchData();
-  }, [fetchData]);
+  }, []);
 
   return (
     <>
@@ -88,18 +99,47 @@ export default function index(props) {
           <Text style={styles.sectionOneContentTitle}>Daftar Kriteria</Text>
         </View>
       </View>
-      <ScrollView style={{backgroundColor: '#242A61'}}>
-      <View style={styles.sectionTwo}>
-      {kriteria.map((item, index) => renderItem({item, index}))}
-     
-      </View>
-     
+      <ScrollView style={{backgroundColor: '#242A61', height: height * 0.85}}>
+        <View style={styles.sectionTwo}>
+          {kriteria == null ? (
+            <View style={[styles.loading]}>
+              <ActivityIndicator
+                animating={true}
+                size="large"
+                color="#0000ff"
+              />
+            </View>
+          ) : kriteria.length == 0 ? (
+            <View>
+              <Text>No Data Available</Text>
+            </View>
+          ) : (
+            kriteria.map((item, index) => renderItem({item, index}))
+          )}
+        </View>
       </ScrollView>
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  loading: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
   sectionOne: {
     backgroundColor: '#242A61',
     padding: 20,
@@ -118,6 +158,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   sectionTwo: {
+    height: height * 0.9,
     flex: 1,
     padding: 30,
     borderTopRightRadius: 30,
@@ -188,5 +229,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 15,
     color: '#11CBBF',
-  }
+  },
 });
