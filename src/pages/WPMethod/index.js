@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { Divider } from 'react-native-elements';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {height, shadow, width} from '../../helper/DEFINED';
@@ -127,7 +128,6 @@ export default function index(props) {
               )}
             </View>
           </View>
-
           {/* <View style={styles.wrapper}>
             <TouchableOpacity
               onPress={() => navigation.navigate('PerankinganWP')}

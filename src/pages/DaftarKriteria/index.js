@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   sectionTwo: {
+    height: height * 0.9,
     flex: 1,
     padding: 30,
     borderTopRightRadius: 30,
