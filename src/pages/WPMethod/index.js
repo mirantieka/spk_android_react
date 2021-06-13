@@ -1,37 +1,16 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  Image,
+  ActivityIndicator,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
   TouchableOpacity,
-  FlatList,
-  ActivityIndicator,
+  View,
 } from 'react-native';
-import {height, shadow, width} from '../../helper/DEFINED';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {height, shadow, width} from '../../helper/DEFINED';
 import {httpGet} from '../../helper/http';
-
-const item = [
-  {
-    id: 1,
-    nama: 'Normalisasi Bobot',
-  },
-  {
-    id: 2,
-    nama: 'Vektor S',
-  },
-  {
-    id: 3,
-    nama: 'Vektor V',
-  },
-  {
-    id: 4,
-    nama: 'Perankingan',
-  },
-];
 
 export default function index(props) {
   const navigation = props.navigation;
@@ -41,8 +20,9 @@ export default function index(props) {
       <View key={`daftarWP-${item.id}-${index}`}>
         <View style={styles.listItem}>
           <View>
-            <Text style={styles.listItemContentName}>{item.user_id}</Text>
-            <Text style={styles.listItemContentMapel}>{item.wp_value}</Text>
+            <Text style={styles.listItemContentName}>{item.user.nama}</Text>
+            <Text style={styles.listItemContentMapel}>Nilai: {item.nilai}</Text>
+            <Text style={styles.listItemContentMapel}>Rank: {item.rank}</Text>
           </View>
         </View>
       </View>
@@ -64,12 +44,18 @@ export default function index(props) {
   //   );
   // };
 
+  const generateWp = async () => {
+    try {
+      const fetchedWP = await httpGet('wp/generate');
+      setWPs(fetchedWP);
+    } catch (error) {}
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const fetchedWP = await httpGet('wp');
         setWPs(fetchedWP);
-        console.log(fetchedWP);
       } catch (error) {}
     };
     fetchData();
@@ -94,7 +80,7 @@ export default function index(props) {
         <View style={styles.sectionTwo}>
           <View style={styles.wrapper}>
             <TouchableOpacity
-              // onPress={() => navigation.navigate('DaftarGuru')}
+              onPress={generateWp}
               style={[
                 styles.menu,
                 {

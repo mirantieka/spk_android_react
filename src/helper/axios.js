@@ -1,6 +1,6 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import NavigationService from './NavigationService';
+import {navigate} from './NavigationService';
 
 export default (token = null, history = null) => {
   const domain = 'spkapp.herokuapp.com';
@@ -30,7 +30,7 @@ export default (token = null, history = null) => {
       if (error.response.status === 401) {
         AsyncStorage.removeItem('authToken');
         AsyncStorage.removeItem('user');
-        NavigationService.navigate('Login');
+        navigate('Login');
       } else {
         return new Promise((resolve, reject) => {
           reject(error?.response?.data);
