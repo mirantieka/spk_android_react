@@ -18,7 +18,7 @@ import XLSX from 'xlsx';
 
 export default function index(props) {
   const navigation = props.navigation;
-  const DDP = DocumentDirectoryPath + '/excel/';
+  const DDP = DocumentDirectoryPath + '/';
   const input = res => res;
   const output = str => str;
   const [WPs, setWPs] = useState();
