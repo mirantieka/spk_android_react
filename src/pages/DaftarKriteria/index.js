@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { shadowButton, height } from '../../helper/DEFINED';
-import { httpGet } from '../../helper/http';
+import {shadowButton, height} from '../../helper/DEFINED';
+import {httpGet} from '../../helper/http';
 
 const data = [
   {
@@ -26,12 +26,13 @@ const data = [
   },
 ];
 
-export default function index(props) {
+export default function DaftarKriteria(props) {
   const navigation = props.navigation;
   const [kriteria, setKriteria] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const renderItem = ({item, index}) => {
+    console.log(item)
     return (
       <View key={`daftarKriteria-${item.id}-${index}`}>
         <View
@@ -99,7 +100,7 @@ export default function index(props) {
           <Text style={styles.sectionOneContentTitle}>Daftar Kriteria</Text>
         </View>
       </View>
-      <ScrollView style={{backgroundColor: '#242A61',height: height * 0.85}}>
+      <ScrollView style={{backgroundColor: '#242A61', height: height * 0.85}}>
         <View style={styles.sectionTwo}>
           {kriteria == null ? (
             <View style={[styles.loading]}>

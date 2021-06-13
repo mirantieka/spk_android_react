@@ -120,7 +120,7 @@ export default function Home(props) {
           </View>
           <View style={styles.wrapper}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('DaftarKriteria')}
+              onPress={() => navigation.navigate('KriteriaStacks')}
               style={[styles.menu, {backgroundColor: '#E4E9FF'}]}>
               <View style={styles.menuContent}>
                 <FontAwesome5Icons
