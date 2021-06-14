@@ -2,19 +2,19 @@ import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Divider} from 'react-native-elements';
+import {DownloadDirectoryPath, writeFile} from 'react-native-fs';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import XLSX from 'xlsx';
 import {height, shadow, width} from '../../helper/DEFINED';
 import {httpGet} from '../../helper/http';
-import {writeFile, DownloadDirectoryPath} from 'react-native-fs';
-import XLSX from 'xlsx';
 
 export default function AHPMethod(props) {
   const navigation = props.navigation;
@@ -89,59 +89,58 @@ export default function AHPMethod(props) {
           <Text style={styles.sectionOneContentTitle}>AHP Method</Text>
         </View>
       </View>
-      <ScrollView style={{backgroundColor: '#242A61', height: height * 0.75}}>
-        <View style={styles.sectionTwo}>
-          <View style={styles.wrapper}>
-            <TouchableOpacity
-              onPress={generateAhp}
-              style={[
-                styles.menu,
-                {
-                  backgroundColor: '#FFD2F8',
-                },
-              ]}>
-              <View style={styles.menuContent}>
-                <IonIcons name="settings" size={25} color="#AC20DD" />
-                <Text style={[styles.menuText, {color: '#AC20DD'}]}>
-                  Hitung
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={exportFile}
-              style={[
-                styles.menu,
-                {
-                  backgroundColor: '#FFD2F8',
-                },
-              ]}>
-              <View style={styles.menuContent}>
-                <IonIcons name="download" size={25} color="#AC20DD" />
-                <Text style={[styles.menuText, {color: '#AC20DD'}]}>Cetak</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.wrapper}>
-            <View style={styles.sectionTwo}>
-              {AHPs == null ? (
-                <View style={[styles.loading]}>
-                  <ActivityIndicator
-                    animating={true}
-                    size="large"
-                    color="#0000ff"
-                  />
-                </View>
-              ) : AHPs.length == 0 ? (
-                <View>
-                  <Text>No Data Available</Text>
-                </View>
-              ) : (
-                AHPs.map((item, index) => renderItem({item, index}))
-              )}
+      <SafeAreaView
+        style={{
+          backgroundColor: '#242A61',
+          display: 'flex',
+        }}>
+        <View style={styles.wrapper}>
+          <TouchableOpacity
+            onPress={generateAhp}
+            style={[
+              styles.menu,
+              {
+                backgroundColor: '#FFD2F8',
+              },
+            ]}>
+            <View style={styles.menuContent}>
+              <IonIcons name="settings" size={25} color="#AC20DD" />
+              <Text style={[styles.menuText, {color: '#AC20DD'}]}>Hitung</Text>
             </View>
-          </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={exportFile}
+            style={[
+              styles.menu,
+              {
+                backgroundColor: '#FFD2F8',
+              },
+            ]}>
+            <View style={styles.menuContent}>
+              <IonIcons name="download" size={25} color="#AC20DD" />
+              <Text style={[styles.menuText, {color: '#AC20DD'}]}>Cetak</Text>
+            </View>
+          </TouchableOpacity>
         </View>
-      </ScrollView>
+        <ScrollView style={styles.sectionTwo}>
+          {AHPs == null ? (
+            <View style={[styles.loading]}>
+              <ActivityIndicator
+                animating={true}
+                size="large"
+                color="#0000ff"
+              />
+            </View>
+          ) : AHPs.length == 0 ? (
+            <View>
+              <Text>No Data Available</Text>
+            </View>
+          ) : (
+            AHPs.map((item, index) => renderItem({item, index}))
+          )}
+          <View style={{padding: 70}}></View>
+        </ScrollView>
+      </SafeAreaView>
     </>
   );
 }
@@ -167,7 +166,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     backgroundColor: 'white',
-    alignItems: 'center',
   },
   listItem: {
     height: 100,
@@ -179,16 +177,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    width: width * 0.85,
-    // height: 100,
-    // alignSelf: 'center',
-    // borderRadius: 30,
+    width: width * 0.82,
+    alignSelf: 'center',
     ...shadow,
   },
   wrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     marginBottom: 17,
   },
   menu: {

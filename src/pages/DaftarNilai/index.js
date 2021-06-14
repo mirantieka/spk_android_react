@@ -1,17 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  ActivityIndicator,
-  ScrollView,
-  StyleSheet,
-  Text,
+  ActivityIndicator, SafeAreaView, ScrollView,
+  StyleSheet, Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import {cos} from 'react-native-reanimated';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {height} from '../../helper/DEFINED';
-import {httpGet} from '../../helper/http';
+import { height } from '../../helper/DEFINED';
+import { httpGet } from '../../helper/http';
 
 export default function DaftarNilai(props) {
   const navigation = props.navigation;
@@ -71,8 +68,12 @@ export default function DaftarNilai(props) {
           <Text style={styles.sectionOneContentTitle}>Daftar Nilai</Text>
         </View>
       </View>
-      <ScrollView style={{backgroundColor: '#242A61', height: height * 0.85}}>
-        <View style={styles.sectionTwo}>
+      <SafeAreaView
+        style={{
+          backgroundColor: '#242A61',
+          display: 'flex',
+        }}>
+        <ScrollView style={styles.sectionTwo}>
           {penilaian == null ? (
             <View style={[styles.loading]}>
               <ActivityIndicator
@@ -84,8 +85,9 @@ export default function DaftarNilai(props) {
           ) : (
             penilaian.map((item, index) => renderItem({item, index}))
           )}
-        </View>
-      </ScrollView>
+          <View style={{padding: 40}}></View>
+        </ScrollView>
+      </SafeAreaView>
     </>
   );
 }

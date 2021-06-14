@@ -16,7 +16,6 @@ import {httpGet} from '../../helper/http';
 export default function DaftarGuru(props) {
   const navigation = props.navigation;
   const [users, setUsers] = useState();
-  const [screenHeight, setScreenHeight] = useState(0);
   const renderItem = ({item, index}) => {
     return (
       <View key={`daftarGuru-${item.id}-${index}`}>
@@ -38,13 +37,6 @@ export default function DaftarGuru(props) {
       </View>
     );
   };
-
-  const onContentSizeChange = contentHeight => {
-    // Save the content height in state
-    setScreenHeight(contentHeight);
-  };
-
-  const scrollEnabled = screenHeight > height;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -86,13 +78,13 @@ export default function DaftarGuru(props) {
               />
             </View>
           ) : users.length == 0 ? (
-            <ViIIew>
+            <View>
               <Text>No Data Available</Text>
-            </ViIIew>
+            </View>
           ) : (
             users.map((item, index) => renderItem({item, index}))
           )}
-          {/* {users.map((item, index) => renderItem({item, index}))} */}
+          <View style={{padding: 40}}></View>
         </ScrollView>
       </SafeAreaView>
     </>

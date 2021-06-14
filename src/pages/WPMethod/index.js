@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -105,93 +106,58 @@ export default function index(props) {
           <Text style={styles.sectionOneContentTitle}>WP Method</Text>
         </View>
       </View>
-      <ScrollView style={{backgroundColor: '#242A61', height: height * 0.75}}>
-        <View style={styles.sectionTwo}>
-          <View style={styles.wrapper}>
-            <TouchableOpacity
-              onPress={generateWp}
-              style={[
-                styles.menu,
-                {
-                  backgroundColor: '#FFD2F8',
-                },
-              ]}>
-              <View style={styles.menuContent}>
-                <IonIcons name="settings" size={25} color="#AC20DD" />
-                <Text style={[styles.menuText, {color: '#AC20DD'}]}>
-                  Hitung
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={exportFile}
-              style={[
-                styles.menu,
-                {
-                  backgroundColor: '#FFD2F8',
-                },
-              ]}>
-              <View style={styles.menuContent}>
-                <IonIcons name="download" size={25} color="#AC20DD" />
-                <Text style={[styles.menuText, {color: '#AC20DD'}]}>Cetak</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              borderBottomColor: 'black',
-              borderBottomWidth: 1,
-              width: width * 0.85,
-            }}
-          />
-          <View style={styles.wrapper}>
-            <View style={styles.sectionTwo}>
-              {WPs == null ? (
-                <View style={[styles.loading]}>
-                  <ActivityIndicator
-                    animating={true}
-                    size="large"
-                    color="#0000ff"
-                  />
-                </View>
-              ) : WPs.length == 0 ? (
-                <View>
-                  <Text>No Data Available</Text>
-                </View>
-              ) : (
-                WPs.map((item, index) => renderItem({item, index}))
-              )}
+      <SafeAreaView
+        style={{
+          backgroundColor: '#242A61',
+          display: 'flex',
+        }}>
+        <View style={styles.wrapper}>
+          <TouchableOpacity
+            onPress={generateWp}
+            style={[
+              styles.menu,
+              {
+                backgroundColor: '#FFD2F8',
+              },
+            ]}>
+            <View style={styles.menuContent}>
+              <IonIcons name="settings" size={25} color="#AC20DD" />
+              <Text style={[styles.menuText, {color: '#AC20DD'}]}>Hitung</Text>
             </View>
-          </View>
-          {/* <View style={styles.wrapper}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('PerankinganWP')}
-              style={[
-                styles.menu,
-                {
-                  backgroundColor: '#FFD2F8',
-                },
-              ]}>
-              <View style={styles.menuContent}>
-                <Text style={[styles.menuText, {color: '#AC20DD'}]}>
-                  Perankingan WP
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.wrapper}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('DaftarPenilaianWP')}
-              style={[styles.menu, {backgroundColor: '#E4E9FF'}]}>
-              <View style={styles.menuContent}>
-                <Text style={[styles.menuText, {color: '#11CBBF'}]}>
-                  Daftar Penilaian WP
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View> */}
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={exportFile}
+            style={[
+              styles.menu,
+              {
+                backgroundColor: '#FFD2F8',
+              },
+            ]}>
+            <View style={styles.menuContent}>
+              <IonIcons name="download" size={25} color="#AC20DD" />
+              <Text style={[styles.menuText, {color: '#AC20DD'}]}>Cetak</Text>
+            </View>
+          </TouchableOpacity>
         </View>
-      </ScrollView>
+        <ScrollView style={styles.sectionTwo}>
+          {WPs == null ? (
+            <View style={[styles.loading]}>
+              <ActivityIndicator
+                animating={true}
+                size="large"
+                color="#0000ff"
+              />
+            </View>
+          ) : WPs.length == 0 ? (
+            <View>
+              <Text>No Data Available</Text>
+            </View>
+          ) : (
+            WPs.map((item, index) => renderItem({item, index}))
+          )}
+          <View style={{padding: 70}}></View>
+        </ScrollView>
+      </SafeAreaView>
     </>
   );
 }
@@ -217,7 +183,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     backgroundColor: 'white',
-    alignItems: 'center',
   },
   listItem: {
     height: 100,
@@ -229,16 +194,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    width: width * 0.85,
-    // height: 100,
-    // alignSelf: 'center',
-    // borderRadius: 30,
+    width: width * 0.82,
+    alignSelf: 'center',
     ...shadow,
   },
   wrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     marginBottom: 17,
   },
   menu: {
