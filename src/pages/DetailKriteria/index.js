@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -44,7 +44,7 @@ const DATA = [
 // );
 
 export default function DetailKriteria({route, navigation}) {
-  const {kriAhpId} = route.params;
+  const kriAhpId = route.params.id;
   const [detailKriteria, setDetailKriteria] = React.useState([{}]);
   const renderItem = ({item, index}) => {
     return (
@@ -64,6 +64,16 @@ export default function DetailKriteria({route, navigation}) {
       try {
         const kriteria = await httpGet(`kri_ahp/${kriAhpId}/detail`);
         setDetailKriteria(kriteria);
+      } catch (error) {}
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchedKriteria = await httpGet(`kri_ahp/${kriAhpId}/detail`);
+        setKriteria(fetchedKriteria);
       } catch (error) {}
     };
     fetchData();

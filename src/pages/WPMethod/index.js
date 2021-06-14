@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -6,15 +6,14 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import {Divider} from 'react-native-elements';
+import { DocumentDirectoryPath, writeFile } from 'react-native-fs';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {height, shadow, width} from '../../helper/DEFINED';
-import {httpGet} from '../../helper/http';
-import {writeFile, readFile, DocumentDirectoryPath} from 'react-native-fs';
 import XLSX from 'xlsx';
+import { height, shadow, width } from '../../helper/DEFINED';
+import { httpGet } from '../../helper/http';
 
 export default function index(props) {
   const navigation = props.navigation;
@@ -71,7 +70,7 @@ export default function index(props) {
 
   const exportFile = () => {
     /* convert AOA back to worksheet */
-    const ws = XLSX.utils.aoa_to_sheet([WPs]);
+    const ws = XLSX.utils.json_to_sheet(WPs);
 
     /* build new workbook */
     const wb = XLSX.utils.book_new();

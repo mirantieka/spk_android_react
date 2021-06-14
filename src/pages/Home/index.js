@@ -10,7 +10,7 @@ import FontAwesome5Icons from 'react-native-vector-icons/FontAwesome5';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import { height, shadow } from '../../helper/DEFINED';
+import { height, shadow, width } from '../../helper/DEFINED';
 import { getFromAsyncStorage } from '../../helper/Storage';
 
 const styles = StyleSheet.create({
@@ -152,7 +152,14 @@ export default function Home(props) {
               </View>
             </TouchableOpacity>
           </View>
-
+          <View
+            style={{
+              borderBottomColor: 'black',
+              borderBottomWidth: 1,
+              width: width * 0.85,
+              marginBottom: 25,
+            }}
+          />
           <View style={styles.wrapper}>
             <TouchableOpacity
               onPress={() => navigation.navigate('WPMethod')}
@@ -187,6 +194,14 @@ export default function Home(props) {
               </View>
             </TouchableOpacity>
           </View>
+          <View
+            style={{
+              borderBottomColor: 'black',
+              borderBottomWidth: 1,
+              width: width * 0.85,
+              marginBottom: 25,
+            }}
+          />
           <View style={styles.wrapper}>
             <TouchableOpacity
               onPress={() => navigation.navigate('ProfileStacks')}
