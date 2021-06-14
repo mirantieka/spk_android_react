@@ -1,18 +1,13 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
 import {
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  TextInput,
+  Image, ScrollView, StyleSheet,
+  Text, TextInput, TouchableOpacity, View
 } from 'react-native';
-import {shadowButton} from '../../helper/DEFINED';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
-import {httpGet, httpPost} from '../../helper/http';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { shadowButton } from '../../helper/DEFINED';
+import { httpGet, httpPost } from '../../helper/http';
 
 const styles = StyleSheet.create({
   logo: {

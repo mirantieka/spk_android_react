@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {shadowButton} from '../../helper/DEFINED';
-import {httpGet, httpPut} from '../../helper/http';
+import { shadowButton } from '../../helper/DEFINED';
+import { httpGet, httpPut } from '../../helper/http';
 
 export default function EditProfile(props) {
   const navigation = props.navigation;

@@ -56,20 +56,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexDirection: 'row',
-    flex: 1
+    flex: 1,
   },
   menuIcon: {
     // paddingHorizontal: 5,
     // marginHorizontal: 60,
     marginLeft: 90,
-    marginRight: 20
+    marginRight: 20,
     // marginVertical: 5,
   },
   menuText: {
     alignItems: 'center',
     fontSize: 19,
     fontWeight: '700',
-    flex: 1
+    flex: 1,profile
     // marginVertical: 5,
     // paddingHorizontal: 10,
   },

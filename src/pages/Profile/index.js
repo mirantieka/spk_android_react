@@ -1,17 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {useState, useEffect, useCallback} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  ScrollView,
+  Image, ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import IonIcons from 'react-native-vector-icons/Ionicons';
-import MaterialComunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {shadowButton} from '../../helper/DEFINED';
-import {httpGet, httpPost} from '../../helper/http';
+import { shadowButton } from '../../helper/DEFINED';
+import { httpGet, httpPost } from '../../helper/http';
 
 export default function Profile({navigation}) {
   const [user, setUser] = useState();

@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {height} from '../../helper/DEFINED';
-import {httpGet} from '../../helper/http';
+import { height } from '../../helper/DEFINED';
+import { httpGet } from '../../helper/http';
 
 export default function DaftarGuru(props) {
   const navigation = props.navigation;

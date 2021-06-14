@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  SectionList,
+  ScrollView, StyleSheet,
+  Text, TouchableOpacity, View
 } from 'react-native';
-import {height} from '../../helper/DEFINED';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {get, httpGet} from '../../helper/http';
+import { height } from '../../helper/DEFINED';
+import { httpGet } from '../../helper/http';
 
 const DATA = [
   {
