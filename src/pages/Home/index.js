@@ -14,7 +14,6 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import {height, shadow, width} from '../../helper/DEFINED';
 import {getFromAsyncStorage} from '../../helper/Storage';
 
-
 export default function Home(props) {
   const navigation = props.navigation;
   const [nama, setNama] = useState('-');
@@ -50,17 +49,18 @@ export default function Home(props) {
               style={[
                 styles.menu,
                 {
-                  alignSelf: 'stretch',
                   backgroundColor: '#FFD2F8',
                 },
               ]}>
               <View style={styles.menuContent}>
-                <MaterialIcons
-                  name="people"
-                  size={35}
-                  color="#AC20DD"
-                  style={styles.menuIcon}
-                />
+                <View style={styles.iconWrapper}>
+                  <MaterialIcons
+                    name="people"
+                    size={35}
+                    color="#AC20DD"
+                    style={styles.menuIcon}
+                  />
+                </View>
                 <Text style={[styles.menuText, {color: '#AC20DD'}]}>
                   Daftar Guru
                 </Text>
@@ -72,12 +72,14 @@ export default function Home(props) {
               onPress={() => navigation.navigate('KriteriaStacks')}
               style={[styles.menu, {backgroundColor: '#E4E9FF'}]}>
               <View style={styles.menuContent}>
-                <MaterialIcons
-                  name="extension"
-                  size={35}
-                  color="#11CBBF"
-                  style={styles.menuIcon}
-                />
+                <View style={styles.iconWrapper}>
+                  <MaterialIcons
+                    name="extension"
+                    size={35}
+                    color="#11CBBF"
+                    style={styles.menuIcon}
+                  />
+                </View>
                 <Text style={[styles.menuText, {color: '#11CBBF'}]}>
                   Daftar Kriteria
                 </Text>
@@ -89,12 +91,14 @@ export default function Home(props) {
               onPress={() => navigation.navigate('DaftarNilai')}
               style={[styles.menu, {backgroundColor: '#FDDCDC'}]}>
               <View style={styles.menuContent}>
-                <MaterialIcons
-                  name="show-chart"
-                  size={35}
-                  color="#F2475B"
-                  style={styles.menuIcon}
-                />
+                <View style={styles.iconWrapper}>
+                  <MaterialIcons
+                    name="show-chart"
+                    size={35}
+                    color="#F2475B"
+                    style={styles.menuIcon}
+                  />
+                </View>
                 <Text style={[styles.menuText, {color: '#F2475B'}]}>
                   Daftar Nilai
                 </Text>
@@ -114,12 +118,14 @@ export default function Home(props) {
               onPress={() => navigation.navigate('WPMethod')}
               style={[styles.menu, {backgroundColor: '#D9D2FF'}]}>
               <View style={styles.menuContent}>
-                <MaterialIcons
-                  name="assignment-turned-in"
-                  size={35}
-                  color="#3330EE"
-                  style={styles.menuIcon}
-                />
+                <View style={styles.iconWrapper}>
+                  <MaterialIcons
+                    name="assignment-turned-in"
+                    size={35}
+                    color="#3330EE"
+                    style={styles.menuIcon}
+                  />
+                </View>
                 <Text style={[styles.menuText, {color: '#3330EE'}]}>
                   WP Method
                 </Text>
@@ -131,12 +137,14 @@ export default function Home(props) {
               onPress={() => navigation.navigate('AHPMethod')}
               style={[styles.menu, {backgroundColor: '#FFF0D2'}]}>
               <View style={styles.menuContent}>
-                <MaterialIcons
-                  name="assignment"
-                  size={35}
-                  color="#EC9615"
-                  style={styles.menuIcon}
-                />
+                <View style={styles.iconWrapper}>
+                  <MaterialIcons
+                    name="assignment"
+                    size={35}
+                    color="#EC9615"
+                    style={styles.menuIcon}
+                  />
+                </View>
                 <Text style={[styles.menuText, {color: '#EC9615'}]}>
                   AHP Method
                 </Text>
@@ -156,12 +164,14 @@ export default function Home(props) {
               onPress={() => navigation.navigate('ProfileStacks')}
               style={[styles.menu, {backgroundColor: '#FFD2E2'}]}>
               <View style={styles.menuContent}>
-                <MaterialIcons
-                  name="person"
-                  size={35}
-                  color="#E81B7D"
-                  style={styles.menuIcon}
-                />
+                <View style={styles.iconWrapper}>
+                  <MaterialIcons
+                    name="person"
+                    size={35}
+                    color="#E81B7D"
+                    style={styles.menuIcon}
+                  />
+                </View>
                 <Text style={[styles.menuText, {color: '#E81B7D'}]}>
                   Profile
                 </Text>
@@ -214,23 +224,20 @@ const styles = StyleSheet.create({
   },
   menuContent: {
     alignItems: 'center',
-    justifyContent: 'flex-start',
     flexDirection: 'row',
+    display: 'flex',
     flex: 1,
   },
-  menuIcon: {
-    // paddingHorizontal: 5,
-    // marginHorizontal: 60,
-    marginLeft: 90,
-    marginRight: 20,
-    // marginVertical: 5,
+  iconWrapper: {
+    display: 'flex',
+    width: '40%',
+    paddingRight: 10,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
   },
   menuText: {
     alignItems: 'center',
     fontSize: 19,
     fontWeight: '700',
-    flex: 1,
-    // marginVertical: 5,
-    // paddingHorizontal: 10,
   },
 });

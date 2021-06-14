@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Image,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -38,14 +39,12 @@ export default function DaftarGuru(props) {
     );
   };
 
-  const onContentSizeChange = (contentHeight) => {
+  const onContentSizeChange = contentHeight => {
     // Save the content height in state
     setScreenHeight(contentHeight);
   };
-  
-  
+
   const scrollEnabled = screenHeight > height;
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -72,12 +71,12 @@ export default function DaftarGuru(props) {
           <Text style={styles.sectionOneContentTitle}>Daftar Guru</Text>
         </View>
       </View>
-      <ScrollView
-        style={{backgroundColor: '#242A61', flexGrow: 1}}
-        contentContainerStyle={styles.scrollview}
-        scrollEnabled={scrollEnabled}
-        onContentSizeChange={onContentSizeChange}>
-        <View style={styles.sectionTwo}>
+      <SafeAreaView
+        style={{
+          backgroundColor: '#242A61',
+          display: 'flex',
+        }}>
+        <ScrollView style={styles.sectionTwo}>
           {users == null ? (
             <View style={[styles.loading]}>
               <ActivityIndicator
@@ -87,15 +86,15 @@ export default function DaftarGuru(props) {
               />
             </View>
           ) : users.length == 0 ? (
-            <View>
+            <ViIIew>
               <Text>No Data Available</Text>
-            </View>
+            </ViIIew>
           ) : (
             users.map((item, index) => renderItem({item, index}))
           )}
           {/* {users.map((item, index) => renderItem({item, index}))} */}
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
     </>
   );
 }
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
   backButton: {
     marginRight: 10,
   },
-  scrollview:{
+  scrollview: {
     flexGrow: 1,
   },
   profilePhoto: {
