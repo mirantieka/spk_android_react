@@ -39,7 +39,7 @@ export default function Home(props) {
       <ScrollView
         style={{
           backgroundColor: '#242A61',
-          height: height * 0.75,
+          height: height,
           display: 'flex',
         }}>
         <View style={styles.sectionTwo}>
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   sectionTwo: {
-    height: height * 0.8,
+    height: height * 0.79,
     padding: 30,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
