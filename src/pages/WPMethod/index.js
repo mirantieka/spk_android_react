@@ -8,12 +8,9 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { DocumentDirectoryPath, writeFile } from 'react-native-fs';
+import { DownloadDirectoryPath, writeFile } from 'react-native-fs';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {height, shadow, width} from '../../helper/DEFINED';
-import {httpGet} from '../../helper/http';
-import {writeFile, DownloadDirectoryPath} from 'react-native-fs';
 import XLSX from 'xlsx';
 import { height, shadow, width } from '../../helper/DEFINED';
 import { httpGet } from '../../helper/http';
