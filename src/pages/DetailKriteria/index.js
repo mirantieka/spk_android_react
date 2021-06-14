@@ -59,21 +59,11 @@ export default function DetailKriteria({route, navigation}) {
     );
   };
 
-  React.useEffect(async () => {
-    const fetchData = async () => {
-      try {
-        const kriteria = await httpGet(`kri_ahp/${kriAhpId}/detail`);
-        setDetailKriteria(kriteria);
-      } catch (error) {}
-    };
-    fetchData();
-  }, []);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fetchedKriteria = await httpGet(`kri_ahp/${kriAhpId}/detail`);
-        setKriteria(fetchedKriteria);
+        const fetchedDetailKriteria = await httpGet(`kri_ahp/${kriAhpId}/detail`);
+        setDetailKriteria(fetchedDetailKriteria);
       } catch (error) {}
     };
     fetchData();
