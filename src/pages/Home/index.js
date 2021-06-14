@@ -11,8 +11,8 @@ import FontAwesome5Icons from 'react-native-vector-icons/FontAwesome5';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import { height, shadow, width } from '../../helper/DEFINED';
-import { getFromAsyncStorage } from '../../helper/Storage';
+import {height, shadow, width} from '../../helper/DEFINED';
+import {getFromAsyncStorage} from '../../helper/Storage';
 
 const styles = StyleSheet.create({
   sectionOne: {
@@ -54,19 +54,24 @@ const styles = StyleSheet.create({
   },
   menuContent: {
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     flexDirection: 'row',
+    flex: 1
   },
   menuIcon: {
-    paddingHorizontal: 5,
-    marginVertical: 5,
+    // paddingHorizontal: 5,
+    // marginHorizontal: 60,
+    marginLeft: 90,
+    marginRight: 20
+    // marginVertical: 5,
   },
   menuText: {
     alignItems: 'center',
     fontSize: 19,
     fontWeight: '700',
-    marginVertical: 5,
-    paddingHorizontal: 10,
+    flex: 1
+    // marginVertical: 5,
+    // paddingHorizontal: 10,
   },
 });
 
@@ -110,7 +115,12 @@ export default function Home(props) {
                 },
               ]}>
               <View style={styles.menuContent}>
-                <MaterialIcons name="people" size={40} color="#AC20DD" />
+                <MaterialIcons
+                  name="people"
+                  size={35}
+                  color="#AC20DD"
+                  style={styles.menuIcon}
+                />
                 <Text style={[styles.menuText, {color: '#AC20DD'}]}>
                   Daftar Guru
                 </Text>
@@ -122,9 +132,9 @@ export default function Home(props) {
               onPress={() => navigation.navigate('KriteriaStacks')}
               style={[styles.menu, {backgroundColor: '#E4E9FF'}]}>
               <View style={styles.menuContent}>
-                <FontAwesome5Icons
-                  name="puzzle-piece"
-                  size={27}
+                <MaterialIcons
+                  name="extension"
+                  size={35}
                   color="#11CBBF"
                   style={styles.menuIcon}
                 />
@@ -139,8 +149,8 @@ export default function Home(props) {
               onPress={() => navigation.navigate('DaftarNilai')}
               style={[styles.menu, {backgroundColor: '#FDDCDC'}]}>
               <View style={styles.menuContent}>
-                <SimpleLineIcons
-                  name="graph"
+                <MaterialIcons
+                  name="show-chart"
                   size={35}
                   color="#F2475B"
                   style={styles.menuIcon}
@@ -153,7 +163,7 @@ export default function Home(props) {
           </View>
           <View
             style={{
-              borderBottomColor: 'black',
+              borderBottomColor: '#cecece',
               borderBottomWidth: 1,
               width: width * 0.85,
               marginBottom: 25,
@@ -166,7 +176,7 @@ export default function Home(props) {
               <View style={styles.menuContent}>
                 <MaterialIcons
                   name="assignment-turned-in"
-                  size={30}
+                  size={35}
                   color="#3330EE"
                   style={styles.menuIcon}
                 />
@@ -183,9 +193,9 @@ export default function Home(props) {
               <View style={styles.menuContent}>
                 <MaterialIcons
                   name="assignment"
-                  size={30}
+                  size={35}
                   color="#EC9615"
-                  style={{marginTop: 5, marginBottom: 2}}
+                  style={styles.menuIcon}
                 />
                 <Text style={[styles.menuText, {color: '#EC9615'}]}>
                   AHP Method
@@ -195,7 +205,7 @@ export default function Home(props) {
           </View>
           <View
             style={{
-              borderBottomColor: 'black',
+              borderBottomColor: '#cecece',
               borderBottomWidth: 1,
               width: width * 0.85,
               marginBottom: 25,
