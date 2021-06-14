@@ -1,28 +1,29 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  ScrollView,
+  Image, ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
-  Image,
+  View
 } from 'react-native';
-import FontAwesome5Icons from 'react-native-vector-icons/FontAwesome5';
-import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import {height, shadow, width} from '../../helper/DEFINED';
-import {getFromAsyncStorage} from '../../helper/Storage';
+import { height, shadow, width } from '../../helper/DEFINED';
+import { getFromAsyncStorage } from '../../helper/Storage';
 
 export default function Home(props) {
   const navigation = props.navigation;
   const [nama, setNama] = useState('-');
+  const [jabatan, setJabatan] = useState('-');
 
   useEffect(async () => {
     const user = await getFromAsyncStorage('user');
     const nama = JSON.parse(user).nama;
+    const jabatan = JSON.parse(user).jabatan;
     setNama(nama);
+    setJabatan(jabatan);
   }, []);
+
+  console.log(jabatan);
 
   return (
     <>

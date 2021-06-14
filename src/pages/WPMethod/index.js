@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -7,20 +7,22 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
-import { DownloadDirectoryPath, writeFile } from 'react-native-fs';
+import {DownloadDirectoryPath, writeFile} from 'react-native-fs';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import XLSX from 'xlsx';
-import { height, shadow, width } from '../../helper/DEFINED';
-import { httpGet } from '../../helper/http';
+import {height, shadow, width} from '../../helper/DEFINED';
+import {httpGet} from '../../helper/http';
+import {getFromAsyncStorage} from '../../helper/Storage';
 
 export default function index(props) {
   const navigation = props.navigation;
   const input = res => res;
   const output = str => str;
   const [WPs, setWPs] = useState();
+  const [jabatan, setJabatan] = useState('-');
   const renderItem = ({item, index}) => {
     return (
       <View key={`daftarWP-${item.id}-${index}`}>
@@ -56,6 +58,14 @@ export default function index(props) {
       setWPs(fetchedWP);
     } catch (error) {}
   };
+
+  useEffect(async () => {
+    const user = await getFromAsyncStorage('user');
+    const jabatan = JSON.parse(user).jabatan;
+    setJabatan(jabatan);
+  }, []);
+
+  console.log('jataban dari wp', jabatan);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -112,32 +122,37 @@ export default function index(props) {
           display: 'flex',
         }}>
         <View style={styles.wrapper}>
-          <TouchableOpacity
-            onPress={generateWp}
-            style={[
-              styles.menu,
-              {
-                backgroundColor: '#FFD2F8',
-              },
-            ]}>
-            <View style={styles.menuContent}>
-              <IonIcons name="settings" size={25} color="#AC20DD" />
-              <Text style={[styles.menuText, {color: '#AC20DD'}]}>Hitung</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={exportFile}
-            style={[
-              styles.menu,
-              {
-                backgroundColor: '#FFD2F8',
-              },
-            ]}>
-            <View style={styles.menuContent}>
-              <IonIcons name="download" size={25} color="#AC20DD" />
-              <Text style={[styles.menuText, {color: '#AC20DD'}]}>Cetak</Text>
-            </View>
-          </TouchableOpacity>
+          {jabatan === 'Tim_PKG' ? (
+            <TouchableOpacity
+              onPress={generateWp}
+              style={[
+                styles.menu,
+                {
+                  backgroundColor: '#FFD2F8',
+                },
+              ]}>
+              <View style={styles.menuContent}>
+                <IonIcons name="settings" size={25} color="#AC20DD" />
+                <Text style={[styles.menuText, {color: '#AC20DD'}]}>
+                  Hitung
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={exportFile}
+              style={[
+                styles.menu,
+                {
+                  backgroundColor: '#FFD2F8',
+                },
+              ]}>
+              <View style={styles.menuContent}>
+                <IonIcons name="download" size={25} color="#AC20DD" />
+                <Text style={[styles.menuText, {color: '#AC20DD'}]}>Cetak</Text>
+              </View>
+            </TouchableOpacity>
+          )}
         </View>
         <ScrollView style={styles.sectionTwo}>
           {WPs == null ? (
