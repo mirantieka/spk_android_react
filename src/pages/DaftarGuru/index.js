@@ -38,11 +38,14 @@ export default function DaftarGuru(props) {
     );
   };
 
-  const onContentSizeChange = (contentWidth, contentHeight) => {
+  const onContentSizeChange = (contentHeight) => {
     // Save the content height in state
     setScreenHeight(contentHeight);
   };
+  
+  
   const scrollEnabled = screenHeight > height;
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,7 +73,8 @@ export default function DaftarGuru(props) {
         </View>
       </View>
       <ScrollView
-        style={{backgroundColor: '#242A61', height: height * 0.85}}
+        style={{backgroundColor: '#242A61', flexGrow: 1}}
+        contentContainerStyle={styles.scrollview}
         scrollEnabled={scrollEnabled}
         onContentSizeChange={onContentSizeChange}>
         <View style={styles.sectionTwo}>
@@ -110,6 +114,9 @@ const styles = StyleSheet.create({
   },
   backButton: {
     marginRight: 10,
+  },
+  scrollview:{
+    flexGrow: 1,
   },
   profilePhoto: {
     width: 50,
