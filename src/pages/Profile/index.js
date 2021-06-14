@@ -146,9 +146,6 @@ const styles = StyleSheet.create({
   editButton: {
     marginLeft: 'auto',
   },
-  profile: {
-    marginRight: 10,
-  },
   profilePhoto: {
     width: 150,
     height: 120,

@@ -14,66 +14,6 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import {height, shadow, width} from '../../helper/DEFINED';
 import {getFromAsyncStorage} from '../../helper/Storage';
 
-const styles = StyleSheet.create({
-  sectionOne: {
-    backgroundColor: '#242A61',
-    padding: 30,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  sectionOneContentHello: {
-    fontSize: 17,
-    fontWeight: 'bold',
-    color: '#F0F2F5',
-  },
-  sectionOneContentName: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-  },
-  profile: {
-    width: 60,
-    height: 60,
-    marginRight: 10,
-  },
-  sectionTwo: {
-    height: height * 0.8,
-    padding: 30,
-    borderTopRightRadius: 30,
-    borderTopLeftRadius: 30,
-    backgroundColor: 'white',
-    display: 'flex',
-  },
-  wrapper: {
-    marginBottom: 22,
-  },
-  menu: {
-    height: 50,
-    borderRadius: 15,
-    ...shadow,
-  },
-  menuContent: {
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-    flex: 1,
-  },
-  menuIcon: {
-    // paddingHorizontal: 5,
-    // marginHorizontal: 60,
-    marginLeft: 90,
-    marginRight: 20,
-    // marginVertical: 5,
-  },
-  menuText: {
-    alignItems: 'center',
-    fontSize: 19,
-    fontWeight: '700',
-    flex: 1,profile
-    // marginVertical: 5,
-    // paddingHorizontal: 10,
-  },
-});
 
 export default function Home(props) {
   const navigation = props.navigation;
@@ -233,3 +173,64 @@ export default function Home(props) {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  sectionOne: {
+    backgroundColor: '#242A61',
+    padding: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  sectionOneContentHello: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: '#F0F2F5',
+  },
+  sectionOneContentName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
+  profile: {
+    width: 60,
+    height: 60,
+    marginRight: 10,
+  },
+  sectionTwo: {
+    height: height * 0.8,
+    padding: 30,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    backgroundColor: 'white',
+    display: 'flex',
+  },
+  wrapper: {
+    marginBottom: 22,
+  },
+  menu: {
+    height: 50,
+    borderRadius: 15,
+    ...shadow,
+  },
+  menuContent: {
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    flex: 1,
+  },
+  menuIcon: {
+    // paddingHorizontal: 5,
+    // marginHorizontal: 60,
+    marginLeft: 90,
+    marginRight: 20,
+    // marginVertical: 5,
+  },
+  menuText: {
+    alignItems: 'center',
+    fontSize: 19,
+    fontWeight: '700',
+    flex: 1,
+    // marginVertical: 5,
+    // paddingHorizontal: 10,
+  },
+});
