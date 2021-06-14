@@ -1,15 +1,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  Image, ScrollView,
+  Image,
+  SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { shadowButton } from '../../helper/DEFINED';
-import { httpGet, httpPost } from '../../helper/http';
+import {shadowButton, height} from '../../helper/DEFINED';
+import {httpGet, httpPost} from '../../helper/http';
 
 export default function Profile({navigation}) {
   const [user, setUser] = useState();
@@ -50,17 +52,20 @@ export default function Profile({navigation}) {
         <View>
           <Text style={styles.sectionOneContentTitle}>Profile</Text>
         </View>
-        
       </View>
       <View style={{backgroundColor: '#242A61'}}>
-      <Image
+        <Image
           style={styles.profilePhoto}
           source={require('../../assets/images/kemendikbud.png')}
-          />
+        />
       </View>
       {user && (
-        <ScrollView style={{backgroundColor: '#242A61'}}>
-          <View style={styles.sectionTwo}>
+        <SafeAreaView
+          style={{
+            backgroundColor: '#242A61',
+            display: 'flex',
+          }}>
+          <ScrollView style={styles.sectionTwo}>
             <View>
               <Text style={styles.listItemContentName}>Account Info</Text>
 
@@ -121,8 +126,9 @@ export default function Profile({navigation}) {
             <TouchableOpacity onPress={onLogoutClick} style={styles.button}>
               <Text style={styles.buttonText}>LOGOUT</Text>
             </TouchableOpacity>
-          </View>
-        </ScrollView>
+            <View style={{padding: 120}}></View>
+          </ScrollView>
+        </SafeAreaView>
       )}
     </>
   );
@@ -157,6 +163,7 @@ const styles = StyleSheet.create({
   sectionTwo: {
     // height: height,
     // flex: 1,
+    height: height * 0.9,
     padding: 30,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
