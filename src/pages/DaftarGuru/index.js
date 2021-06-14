@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Image,
@@ -6,15 +6,16 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { height } from '../../helper/DEFINED';
-import { httpGet } from '../../helper/http';
+import {height} from '../../helper/DEFINED';
+import {httpGet} from '../../helper/http';
 
 export default function DaftarGuru(props) {
   const navigation = props.navigation;
   const [users, setUsers] = useState();
+  const [screenHeight, setScreenHeight] = useState(0);
   const renderItem = ({item, index}) => {
     return (
       <View key={`daftarGuru-${item.id}-${index}`}>
@@ -36,6 +37,12 @@ export default function DaftarGuru(props) {
       </View>
     );
   };
+
+  const onContentSizeChange = (contentWidth, contentHeight) => {
+    // Save the content height in state
+    setScreenHeight(contentHeight);
+  };
+  const scrollEnabled = screenHeight > height;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,7 +69,10 @@ export default function DaftarGuru(props) {
           <Text style={styles.sectionOneContentTitle}>Daftar Guru</Text>
         </View>
       </View>
-      <ScrollView style={{backgroundColor: '#242A61', height: height * 0.85}}>
+      <ScrollView
+        style={{backgroundColor: '#242A61', height: height * 0.85}}
+        scrollEnabled={scrollEnabled}
+        onContentSizeChange={onContentSizeChange}>
         <View style={styles.sectionTwo}>
           {users == null ? (
             <View style={[styles.loading]}>

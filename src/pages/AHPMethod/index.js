@@ -161,9 +161,6 @@ const styles = StyleSheet.create({
   backButton: {
     marginRight: 10,
   },
-  profile: {
-    marginRight: 10,
-  },
   sectionTwo: {
     height: height * 0.9,
     padding: 30,
