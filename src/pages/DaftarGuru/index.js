@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { height } from '../../helper/DEFINED';
-import { httpGet } from '../../helper/http';
+import {height} from '../../helper/DEFINED';
+import {httpGet} from '../../helper/http';
 
 export default function DaftarGuru(props) {
   const navigation = props.navigation;
@@ -21,11 +21,9 @@ export default function DaftarGuru(props) {
         <TouchableOpacity
           onPress={() => navigation.navigate('DetailGuru', {data: item})}>
           <View style={styles.listItem}>
-            <IonIcons
-              name="person-circle"
-              size={50}
-              color="#C9CACE"
-              style={styles.profile}
+            <Image
+              style={styles.profilePhoto}
+              source={require('../../assets/images/kemendikbud.png')}
             />
             <View>
               <Text style={styles.listItemContentName}>{item.nama}</Text>
@@ -81,7 +79,7 @@ export default function DaftarGuru(props) {
           ) : (
             users.map((item, index) => renderItem({item, index}))
           )}
-           {/* {users.map((item, index) => renderItem({item, index}))} */}
+          {/* {users.map((item, index) => renderItem({item, index}))} */}
         </View>
       </ScrollView>
     </>
@@ -103,7 +101,9 @@ const styles = StyleSheet.create({
   backButton: {
     marginRight: 10,
   },
-  profile: {
+  profilePhoto: {
+    width: 50,
+    height: 40,
     marginRight: 10,
   },
   sectionTwo: {

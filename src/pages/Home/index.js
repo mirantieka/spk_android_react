@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  Image,
 } from 'react-native';
 import FontAwesome5Icons from 'react-native-vector-icons/FontAwesome5';
 import IonIcons from 'react-native-vector-icons/Ionicons';
@@ -82,11 +83,9 @@ export default function Home(props) {
   return (
     <>
       <View style={styles.sectionOne}>
-        <IonIcons
-          name="person-circle"
-          size={60}
-          color="#F0F2F5"
+        <Image
           style={styles.profile}
+          source={require('../../assets/images/kemendikbud.png')}
         />
         <View>
           <Text style={styles.sectionOneContentHello}>Hello,</Text>
@@ -124,7 +123,7 @@ export default function Home(props) {
               style={[styles.menu, {backgroundColor: '#E4E9FF'}]}>
               <View style={styles.menuContent}>
                 <FontAwesome5Icons
-                  name="book"
+                  name="puzzle-piece"
                   size={27}
                   color="#11CBBF"
                   style={styles.menuIcon}
@@ -166,7 +165,7 @@ export default function Home(props) {
               style={[styles.menu, {backgroundColor: '#D9D2FF'}]}>
               <View style={styles.menuContent}>
                 <MaterialIcons
-                  name="assignment"
+                  name="assignment-turned-in"
                   size={30}
                   color="#3330EE"
                   style={styles.menuIcon}

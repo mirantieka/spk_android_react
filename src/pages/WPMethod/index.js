@@ -11,13 +11,15 @@ import {
 import { DocumentDirectoryPath, writeFile } from 'react-native-fs';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {height, shadow, width} from '../../helper/DEFINED';
+import {httpGet} from '../../helper/http';
+import {writeFile, DownloadDirectoryPath} from 'react-native-fs';
 import XLSX from 'xlsx';
 import { height, shadow, width } from '../../helper/DEFINED';
 import { httpGet } from '../../helper/http';
 
 export default function index(props) {
   const navigation = props.navigation;
-  const DDP = DocumentDirectoryPath + '/';
   const input = res => res;
   const output = str => str;
   const [WPs, setWPs] = useState();
@@ -62,15 +64,17 @@ export default function index(props) {
       try {
         const fetchedWP = await httpGet('wp');
         setWPs(fetchedWP);
-        console.log(fetchedWP);
       } catch (error) {}
     };
     fetchData();
   }, []);
 
   const exportFile = () => {
-    /* convert AOA back to worksheet */
-    const ws = XLSX.utils.json_to_sheet(WPs);
+    const data = WPs.map(w => {
+      return {...w, user: w.user.nama};
+    });
+    /* convert JSON back to worksheet */
+    const ws = XLSX.utils.json_to_sheet(data);
 
     /* build new workbook */
     const wb = XLSX.utils.book_new();
@@ -78,9 +82,9 @@ export default function index(props) {
 
     /* write file */
     const wbout = XLSX.write(wb, {type: 'binary', bookType: 'xlsx'});
+    const DDP = DownloadDirectoryPath + '/';
     const file = DDP + 'WPMethod.xlsx';
-    console.log(file);
-    writeFile(file, output(wbout), 'ascii')
+    writeFile(file, wbout, 'ascii')
       .then(res => {
         Alert.alert('exportFile success', 'Exported to ' + file);
       })
@@ -162,7 +166,6 @@ export default function index(props) {
               )}
             </View>
           </View>
-
           {/* <View style={styles.wrapper}>
             <TouchableOpacity
               onPress={() => navigation.navigate('PerankinganWP')}

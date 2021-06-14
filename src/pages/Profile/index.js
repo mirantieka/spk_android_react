@@ -52,23 +52,13 @@ export default function Profile({navigation}) {
         <View>
           <Text style={styles.sectionOneContentTitle}>Profile</Text>
         </View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('EditProfile')}
-          style={styles.editButton}>
-          <MaterialComunityIcons
-            name="account-edit"
-            size={35}
-            color="#FDB242"
-          />
-        </TouchableOpacity>
+        
       </View>
       <View style={{backgroundColor: '#242A61'}}>
-        <IonIcons
-          name="person-circle"
-          size={140}
-          color="#C9CACE"
+      <Image
           style={styles.profilePhoto}
-        />
+          source={require('../../assets/images/kemendikbud.png')}
+          />
       </View>
       {user && (
         <ScrollView style={{backgroundColor: '#242A61'}}>
@@ -162,6 +152,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   profilePhoto: {
+    width: 150,
+    height: 120,
     marginTop: 10,
     marginBottom: 20,
     alignItems: 'center',
