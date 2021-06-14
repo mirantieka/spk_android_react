@@ -31,7 +31,7 @@ export default function DaftarNilai(props) {
               <View style={styles.listItemWrapper}>
                 {Object.entries(item.nilai).map(val => (
                   <View style={styles.listItemRow}>
-                    <Text style={styles.listItemContentMapel}>{val[0]}:</Text>
+                    <Text style={styles.listItemContentMapel}>{val[0]} : </Text>
                     <Text style={styles.listItemContentMapel}>{val[1]}</Text>
                   </View>
                 ))}
