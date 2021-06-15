@@ -82,7 +82,7 @@ export default function EditProfile(props) {
                   <TextInput
                     style={styles.listItemContentValue}
                     editable={false}>
-                    {user.nip}
+                    {user.nip} 
                   </TextInput>
                 </View>
               </View>
@@ -104,7 +104,7 @@ export default function EditProfile(props) {
                     </Text>
                     <TextInput
                       style={styles.listItemContentValue}
-                      onChangeText={() => setUsername()}
+                      onChangeText={text => setUsernametext}
                       defaultValue={user.username}
                     />
                   </View>
@@ -117,9 +117,9 @@ export default function EditProfile(props) {
                     </Text>
                     <TextInput
                       style={styles.listItemContentValue}
-                      onChangeText={() => setGender()}
+                      onChangeText={text => setGender(text)}
                       defaultValue={user.jenis_kelamin}
-                    />
+                    ></TextInput>
                   </View>
                 </View>
 
@@ -128,7 +128,7 @@ export default function EditProfile(props) {
                     <Text style={styles.listItemContentAttribute}>Jabatan</Text>
                     <TextInput
                       style={styles.listItemContentValue}
-                      onChangeText={() => setJabatan()}
+                      onChangeText={text => setJabatan(text)}
                       defaultValue={user.jabatan}
                     />
                   </View>
@@ -138,7 +138,7 @@ export default function EditProfile(props) {
                     <Text style={styles.listItemContentAttribute}>Jurusan</Text>
                     <TextInput
                       style={styles.listItemContentValue}
-                      onChangeText={() => setJurusan()}
+                      onChangeText={text => setJurusan(text)}
                       defaultValue={user.jurusan}
                     />
                   </View>
