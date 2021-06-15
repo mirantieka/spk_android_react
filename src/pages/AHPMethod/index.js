@@ -150,7 +150,7 @@ export default function AHPMethod(props) {
               <Text>No Data Available</Text>
             </View>
           ) : (
-            AHPs.map((item, index) => renderItem({item, index}))
+            AHPs.sort((a, b) => a.rank - b.rank).map((item, index) => renderItem({item, index}))
           )}
           <View style={{padding: 70}}></View>
         </ScrollView>

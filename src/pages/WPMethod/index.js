@@ -168,7 +168,7 @@ export default function index(props) {
               <Text>No Data Available</Text>
             </View>
           ) : (
-            WPs.map((item, index) => renderItem({item, index}))
+            WPs.sort((a, b) => a.rank - b.rank).map((item, index) => renderItem({item, index}))
           )}
           <View style={{padding: 70}}></View>
         </ScrollView>
