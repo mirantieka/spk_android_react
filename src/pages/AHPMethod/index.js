@@ -19,6 +19,7 @@ import {httpGet} from '../../helper/http';
 export default function AHPMethod(props) {
   const navigation = props.navigation;
   const [AHPs, setAHPs] = useState();
+  const [jabatan, setJabatan] = useState('-');
   const renderItem = ({item, index}) => {
     return (
       <View key={`daftarAHP-${item.id}-${index}`}>
@@ -74,6 +75,14 @@ export default function AHPMethod(props) {
     fetchData();
   }, []);
 
+  useEffect(async () => {
+    const user = await getFromAsyncStorage('user');
+    const jabatan = JSON.parse(user).jabatan;
+    setJabatan(jabatan);
+  }, []);
+  
+  console.log('jataban dari wp', jabatan);
+
   return (
     <>
       <View style={styles.sectionOne}>
@@ -95,32 +104,37 @@ export default function AHPMethod(props) {
           display: 'flex',
         }}>
         <View style={styles.wrapper}>
-          <TouchableOpacity
-            onPress={generateAhp}
-            style={[
-              styles.menu,
-              {
-                backgroundColor: '#FFD2F8',
-              },
-            ]}>
-            <View style={styles.menuContent}>
-              <IonIcons name="settings" size={25} color="#AC20DD" />
-              <Text style={[styles.menuText, {color: '#AC20DD'}]}>Hitung</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={exportFile}
-            style={[
-              styles.menu,
-              {
-                backgroundColor: '#FFD2F8',
-              },
-            ]}>
-            <View style={styles.menuContent}>
-              <IonIcons name="download" size={25} color="#AC20DD" />
-              <Text style={[styles.menuText, {color: '#AC20DD'}]}>Cetak</Text>
-            </View>
-          </TouchableOpacity>
+          {jabatan === 'Tim_PKG' ? (
+            <TouchableOpacity
+              onPress={generateAhp}
+              style={[
+                styles.menu,
+                {
+                  backgroundColor: '#FFD2F8',
+                },
+              ]}>
+              <View style={styles.menuContent}>
+                <IonIcons name="settings" size={25} color="#AC20DD" />
+                <Text style={[styles.menuText, {color: '#AC20DD'}]}>
+                  Hitung
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={exportFile}
+              style={[
+                styles.menu,
+                {
+                  backgroundColor: '#FFD2F8',
+                },
+              ]}>
+              <View style={styles.menuContent}>
+                <IonIcons name="download" size={25} color="#AC20DD" />
+                <Text style={[styles.menuText, {color: '#AC20DD'}]}>Cetak</Text>
+              </View>
+            </TouchableOpacity>
+          )}
         </View>
         <ScrollView style={styles.sectionTwo}>
           {AHPs == null ? (
@@ -132,7 +146,7 @@ export default function AHPMethod(props) {
               />
             </View>
           ) : AHPs.length == 0 ? (
-            <View style={{ alignItems: 'center'}}>
+            <View style={{alignItems: 'center'}}>
               <Text>No Data Available</Text>
             </View>
           ) : (
@@ -155,7 +169,7 @@ const styles = StyleSheet.create({
   sectionOneContentTitle: {
     fontSize: 23,
     color: '#F0F2F5',
-    fontFamily: 'Quicksand-Bold'
+    fontFamily: 'Quicksand-Bold',
   },
   backButton: {
     marginRight: 10,
@@ -218,7 +232,7 @@ const styles = StyleSheet.create({
     fontSize: 19,
     marginVertical: 5,
     paddingHorizontal: 10,
-    fontFamily: 'Quicksand-Bold'
+    fontFamily: 'Quicksand-Bold',
     // fontSize: 17,
     // fontWeight: '700',
     // marginTop: 17,
@@ -226,11 +240,11 @@ const styles = StyleSheet.create({
   listItemContentName: {
     fontSize: 17,
     color: '#242A61',
-    fontFamily: 'Quicksand-SemiBold'
+    fontFamily: 'Quicksand-SemiBold',
   },
   listItemContentMapel: {
     fontSize: 14,
     color: '#3330EE',
-    fontFamily: 'Quicksand-Medium'
+    fontFamily: 'Quicksand-Medium',
   },
 });
