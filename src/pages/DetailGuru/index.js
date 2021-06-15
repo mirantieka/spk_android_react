@@ -9,25 +9,11 @@ import {
 } from 'react-native';
 import {height, shadow, width} from '../../helper/DEFINED';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import IonIcons from 'react-native-vector-icons/Ionicons';
-import {get} from '../../helper/http';
+import {httpGet} from '../../helper/http';
 import {useEffect} from 'react/cjs/react.development';
-import kemendikbud from '../../assets/images/kemendikbud.png'
+import kemendikbud from '../../assets/images/kemendikbud.png';
 
-const data = [
-  {
-    id: 1,
-    attribut: 'Mata Pelajaran:',
-    value: 'Bahasa Indonesia',
-  },
-  {
-    id: 2,
-    attribut: 'Masa Jabatan:',
-    value: '5 tahun',
-  },
-];
-
-export default function index(props) {
+export default function DetailGuru(props) {
   const navigation = props.navigation;
   const [user, setUser] = React.useState(navigation.state.params.data || {});
   const renderItem = ({item, index}) => {
@@ -59,10 +45,10 @@ export default function index(props) {
         </View>
       </View>
       <View style={{backgroundColor: '#242A61'}}>
-      <Image
+        <Image
           style={styles.profilePhoto}
           source={require('../../assets/images/kemendikbud.png')}
-          />
+        />
       </View>
       <ScrollView style={{backgroundColor: '#242A61', height: height * 0.5}}>
         <View style={styles.sectionTwo}>
@@ -71,9 +57,7 @@ export default function index(props) {
             <View>
               <View style={styles.listItem}>
                 <View>
-                  <Text style={styles.listItemContentAttribute}>
-                    NIP
-                  </Text>
+                  <Text style={styles.listItemContentAttribute}>NIP</Text>
                   <Text style={styles.listItemContentValue}>{user.nip}</Text>
                 </View>
               </View>
@@ -83,16 +67,18 @@ export default function index(props) {
                   <Text style={styles.listItemContentAttribute}>
                     Jenis Kelamin
                   </Text>
-                  <Text style={styles.listItemContentValue}>{user.jenis_kelamin}</Text>
+                  <Text style={styles.listItemContentValue}>
+                    {user.jenis_kelamin}
+                  </Text>
                 </View>
               </View>
 
               <View style={styles.listItem}>
                 <View>
-                  <Text style={styles.listItemContentAttribute}>
-                    Jurusan
+                  <Text style={styles.listItemContentAttribute}>Jurusan</Text>
+                  <Text style={styles.listItemContentValue}>
+                    {user.jurusan}
                   </Text>
-                  <Text style={styles.listItemContentValue}>{user.jurusan}</Text>
                 </View>
               </View>
             </View>

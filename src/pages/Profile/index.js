@@ -52,6 +52,15 @@ export default function Profile({navigation}) {
         <View>
           <Text style={styles.sectionOneContentTitle}>Profile</Text>
         </View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('EditProfile')}
+          style={styles.editButton}>
+          <MaterialComunityIcons
+            name="account-edit"
+            size={35}
+            color="#FDB242"
+          />
+        </TouchableOpacity>
       </View>
       <View style={{backgroundColor: '#242A61'}}>
         <Image

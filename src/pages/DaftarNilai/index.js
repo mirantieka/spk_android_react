@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  ActivityIndicator, SafeAreaView, ScrollView,
-  StyleSheet, Text,
+  ActivityIndicator,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { height } from '../../helper/DEFINED';
-import { httpGet } from '../../helper/http';
+import {height} from '../../helper/DEFINED';
+import {httpGet} from '../../helper/http';
 
 export default function DaftarNilai(props) {
   const navigation = props.navigation;
@@ -16,28 +19,25 @@ export default function DaftarNilai(props) {
   const renderItem = ({item, index}) => {
     return (
       <View key={`daftarNilai-${item.id}-${index}`}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('DetailNilai', {data: item})}>
-          <View style={styles.listItem}>
-            <IonIcons
-              name="person-circle"
-              size={50}
-              color="#C9CACE"
-              style={styles.profile}
-            />
-            <View>
-              <Text style={styles.listItemContentName}>{item?.user?.nama}</Text>
-              <View style={styles.listItemWrapper}>
-                {Object.entries(item.nilai).map(val => (
-                  <View style={styles.listItemRow}>
-                    <Text style={styles.listItemContentMapel}>{val[0]} : </Text>
-                    <Text style={styles.listItemContentMapel}>{val[1]}</Text>
-                  </View>
-                ))}
-              </View>
+        <View style={styles.listItem}>
+          <IonIcons
+            name="person-circle"
+            size={50}
+            color="#C9CACE"
+            style={styles.profile}
+          />
+          <View>
+            <Text style={styles.listItemContentName}>{item?.user?.nama}</Text>
+            <View style={styles.listItemWrapper}>
+              {Object.entries(item.nilai).map(val => (
+                <View style={styles.listItemRow}>
+                  <Text style={styles.listItemContentMapel}>{val[0]} : </Text>
+                  <Text style={styles.listItemContentMapel}>{val[1]}</Text>
+                </View>
+              ))}
             </View>
           </View>
-        </TouchableOpacity>
+        </View>
       </View>
     );
   };
