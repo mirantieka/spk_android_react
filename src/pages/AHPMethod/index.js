@@ -132,7 +132,7 @@ export default function AHPMethod(props) {
               />
             </View>
           ) : AHPs.length == 0 ? (
-            <View>
+            <View style={{ alignItems: 'center'}}>
               <Text>No Data Available</Text>
             </View>
           ) : (

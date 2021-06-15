@@ -82,6 +82,10 @@ export default function DaftarNilai(props) {
                 color="#0000ff"
               />
             </View>
+          ) : penilaian.length == 0 ? (
+            <View style={{ alignItems: 'center'}}>
+              <Text>No Data Available</Text>
+            </View>
           ) : (
             penilaian.map((item, index) => renderItem({item, index}))
           )}

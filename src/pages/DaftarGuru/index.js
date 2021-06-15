@@ -78,7 +78,7 @@ export default function DaftarGuru(props) {
               />
             </View>
           ) : users.length == 0 ? (
-            <View>
+            <View style={{ alignItems: 'center'}}>
               <Text>No Data Available</Text>
             </View>
           ) : (
@@ -100,8 +100,8 @@ const styles = StyleSheet.create({
   },
   sectionOneContentTitle: {
     fontSize: 23,
-    fontWeight: 'bold',
     color: '#F0F2F5',
+    fontFamily: 'Quicksand-Bold'
   },
   backButton: {
     marginRight: 10,
@@ -135,11 +135,11 @@ const styles = StyleSheet.create({
   listItemContentName: {
     fontSize: 17,
     color: '#242A61',
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-SemiBold'
   },
   listItemContentMapel: {
     fontSize: 14,
     color: '#3330EE',
-    fontWeight: 'normal',
+    fontFamily: 'Quicksand-Medium'
   },
 });

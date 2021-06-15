@@ -23,8 +23,6 @@ export default function Home(props) {
     setJabatan(jabatan);
   }, []);
 
-  console.log(jabatan);
-
   return (
     <>
       <View style={styles.sectionOne}>
@@ -194,13 +192,13 @@ const styles = StyleSheet.create({
   },
   sectionOneContentHello: {
     fontSize: 17,
-    fontWeight: 'bold',
     color: '#F0F2F5',
+    fontFamily: 'Quicksand-Medium'
   },
   sectionOneContentName: {
     fontSize: 20,
-    fontWeight: 'bold',
     color: '#FFFFFF',
+    fontFamily: 'Quicksand-SemiBold'
   },
   profile: {
     width: 60,
@@ -239,6 +237,7 @@ const styles = StyleSheet.create({
   menuText: {
     alignItems: 'center',
     fontSize: 19,
-    fontWeight: '700',
+    // fontWeight: '700',
+    fontFamily: 'Quicksand-SemiBold'
   },
 });

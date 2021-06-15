@@ -114,7 +114,7 @@ export default function DaftarKriteria(props) {
               />
             </View>
           ) : kriteria.length == 0 ? (
-            <View>
+            <View style={{ alignItems: 'center'}}>
               <Text>No Data Available</Text>
             </View>
           ) : (
@@ -153,8 +153,8 @@ const styles = StyleSheet.create({
   },
   sectionOneContentTitle: {
     fontSize: 23,
-    fontWeight: 'bold',
     color: '#F0F2F5',
+    fontFamily: 'Quicksand-Bold'
   },
   backButton: {
     marginRight: 10,
@@ -190,9 +190,9 @@ const styles = StyleSheet.create({
     padding: 3,
     marginStart: 0,
     alignSelf: 'center',
-    fontSize: 17,
+    fontSize: 18,
     color: '#fff',
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold'
   },
   listItemContentAttribute: {
     padding: 3,
@@ -200,8 +200,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 14,
     color: 'black',
-    fontWeight: 'normal',
     marginBottom: 5,
+    fontFamily: 'Quicksand-Medium'
   },
   listItemContentValue: {
     padding: 3,
@@ -227,8 +227,8 @@ const styles = StyleSheet.create({
   buttonText: {
     alignSelf: 'center',
     marginTop: 13,
-    fontWeight: 'bold',
     fontSize: 15,
     color: '#11CBBF',
+    fontFamily: 'Quicksand-Medium'
   },
 });
