@@ -154,8 +154,8 @@ const styles = StyleSheet.create({
   },
   sectionOneContentTitle: {
     fontSize: 23,
-    fontWeight: 'bold',
     color: '#F0F2F5',
+    fontFamily: 'Quicksand-Bold'
   },
   backButton: {
     marginRight: 10,
@@ -216,9 +216,9 @@ const styles = StyleSheet.create({
   menuText: {
     alignItems: 'center',
     fontSize: 19,
-    fontWeight: '700',
     marginVertical: 5,
     paddingHorizontal: 10,
+    fontFamily: 'Quicksand-Bold'
     // fontSize: 17,
     // fontWeight: '700',
     // marginTop: 17,
@@ -226,11 +226,11 @@ const styles = StyleSheet.create({
   listItemContentName: {
     fontSize: 17,
     color: '#242A61',
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-SemiBold'
   },
   listItemContentMapel: {
     fontSize: 14,
     color: '#3330EE',
-    fontWeight: 'normal',
+    fontFamily: 'Quicksand-Medium'
   },
 });
