@@ -41,7 +41,7 @@ export default function DaftarGuru(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fetchedUsers = await httpGet('users');
+        const fetchedUsers = await httpGet('users/guru');
         setUsers(fetchedUsers);
       } catch (error) {}
     };
