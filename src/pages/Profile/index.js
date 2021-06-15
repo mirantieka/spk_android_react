@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   listItemContentValue: {
     fontSize: 17,
     color: '#3330EE',
-    fontFamily: 'Quicksand-Medium',
+    fontFamily: 'Quicksand-Bold',
   },
   button: {
     height: 50,

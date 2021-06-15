@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   ScrollView,
@@ -6,12 +6,11 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {shadowButton} from '../../helper/DEFINED';
-import {httpGet, httpPut} from '../../helper/http';
+import { shadowButton } from '../../helper/DEFINED';
+import { httpGet, httpPut } from '../../helper/http';
 
 export default function EditProfile(props) {
   const navigation = props.navigation;
@@ -203,7 +202,7 @@ const styles = StyleSheet.create({
   },
   sectionOneContentTitle: {
     fontSize: 23,
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold',
     color: '#F0F2F5',
   },
   backButton: {
@@ -238,20 +237,20 @@ const styles = StyleSheet.create({
   listItemContentName: {
     fontSize: 20,
     color: '#242A61',
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold',
     marginBottom: 5,
     alignSelf: 'center',
   },
   listItemContentAttribute: {
     fontSize: 15,
     color: '#242A61',
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold',
     marginTop: 20,
   },
   listItemContentValue: {
     fontSize: 17,
     color: '#3330EE',
-    fontWeight: 'normal',
+    fontFamily: 'Quicksand-Medium',
     marginTop: -5,
   },
   button: {
@@ -266,8 +265,8 @@ const styles = StyleSheet.create({
   buttonText: {
     alignSelf: 'center',
     // marginTop: 13,
-    fontWeight: 'bold',
-    fontSize: 17,
+    fontFamily: 'Quicksand-Bold',
+    fontSize: 19,
     color: 'white',
   },
   profilePhoto: {
