@@ -104,7 +104,7 @@ export default function AHPMethod(props) {
           display: 'flex',
         }}>
         <View style={styles.wrapper}>
-          {jabatan === 'Tim_PKG' ? (
+          {jabatan === 'Tim PKG' ? (
             <TouchableOpacity
               onPress={generateAhp}
               style={[

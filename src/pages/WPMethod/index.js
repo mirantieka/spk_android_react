@@ -122,7 +122,7 @@ export default function index(props) {
           display: 'flex',
         }}>
         <View style={styles.wrapper}>
-          {jabatan === 'Tim_PKG' ? (
+          {jabatan === 'Tim PKG' ? (
             <TouchableOpacity
               onPress={generateWp}
               style={[
@@ -164,7 +164,7 @@ export default function index(props) {
               />
             </View>
           ) : WPs.length == 0 ? (
-            <View style={{ alignItems: 'center'}}>
+            <View style={{alignItems: 'center'}}>
               <Text>No Data Available</Text>
             </View>
           ) : (
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
   sectionOneContentTitle: {
     fontSize: 23,
     color: '#F0F2F5',
-    fontFamily: 'Quicksand-Bold'
+    fontFamily: 'Quicksand-Bold',
   },
   backButton: {
     marginRight: 10,
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     fontSize: 19,
     marginVertical: 5,
     paddingHorizontal: 10,
-    fontFamily: 'Quicksand-Bold'
+    fontFamily: 'Quicksand-Bold',
     // fontSize: 17,
     // fontWeight: '700',
     // marginTop: 17,
@@ -258,11 +258,11 @@ const styles = StyleSheet.create({
   listItemContentName: {
     fontSize: 17,
     color: '#242A61',
-    fontFamily: 'Quicksand-SemiBold'
+    fontFamily: 'Quicksand-SemiBold',
   },
   listItemContentMapel: {
     fontSize: 14,
     color: '#3330EE',
-    fontFamily: 'Quicksand-Medium'
+    fontFamily: 'Quicksand-Medium',
   },
 });

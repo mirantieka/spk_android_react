@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     fontSize: 23,
     color: '#F0F2F5',
     fontFamily: 'Quicksand-Bold'
-  },
+  },  
   backButton: {
     marginRight: 10,
   },
