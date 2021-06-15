@@ -117,8 +117,8 @@ const styles = StyleSheet.create({
   },
   sectionOneContentTitle: {
     fontSize: 23,
-    fontWeight: 'bold',
     color: '#F0F2F5',
+    fontFamily: 'Quicksand-Bold',
   },
   backButton: {
     marginRight: 10,
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     marginEnd: -5,
     color: '#242A61',
     fontSize: 17,
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-SemiBold',
     // borderTopLeftRadius: 30,
     // borderTopRightRadius: 30,
     padding: 10,
@@ -155,6 +155,6 @@ const styles = StyleSheet.create({
     padding: 3,
     fontSize: 14,
     color: '#3330EE',
-    fontWeight: 'normal',
+    fontFamily: 'Quicksand-Medium',
   },
 });
