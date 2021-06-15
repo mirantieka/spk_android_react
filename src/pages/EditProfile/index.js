@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+  Image,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { shadowButton } from '../../helper/DEFINED';
-import { httpGet, httpPut } from '../../helper/http';
+import {shadowButton} from '../../helper/DEFINED';
+import {httpGet, httpPut} from '../../helper/http';
 
 export default function EditProfile(props) {
   const navigation = props.navigation;
@@ -66,11 +67,9 @@ export default function EditProfile(props) {
         </View>
       </View>
       <View style={{backgroundColor: '#242A61'}}>
-        <IonIcons
-          name="person-circle"
-          size={140}
-          color="#C9CACE"
+        <Image
           style={styles.profilePhoto}
+          source={require('../../assets/images/kemendikbud.png')}
         />
       </View>
       {user && (
@@ -270,5 +269,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 17,
     color: 'white',
+  },
+  profilePhoto: {
+    width: 150,
+    height: 120,
+    marginTop: 10,
+    marginBottom: 20,
+    alignItems: 'center',
+    alignSelf: 'center',
   },
 });

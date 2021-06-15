@@ -55,8 +55,8 @@ export default function Profile({navigation}) {
         <TouchableOpacity
           onPress={() => navigation.navigate('EditProfile')}
           style={styles.editButton}>
-          <MaterialComunityIcons
-            name="account-edit"
+          <MaterialIcons
+            name="edit"
             size={35}
             color="#FDB242"
           />
