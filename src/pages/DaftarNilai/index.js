@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   ActivityIndicator, SafeAreaView, ScrollView,
   StyleSheet, Text,
@@ -13,7 +13,6 @@ import { httpGet } from '../../helper/http';
 export default function DaftarNilai(props) {
   const navigation = props.navigation;
   const [penilaian, setPenilaian] = React.useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const renderItem = ({item, index}) => {
     return (
       <View key={`daftarNilai-${item.id}-${index}`}>
@@ -114,8 +113,8 @@ const styles = StyleSheet.create({
   },
   sectionOneContentTitle: {
     fontSize: 23,
-    fontWeight: 'bold',
     color: '#F0F2F5',
+    fontFamily: 'Quicksand-Bold',
   },
   backButton: {
     marginRight: 10,
@@ -143,7 +142,7 @@ const styles = StyleSheet.create({
   listItemContentName: {
     fontSize: 17,
     color: '#242A61',
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-SemiBold',
   },
   listItemWrapper: {
     display: 'flex',
@@ -155,6 +154,6 @@ const styles = StyleSheet.create({
   listItemContentMapel: {
     fontSize: 14,
     color: '#3330EE',
-    fontWeight: 'normal',
+    fontFamily: 'Quicksand-Medium',
   },
 });
