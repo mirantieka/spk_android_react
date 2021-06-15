@@ -35,7 +35,7 @@ export default function EditProfile(props) {
     try {
       await httpPut(`user/update/${user.id}`, body);
       alert('Data berhasil diubah!');
-      navigation.navigate('Home');
+      navigation.navigate('Profile');
     } catch (error) {
       console.error(error);
       alert('Data gagal diubah!');
@@ -166,7 +166,7 @@ export default function EditProfile(props) {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate('Profile')}
                 style={[styles.button, {backgroundColor: '#DCE9E3'}]}>
                 <View
                   style={{
