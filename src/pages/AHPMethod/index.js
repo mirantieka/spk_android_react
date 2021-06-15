@@ -15,6 +15,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import XLSX from 'xlsx';
 import {height, shadow, width} from '../../helper/DEFINED';
 import {httpGet} from '../../helper/http';
+import { getFromAsyncStorage } from '../../helper/Storage';
 
 export default function AHPMethod(props) {
   const navigation = props.navigation;
