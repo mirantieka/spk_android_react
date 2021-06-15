@@ -119,7 +119,7 @@ export default function EditProfile(props) {
                       style={styles.listItemContentValue}
                       onChangeText={text => setGender(text)}
                       defaultValue={user.jenis_kelamin}
-                    ></TextInput>
+                    />
                   </View>
                 </View>
 

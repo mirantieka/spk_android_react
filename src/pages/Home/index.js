@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  Image, ScrollView,
+  Image,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { height, shadow, width } from '../../helper/DEFINED';
-import { getFromAsyncStorage } from '../../helper/Storage';
+import {height, shadow, width} from '../../helper/DEFINED';
+import {getFromAsyncStorage} from '../../helper/Storage';
 
 export default function Home(props) {
   const navigation = props.navigation;
@@ -42,68 +43,76 @@ export default function Home(props) {
           display: 'flex',
         }}>
         <View style={styles.sectionTwo}>
-          <View style={styles.wrapper}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('DaftarGuru')}
-              style={[
-                styles.menu,
-                {
-                  backgroundColor: '#FFD2F8',
-                },
-              ]}>
-              <View style={styles.menuContent}>
-                <View style={styles.iconWrapper}>
-                  <MaterialIcons
-                    name="people"
-                    size={35}
-                    color="#AC20DD"
-                    style={styles.menuIcon}
-                  />
+        {jabatan === 'Tim PKG' ? (
+          <View>
+            <View style={styles.wrapper}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('DaftarGuru')}
+                style={[
+                  styles.menu,
+                  {
+                    backgroundColor: '#FFD2F8',
+                  },
+                ]}>
+                <View style={styles.menuContent}>
+                  <View style={styles.iconWrapper}>
+                    <MaterialIcons
+                      name="people"
+                      size={35}
+                      color="#AC20DD"
+                      style={styles.menuIcon}
+                    />
+                  </View>
+                  <Text style={[styles.menuText, {color: '#AC20DD'}]}>
+                    Daftar Guru
+                  </Text>
                 </View>
-                <Text style={[styles.menuText, {color: '#AC20DD'}]}>
-                  Daftar Guru
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.wrapper}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('KriteriaStacks')}
-              style={[styles.menu, {backgroundColor: '#E4E9FF'}]}>
-              <View style={styles.menuContent}>
-                <View style={styles.iconWrapper}>
-                  <MaterialIcons
-                    name="extension"
-                    size={35}
-                    color="#11CBBF"
-                    style={styles.menuIcon}
-                  />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.wrapper}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('KriteriaStacks')}
+                style={[styles.menu, {backgroundColor: '#E4E9FF'}]}>
+                <View style={styles.menuContent}>
+                  <View style={styles.iconWrapper}>
+                    <MaterialIcons
+                      name="extension"
+                      size={35}
+                      color="#11CBBF"
+                      style={styles.menuIcon}
+                    />
+                  </View>
+                  <Text style={[styles.menuText, {color: '#11CBBF'}]}>
+                    Daftar Kriteria
+                  </Text>
                 </View>
-                <Text style={[styles.menuText, {color: '#11CBBF'}]}>
-                  Daftar Kriteria
-                </Text>
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.wrapper}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('DaftarNilai')}
-              style={[styles.menu, {backgroundColor: '#FDDCDC'}]}>
-              <View style={styles.menuContent}>
-                <View style={styles.iconWrapper}>
-                  <MaterialIcons
-                    name="show-chart"
-                    size={35}
-                    color="#F2475B"
-                    style={styles.menuIcon}
-                  />
+        ) : (
+          <View>
+            <View style={styles.wrapper}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('DaftarNilai')}
+                style={[styles.menu, {backgroundColor: '#FDDCDC'}]}>
+                <View style={styles.menuContent}>
+                  <View style={styles.iconWrapper}>
+                    <MaterialIcons
+                      name="show-chart"
+                      size={35}
+                      color="#F2475B"
+                      style={styles.menuIcon}
+                    />
+                  </View>
+                  <Text style={[styles.menuText, {color: '#F2475B'}]}>
+                    Daftar Nilai
+                  </Text>
                 </View>
-                <Text style={[styles.menuText, {color: '#F2475B'}]}>
-                  Daftar Nilai
-                </Text>
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
           </View>
+        )}
+
           <View
             style={{
               borderBottomColor: '#cecece',
@@ -112,6 +121,8 @@ export default function Home(props) {
               marginBottom: 25,
             }}
           />
+
+          {/* WP Method */}
           <View style={styles.wrapper}>
             <TouchableOpacity
               onPress={() => navigation.navigate('WPMethod')}
@@ -131,6 +142,7 @@ export default function Home(props) {
               </View>
             </TouchableOpacity>
           </View>
+          {/* AHP Method */}
           <View style={styles.wrapper}>
             <TouchableOpacity
               onPress={() => navigation.navigate('AHPMethod')}
@@ -193,12 +205,12 @@ const styles = StyleSheet.create({
   sectionOneContentHello: {
     fontSize: 17,
     color: '#F0F2F5',
-    fontFamily: 'Quicksand-Medium'
+    fontFamily: 'Quicksand-Medium',
   },
   sectionOneContentName: {
     fontSize: 20,
     color: '#FFFFFF',
-    fontFamily: 'Quicksand-SemiBold'
+    fontFamily: 'Quicksand-SemiBold',
   },
   profile: {
     width: 60,
@@ -238,6 +250,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontSize: 19,
     // fontWeight: '700',
-    fontFamily: 'Quicksand-SemiBold'
+    fontFamily: 'Quicksand-SemiBold',
   },
 });
