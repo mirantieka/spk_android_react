@@ -22,10 +22,8 @@ export default function Profile({navigation}) {
       await httpPost('auth/logout');
     } catch (error) {}
     // Remove token and user object in async storage
-    await AsyncStorage.removeItem('authToken');
-    await AsyncStorage.removeItem('user');
-
-    navigation.navigate('Login');
+    await AsyncStorage.multiRemove(['authToken', 'user']);
+    await navigation.navigate('Login');
   };
 
   useEffect(async () => {
@@ -55,11 +53,7 @@ export default function Profile({navigation}) {
         <TouchableOpacity
           onPress={() => navigation.navigate('EditProfile')}
           style={styles.editButton}>
-          <MaterialIcons
-            name="edit"
-            size={35}
-            color="#FDB242"
-          />
+          <MaterialIcons name="edit" size={35} color="#FDB242" />
         </TouchableOpacity>
       </View>
       <View style={{backgroundColor: '#242A61'}}>
