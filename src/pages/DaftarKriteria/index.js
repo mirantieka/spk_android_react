@@ -2,13 +2,14 @@ import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   ScrollView,
+  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {shadowButton, height} from '../../helper/DEFINED';
+import {height, shadowButton} from '../../helper/DEFINED';
 import {httpGet} from '../../helper/http';
 
 const data = [
@@ -29,7 +30,6 @@ const data = [
 export default function DaftarKriteria(props) {
   const navigation = props.navigation;
   const [kriteria, setKriteria] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   const renderItem = ({item, index}) => {
     return (
@@ -99,8 +99,12 @@ export default function DaftarKriteria(props) {
           <Text style={styles.sectionOneContentTitle}>Daftar Kriteria</Text>
         </View>
       </View>
-      <ScrollView style={{backgroundColor: '#242A61', height: height * 0.85}}>
-        <View style={styles.sectionTwo}>
+      <SafeAreaView
+        style={{
+          backgroundColor: '#242A61',
+          display: 'flex',
+        }}>
+        <ScrollView style={styles.sectionTwo}>
           {kriteria == null ? (
             <View style={[styles.loading]}>
               <ActivityIndicator
@@ -110,14 +114,15 @@ export default function DaftarKriteria(props) {
               />
             </View>
           ) : kriteria.length == 0 ? (
-            <View>
+            <View style={{ alignItems: 'center'}}>
               <Text>No Data Available</Text>
             </View>
           ) : (
             kriteria.map((item, index) => renderItem({item, index}))
           )}
-        </View>
-      </ScrollView>
+          <View style={{padding: 40}}></View>
+        </ScrollView>
+      </SafeAreaView>
     </>
   );
 }
@@ -148,18 +153,14 @@ const styles = StyleSheet.create({
   },
   sectionOneContentTitle: {
     fontSize: 23,
-    fontWeight: 'bold',
     color: '#F0F2F5',
+    fontFamily: 'Quicksand-Bold'
   },
   backButton: {
     marginRight: 10,
   },
-  profile: {
-    marginRight: 10,
-  },
   sectionTwo: {
     height: height * 0.9,
-    flex: 1,
     padding: 30,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
@@ -189,9 +190,9 @@ const styles = StyleSheet.create({
     padding: 3,
     marginStart: 0,
     alignSelf: 'center',
-    fontSize: 17,
+    fontSize: 18,
     color: '#fff',
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold'
   },
   listItemContentAttribute: {
     padding: 3,
@@ -199,8 +200,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 14,
     color: 'black',
-    fontWeight: 'normal',
     marginBottom: 5,
+    fontFamily: 'Quicksand-Medium'
   },
   listItemContentValue: {
     padding: 3,
@@ -226,8 +227,8 @@ const styles = StyleSheet.create({
   buttonText: {
     alignSelf: 'center',
     marginTop: 13,
-    fontWeight: 'bold',
     fontSize: 15,
     color: '#11CBBF',
+    fontFamily: 'Quicksand-Medium'
   },
 });

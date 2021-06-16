@@ -2,25 +2,27 @@ import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Divider} from 'react-native-elements';
+import {DownloadDirectoryPath, writeFile} from 'react-native-fs';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import XLSX from 'xlsx';
 import {height, shadow, width} from '../../helper/DEFINED';
 import {httpGet} from '../../helper/http';
-import {writeFile, DownloadDirectoryPath} from 'react-native-fs';
-import XLSX from 'xlsx';
+import {getFromAsyncStorage} from '../../helper/Storage';
 
 export default function index(props) {
   const navigation = props.navigation;
   const input = res => res;
   const output = str => str;
   const [WPs, setWPs] = useState();
+  const [jabatan, setJabatan] = useState('-');
   const renderItem = ({item, index}) => {
     return (
       <View key={`daftarWP-${item.id}-${index}`}>
@@ -56,6 +58,14 @@ export default function index(props) {
       setWPs(fetchedWP);
     } catch (error) {}
   };
+
+  useEffect(async () => {
+    const user = await getFromAsyncStorage('user');
+    const jabatan = JSON.parse(user).jabatan;
+    setJabatan(jabatan);
+  }, []);
+
+  console.log('jataban dari wp', jabatan);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -106,9 +116,13 @@ export default function index(props) {
           <Text style={styles.sectionOneContentTitle}>WP Method</Text>
         </View>
       </View>
-      <ScrollView style={{backgroundColor: '#242A61', height: height * 0.75}}>
-        <View style={styles.sectionTwo}>
-          <View style={styles.wrapper}>
+      <SafeAreaView
+        style={{
+          backgroundColor: '#242A61',
+          display: 'flex',
+        }}>
+        <View style={styles.wrapper}>
+          {jabatan === 'Tim PKG' ? (
             <TouchableOpacity
               onPress={generateWp}
               style={[
@@ -124,6 +138,7 @@ export default function index(props) {
                 </Text>
               </View>
             </TouchableOpacity>
+          ) : (
             <TouchableOpacity
               onPress={exportFile}
               style={[
@@ -137,62 +152,27 @@ export default function index(props) {
                 <Text style={[styles.menuText, {color: '#AC20DD'}]}>Cetak</Text>
               </View>
             </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              borderBottomColor: 'black',
-              borderBottomWidth: 1,
-              width: width * 0.85,
-            }}
-          />
-          <View style={styles.wrapper}>
-            <View style={styles.sectionTwo}>
-              {WPs == null ? (
-                <View style={[styles.loading]}>
-                  <ActivityIndicator
-                    animating={true}
-                    size="large"
-                    color="#0000ff"
-                  />
-                </View>
-              ) : WPs.length == 0 ? (
-                <View>
-                  <Text>No Data Available</Text>
-                </View>
-              ) : (
-                WPs.map((item, index) => renderItem({item, index}))
-              )}
-            </View>
-          </View>
-          {/* <View style={styles.wrapper}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('PerankinganWP')}
-              style={[
-                styles.menu,
-                {
-                  backgroundColor: '#FFD2F8',
-                },
-              ]}>
-              <View style={styles.menuContent}>
-                <Text style={[styles.menuText, {color: '#AC20DD'}]}>
-                  Perankingan WP
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.wrapper}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('DaftarPenilaianWP')}
-              style={[styles.menu, {backgroundColor: '#E4E9FF'}]}>
-              <View style={styles.menuContent}>
-                <Text style={[styles.menuText, {color: '#11CBBF'}]}>
-                  Daftar Penilaian WP
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View> */}
+          )}
         </View>
-      </ScrollView>
+        <ScrollView style={styles.sectionTwo}>
+          {WPs == null ? (
+            <View style={[styles.loading]}>
+              <ActivityIndicator
+                animating={true}
+                size="large"
+                color="#0000ff"
+              />
+            </View>
+          ) : WPs.length == 0 ? (
+            <View style={{alignItems: 'center'}}>
+              <Text>No Data Available</Text>
+            </View>
+          ) : (
+            WPs.sort((a, b) => a.rank - b.rank).map((item, index) => renderItem({item, index}))
+          )}
+          <View style={{padding: 70}}></View>
+        </ScrollView>
+      </SafeAreaView>
     </>
   );
 }
@@ -206,13 +186,10 @@ const styles = StyleSheet.create({
   },
   sectionOneContentTitle: {
     fontSize: 23,
-    fontWeight: 'bold',
     color: '#F0F2F5',
+    fontFamily: 'Quicksand-Bold',
   },
   backButton: {
-    marginRight: 10,
-  },
-  profile: {
     marginRight: 10,
   },
   sectionTwo: {
@@ -221,7 +198,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     backgroundColor: 'white',
-    alignItems: 'center',
   },
   listItem: {
     height: 100,
@@ -233,16 +209,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    width: width * 0.85,
-    // height: 100,
-    // alignSelf: 'center',
-    // borderRadius: 30,
+    width: width * 0.82,
+    alignSelf: 'center',
     ...shadow,
   },
   wrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     marginBottom: 17,
   },
   menu: {
@@ -274,9 +248,9 @@ const styles = StyleSheet.create({
   menuText: {
     alignItems: 'center',
     fontSize: 19,
-    fontWeight: '700',
     marginVertical: 5,
     paddingHorizontal: 10,
+    fontFamily: 'Quicksand-Bold',
     // fontSize: 17,
     // fontWeight: '700',
     // marginTop: 17,
@@ -284,11 +258,11 @@ const styles = StyleSheet.create({
   listItemContentName: {
     fontSize: 17,
     color: '#242A61',
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-SemiBold',
   },
   listItemContentMapel: {
     fontSize: 14,
     color: '#3330EE',
-    fontWeight: 'normal',
+    fontFamily: 'Quicksand-Medium',
   },
 });

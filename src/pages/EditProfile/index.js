@@ -1,5 +1,7 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useState} from 'react';
 import {
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -7,7 +9,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {shadowButton} from '../../helper/DEFINED';
 import {httpGet, httpPut} from '../../helper/http';
@@ -33,9 +34,11 @@ export default function EditProfile(props) {
     };
 
     try {
-      await httpPut(`user/update/${user.id}`, body);
+      const response = await httpPut(`user/update/${user.id}`, body);
+      await AsyncStorage.setItem('user', JSON.stringify(response));
+
       alert('Data berhasil diubah!');
-      navigation.navigate('Home');
+      navigation.navigate('Profile');
     } catch (error) {
       console.error(error);
       alert('Data gagal diubah!');
@@ -66,11 +69,9 @@ export default function EditProfile(props) {
         </View>
       </View>
       <View style={{backgroundColor: '#242A61'}}>
-        <IonIcons
-          name="person-circle"
-          size={140}
-          color="#C9CACE"
+        <Image
           style={styles.profilePhoto}
+          source={require('../../assets/images/kemendikbud.png')}
         />
       </View>
       {user && (
@@ -106,7 +107,7 @@ export default function EditProfile(props) {
                     </Text>
                     <TextInput
                       style={styles.listItemContentValue}
-                      onChangeText={() => setUsername()}
+                      onChangeText={text => setUsername(text)}
                       defaultValue={user.username}
                     />
                   </View>
@@ -119,7 +120,7 @@ export default function EditProfile(props) {
                     </Text>
                     <TextInput
                       style={styles.listItemContentValue}
-                      onChangeText={() => setGender()}
+                      onChangeText={text => setGender(text)}
                       defaultValue={user.jenis_kelamin}
                     />
                   </View>
@@ -130,7 +131,7 @@ export default function EditProfile(props) {
                     <Text style={styles.listItemContentAttribute}>Jabatan</Text>
                     <TextInput
                       style={styles.listItemContentValue}
-                      onChangeText={() => setJabatan()}
+                      onChangeText={text => setJabatan(text)}
                       defaultValue={user.jabatan}
                     />
                   </View>
@@ -140,7 +141,7 @@ export default function EditProfile(props) {
                     <Text style={styles.listItemContentAttribute}>Jurusan</Text>
                     <TextInput
                       style={styles.listItemContentValue}
-                      onChangeText={() => setJurusan()}
+                      onChangeText={text => setJurusan(text)}
                       defaultValue={user.jurusan}
                     />
                   </View>
@@ -168,7 +169,7 @@ export default function EditProfile(props) {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate('Profile')}
                 style={[styles.button, {backgroundColor: '#DCE9E3'}]}>
                 <View
                   style={{
@@ -204,7 +205,7 @@ const styles = StyleSheet.create({
   },
   sectionOneContentTitle: {
     fontSize: 23,
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold',
     color: '#F0F2F5',
   },
   backButton: {
@@ -212,9 +213,6 @@ const styles = StyleSheet.create({
   },
   editButton: {
     marginLeft: 'auto',
-  },
-  profile: {
-    marginRight: 10,
   },
   profilePhoto: {
     marginTop: 10,
@@ -242,20 +240,20 @@ const styles = StyleSheet.create({
   listItemContentName: {
     fontSize: 20,
     color: '#242A61',
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold',
     marginBottom: 5,
     alignSelf: 'center',
   },
   listItemContentAttribute: {
     fontSize: 15,
     color: '#242A61',
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold',
     marginTop: 20,
   },
   listItemContentValue: {
     fontSize: 17,
     color: '#3330EE',
-    fontWeight: 'normal',
+    fontFamily: 'Quicksand-Medium',
     marginTop: -5,
   },
   button: {
@@ -270,8 +268,16 @@ const styles = StyleSheet.create({
   buttonText: {
     alignSelf: 'center',
     // marginTop: 13,
-    fontWeight: 'bold',
-    fontSize: 17,
+    fontFamily: 'Quicksand-Bold',
+    fontSize: 19,
     color: 'white',
+  },
+  profilePhoto: {
+    width: 150,
+    height: 120,
+    marginTop: 10,
+    marginBottom: 20,
+    alignItems: 'center',
+    alignSelf: 'center',
   },
 });

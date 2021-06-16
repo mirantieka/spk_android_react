@@ -1,84 +1,32 @@
 import React, {useEffect, useState} from 'react';
 import {
+  Image,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  Image,
 } from 'react-native';
-import FontAwesome5Icons from 'react-native-vector-icons/FontAwesome5';
-import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import {height, shadow} from '../../helper/DEFINED';
+import {height, shadow, width} from '../../helper/DEFINED';
 import {getFromAsyncStorage} from '../../helper/Storage';
-
-const styles = StyleSheet.create({
-  sectionOne: {
-    backgroundColor: '#242A61',
-    padding: 30,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  sectionOneContentHello: {
-    fontSize: 17,
-    fontWeight: 'bold',
-    color: '#F0F2F5',
-  },
-  sectionOneContentName: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-  },
-  profile: {
-    width: 60,
-    height: 60,
-    marginRight: 10,
-  },
-  sectionTwo: {
-    height: height * 0.8,
-    padding: 30,
-    borderTopRightRadius: 30,
-    borderTopLeftRadius: 30,
-    backgroundColor: 'white',
-    display: 'flex',
-  },
-  wrapper: {
-    marginBottom: 22,
-  },
-  menu: {
-    height: 50,
-    borderRadius: 15,
-    ...shadow,
-  },
-  menuContent: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  menuIcon: {
-    paddingHorizontal: 5,
-    marginVertical: 5,
-  },
-  menuText: {
-    alignItems: 'center',
-    fontSize: 19,
-    fontWeight: '700',
-    marginVertical: 5,
-    paddingHorizontal: 10,
-  },
-});
+import {useIsFocused} from '@react-navigation/native';
 
 export default function Home(props) {
   const navigation = props.navigation;
-  const [nama, setNama] = useState('-');
+  const [nama, setNama] = useState();
+  const [jabatan, setJabatan] = useState();
+  const isFocused = useIsFocused();
 
   useEffect(async () => {
-    const user = await getFromAsyncStorage('user');
-    const nama = JSON.parse(user).nama;
-    setNama(nama);
-  }, []);
+    const userString = await getFromAsyncStorage('user');
+    const user = JSON.parse(userString);
+    const userNama = user.nama;
+    const userJabatan = user.jabatan;
+
+    setNama(userNama);
+    setJabatan(userJabatan);
+  }, [isFocused]);
 
   return (
     <>
@@ -95,108 +43,150 @@ export default function Home(props) {
       <ScrollView
         style={{
           backgroundColor: '#242A61',
-          height: height * 0.75,
+          height: height,
           display: 'flex',
         }}>
         <View style={styles.sectionTwo}>
-          <View style={styles.wrapper}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('DaftarGuru')}
-              style={[
-                styles.menu,
-                {
-                  alignSelf: 'stretch',
-                  backgroundColor: '#FFD2F8',
-                },
-              ]}>
-              <View style={styles.menuContent}>
-                <MaterialIcons name="people" size={40} color="#AC20DD" />
-                <Text style={[styles.menuText, {color: '#AC20DD'}]}>
-                  Daftar Guru
-                </Text>
+          {jabatan === 'Tim PKG' ? (
+            <View>
+              <View style={styles.wrapper}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('DaftarGuru')}
+                  style={[
+                    styles.menu,
+                    {
+                      backgroundColor: '#FFD2F8',
+                    },
+                  ]}>
+                  <View style={styles.menuContent}>
+                    <View style={styles.iconWrapper}>
+                      <MaterialIcons
+                        name="people"
+                        size={35}
+                        color="#AC20DD"
+                        style={styles.menuIcon}
+                      />
+                    </View>
+                    <Text style={[styles.menuText, {color: '#AC20DD'}]}>
+                      Daftar Guru
+                    </Text>
+                  </View>
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.wrapper}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('KriteriaStacks')}
-              style={[styles.menu, {backgroundColor: '#E4E9FF'}]}>
-              <View style={styles.menuContent}>
-                <FontAwesome5Icons
-                  name="puzzle-piece"
-                  size={27}
-                  color="#11CBBF"
-                  style={styles.menuIcon}
-                />
-                <Text style={[styles.menuText, {color: '#11CBBF'}]}>
-                  Daftar Kriteria
-                </Text>
+              <View style={styles.wrapper}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('KriteriaStacks')}
+                  style={[styles.menu, {backgroundColor: '#E4E9FF'}]}>
+                  <View style={styles.menuContent}>
+                    <View style={styles.iconWrapper}>
+                      <MaterialIcons
+                        name="extension"
+                        size={35}
+                        color="#11CBBF"
+                        style={styles.menuIcon}
+                      />
+                    </View>
+                    <Text style={[styles.menuText, {color: '#11CBBF'}]}>
+                      Daftar Kriteria
+                    </Text>
+                  </View>
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.wrapper}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('DaftarNilai')}
-              style={[styles.menu, {backgroundColor: '#FDDCDC'}]}>
-              <View style={styles.menuContent}>
-                <SimpleLineIcons
-                  name="graph"
-                  size={35}
-                  color="#F2475B"
-                  style={styles.menuIcon}
-                />
-                <Text style={[styles.menuText, {color: '#F2475B'}]}>
-                  Daftar Nilai
-                </Text>
+            </View>
+          ) : (
+            <View>
+              <View style={styles.wrapper}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('DaftarNilai')}
+                  style={[styles.menu, {backgroundColor: '#FDDCDC'}]}>
+                  <View style={styles.menuContent}>
+                    <View style={styles.iconWrapper}>
+                      <MaterialIcons
+                        name="show-chart"
+                        size={35}
+                        color="#F2475B"
+                        style={styles.menuIcon}
+                      />
+                    </View>
+                    <Text style={[styles.menuText, {color: '#F2475B'}]}>
+                      Daftar Nilai
+                    </Text>
+                  </View>
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
-          </View>
+            </View>
+          )}
 
+          <View
+            style={{
+              borderBottomColor: '#cecece',
+              borderBottomWidth: 1,
+              width: width * 0.85,
+              marginBottom: 25,
+            }}
+          />
+
+          {/* WP Method */}
           <View style={styles.wrapper}>
             <TouchableOpacity
               onPress={() => navigation.navigate('WPMethod')}
               style={[styles.menu, {backgroundColor: '#D9D2FF'}]}>
               <View style={styles.menuContent}>
-                <MaterialIcons
-                  name="assignment-turned-in"
-                  size={30}
-                  color="#3330EE"
-                  style={styles.menuIcon}
-                />
+                <View style={styles.iconWrapper}>
+                  <MaterialIcons
+                    name="assignment-turned-in"
+                    size={35}
+                    color="#3330EE"
+                    style={styles.menuIcon}
+                  />
+                </View>
                 <Text style={[styles.menuText, {color: '#3330EE'}]}>
                   WP Method
                 </Text>
               </View>
             </TouchableOpacity>
           </View>
+          {/* AHP Method */}
           <View style={styles.wrapper}>
             <TouchableOpacity
               onPress={() => navigation.navigate('AHPMethod')}
               style={[styles.menu, {backgroundColor: '#FFF0D2'}]}>
               <View style={styles.menuContent}>
-                <MaterialIcons
-                  name="assignment"
-                  size={30}
-                  color="#EC9615"
-                  style={{marginTop: 5, marginBottom: 2}}
-                />
+                <View style={styles.iconWrapper}>
+                  <MaterialIcons
+                    name="assignment"
+                    size={35}
+                    color="#EC9615"
+                    style={styles.menuIcon}
+                  />
+                </View>
                 <Text style={[styles.menuText, {color: '#EC9615'}]}>
                   AHP Method
                 </Text>
               </View>
             </TouchableOpacity>
           </View>
+          <View
+            style={{
+              borderBottomColor: '#cecece',
+              borderBottomWidth: 1,
+              width: width * 0.85,
+              marginBottom: 25,
+            }}
+          />
           <View style={styles.wrapper}>
             <TouchableOpacity
               onPress={() => navigation.navigate('ProfileStacks')}
               style={[styles.menu, {backgroundColor: '#FFD2E2'}]}>
               <View style={styles.menuContent}>
-                <MaterialIcons
-                  name="person"
-                  size={35}
-                  color="#E81B7D"
-                  style={styles.menuIcon}
-                />
+                <View style={styles.iconWrapper}>
+                  <MaterialIcons
+                    name="person"
+                    size={35}
+                    color="#E81B7D"
+                    style={styles.menuIcon}
+                  />
+                </View>
                 <Text style={[styles.menuText, {color: '#E81B7D'}]}>
                   Profile
                 </Text>
@@ -208,3 +198,62 @@ export default function Home(props) {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  sectionOne: {
+    backgroundColor: '#242A61',
+    padding: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  sectionOneContentHello: {
+    fontSize: 17,
+    color: '#F0F2F5',
+    fontFamily: 'Quicksand-Medium',
+  },
+  sectionOneContentName: {
+    fontSize: 20,
+    color: '#FFFFFF',
+    fontFamily: 'Quicksand-SemiBold',
+  },
+  profile: {
+    width: 60,
+    height: 60,
+    marginRight: 10,
+  },
+  sectionTwo: {
+    height: height * 0.79,
+    padding: 30,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    backgroundColor: 'white',
+    display: 'flex',
+  },
+  wrapper: {
+    marginBottom: 22,
+  },
+  menu: {
+    height: 50,
+    borderRadius: 15,
+    ...shadow,
+  },
+  menuContent: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    display: 'flex',
+    flex: 1,
+  },
+  iconWrapper: {
+    display: 'flex',
+    width: '40%',
+    paddingRight: 10,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  menuText: {
+    alignItems: 'center',
+    fontSize: 19,
+    // fontWeight: '700',
+    fontFamily: 'Quicksand-SemiBold',
+  },
+});

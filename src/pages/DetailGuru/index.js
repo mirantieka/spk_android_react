@@ -1,47 +1,18 @@
 import React from 'react';
 import {
   Image,
+  SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import {height, shadow, width} from '../../helper/DEFINED';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import IonIcons from 'react-native-vector-icons/Ionicons';
-import {get} from '../../helper/http';
-import {useEffect} from 'react/cjs/react.development';
-import kemendikbud from '../../assets/images/kemendikbud.png'
+import {shadowButton, height} from '../../helper/DEFINED';
 
-const data = [
-  {
-    id: 1,
-    attribut: 'Mata Pelajaran:',
-    value: 'Bahasa Indonesia',
-  },
-  {
-    id: 2,
-    attribut: 'Masa Jabatan:',
-    value: '5 tahun',
-  },
-];
-
-export default function index(props) {
-  const navigation = props.navigation;
-  const [user, setUser] = React.useState(navigation.state.params.data || {});
-  const renderItem = ({item, index}) => {
-    return (
-      <View key={`detailGuru-${item.id}-${index}`}>
-        <View style={styles.listItem}>
-          <View>
-            <Text style={styles.listItemContentAttribute}>{item.attribut}</Text>
-            <Text style={styles.listItemContentValue}>{item.nama}</Text>
-          </View>
-        </View>
-      </View>
-    );
-  };
+export default function DetailGuru({route, navigation}) {
+  const user = route.params.data;
 
   return (
     <>
@@ -55,50 +26,83 @@ export default function index(props) {
           />
         </TouchableOpacity>
         <View>
-          <Text style={styles.sectionOneContentTitle}>Detail Guru</Text>
+          <Text style={styles.sectionOneContentTitle}>Profile</Text>
         </View>
       </View>
       <View style={{backgroundColor: '#242A61'}}>
-      <Image
+        <Image
           style={styles.profilePhoto}
           source={require('../../assets/images/kemendikbud.png')}
-          />
+        />
       </View>
-      <ScrollView style={{backgroundColor: '#242A61', height: height * 0.5}}>
-        <View style={styles.sectionTwo}>
-          <View>
-            <Text style={styles.listItemContentName}>{user.nama}</Text>
+      {user && (
+        <SafeAreaView
+          style={{
+            backgroundColor: '#242A61',
+            display: 'flex',
+          }}>
+          <ScrollView style={styles.sectionTwo}>
             <View>
+              <Text style={styles.listItemContentName}>Account Info</Text>
+
               <View style={styles.listItem}>
                 <View>
-                  <Text style={styles.listItemContentAttribute}>
-                    NIP
-                  </Text>
+                  <Text style={styles.listItemContentAttribute}>NIP</Text>
                   <Text style={styles.listItemContentValue}>{user.nip}</Text>
                 </View>
               </View>
-
-              <View style={styles.listItem}>
-                <View>
-                  <Text style={styles.listItemContentAttribute}>
-                    Jenis Kelamin
-                  </Text>
-                  <Text style={styles.listItemContentValue}>{user.jenis_kelamin}</Text>
+              <View>
+                <View style={styles.listItem}>
+                  <View>
+                    <Text style={styles.listItemContentAttribute}>Nama</Text>
+                    <Text style={styles.listItemContentValue}>{user.nama}</Text>
+                  </View>
                 </View>
-              </View>
 
-              <View style={styles.listItem}>
-                <View>
-                  <Text style={styles.listItemContentAttribute}>
-                    Jurusan
-                  </Text>
-                  <Text style={styles.listItemContentValue}>{user.jurusan}</Text>
+                <View style={styles.listItem}>
+                  <View>
+                    <Text style={styles.listItemContentAttribute}>
+                      Username
+                    </Text>
+                    <Text style={styles.listItemContentValue}>
+                      {user.username}
+                    </Text>
+                  </View>
+                </View>
+
+                <View style={styles.listItem}>
+                  <View>
+                    <Text style={styles.listItemContentAttribute}>
+                      Jenis Kelamin
+                    </Text>
+                    <Text style={styles.listItemContentValue}>
+                      {user.jenis_kelamin}
+                    </Text>
+                  </View>
+                </View>
+
+                <View style={styles.listItem}>
+                  <View>
+                    <Text style={styles.listItemContentAttribute}>Jabatan</Text>
+                    <Text style={styles.listItemContentValue}>
+                      {user.jabatan}
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.listItem}>
+                  <View>
+                    <Text style={styles.listItemContentAttribute}>Jurusan</Text>
+                    <Text style={styles.listItemContentValue}>
+                      {user.jurusan}
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
-          </View>
-        </View>
-      </ScrollView>
+            <View style={{padding: 120}}></View>
+          </ScrollView>
+        </SafeAreaView>
+      )}
     </>
   );
 }
@@ -112,51 +116,71 @@ const styles = StyleSheet.create({
   },
   sectionOneContentTitle: {
     fontSize: 23,
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold',
     color: '#F0F2F5',
   },
   backButton: {
     marginRight: 10,
   },
+  editButton: {
+    marginLeft: 'auto',
+  },
   profilePhoto: {
-    width: 220,
-    height: 200,
-    marginTop: 30,
+    width: 150,
+    height: 120,
+    marginTop: 10,
     marginBottom: 20,
     alignItems: 'center',
     alignSelf: 'center',
   },
   sectionTwo: {
-    height: height * 0.5,
+    height: height * 0.9,
     padding: 30,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     backgroundColor: 'white',
   },
   listItem: {
-    height: 80,
+    height: 70,
     backgroundColor: 'white',
     borderColor: '#E1D7D7',
-    borderTopWidth: 1,
+    borderBottomWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
   },
   listItemContentName: {
     fontSize: 20,
     color: '#242A61',
-    fontWeight: 'bold',
-    marginBottom: 25,
+    fontFamily: 'Quicksand-Bold',
+    marginBottom: 5,
     alignSelf: 'center',
   },
   listItemContentAttribute: {
-    fontSize: 17,
+    fontSize: 15,
     color: '#242A61',
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold',
     marginBottom: 5,
   },
   listItemContentValue: {
-    fontSize: 14,
+    fontSize: 17,
     color: '#3330EE',
-    fontWeight: 'normal',
+    fontFamily: 'Quicksand-Medium',
+  },
+  button: {
+    height: 50,
+    width: 350,
+    backgroundColor: '#FDB242',
+    marginTop: 20,
+    marginBottom: 15,
+    borderRadius: 30,
+    alignSelf: 'center',
+    ...shadowButton,
+  },
+  buttonText: {
+    alignSelf: 'center',
+    marginTop: 13,
+    fontFamily: 'Quicksand-Bold',
+    fontSize: 17,
+    color: '#fff',
   },
 });

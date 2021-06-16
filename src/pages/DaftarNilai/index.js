@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {cos} from 'react-native-reanimated';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {height} from '../../helper/DEFINED';
@@ -16,32 +16,28 @@ import {httpGet} from '../../helper/http';
 export default function DaftarNilai(props) {
   const navigation = props.navigation;
   const [penilaian, setPenilaian] = React.useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const renderItem = ({item, index}) => {
     return (
       <View key={`daftarNilai-${item.id}-${index}`}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('DetailNilai', {data: item})}>
-          <View style={styles.listItem}>
-            <IonIcons
-              name="person-circle"
-              size={50}
-              color="#C9CACE"
-              style={styles.profile}
-            />
-            <View>
-              <Text style={styles.listItemContentName}>{item?.user?.nama}</Text>
-              <View style={styles.listItemWrapper}>
-                {Object.entries(item.nilai).map(val => (
-                  <View style={styles.listItemRow}>
-                    <Text style={styles.listItemContentMapel}>{val[0]}:</Text>
-                    <Text style={styles.listItemContentMapel}>{val[1]}</Text>
-                  </View>
-                ))}
-              </View>
+        <View style={styles.listItem}>
+          <IonIcons
+            name="person-circle"
+            size={50}
+            color="#C9CACE"
+            style={styles.profile}
+          />
+          <View>
+            <Text style={styles.listItemContentName}>{item?.user?.nama}</Text>
+            <View style={styles.listItemWrapper}>
+              {Object.entries(item.nilai).map(val => (
+                <View style={styles.listItemRow}>
+                  <Text style={styles.listItemContentMapel}>{val[0]} : </Text>
+                  <Text style={styles.listItemContentMapel}>{val[1]}</Text>
+                </View>
+              ))}
             </View>
           </View>
-        </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -71,8 +67,12 @@ export default function DaftarNilai(props) {
           <Text style={styles.sectionOneContentTitle}>Daftar Nilai</Text>
         </View>
       </View>
-      <ScrollView style={{backgroundColor: '#242A61', height: height * 0.85}}>
-        <View style={styles.sectionTwo}>
+      <SafeAreaView
+        style={{
+          backgroundColor: '#242A61',
+          display: 'flex',
+        }}>
+        <ScrollView style={styles.sectionTwo}>
           {penilaian == null ? (
             <View style={[styles.loading]}>
               <ActivityIndicator
@@ -81,11 +81,16 @@ export default function DaftarNilai(props) {
                 color="#0000ff"
               />
             </View>
+          ) : penilaian.length == 0 ? (
+            <View style={{ alignItems: 'center'}}>
+              <Text>No Data Available</Text>
+            </View>
           ) : (
             penilaian.map((item, index) => renderItem({item, index}))
           )}
-        </View>
-      </ScrollView>
+          <View style={{padding: 40}}></View>
+        </ScrollView>
+      </SafeAreaView>
     </>
   );
 }
@@ -108,8 +113,8 @@ const styles = StyleSheet.create({
   },
   sectionOneContentTitle: {
     fontSize: 23,
-    fontWeight: 'bold',
     color: '#F0F2F5',
+    fontFamily: 'Quicksand-Bold',
   },
   backButton: {
     marginRight: 10,
@@ -137,7 +142,7 @@ const styles = StyleSheet.create({
   listItemContentName: {
     fontSize: 17,
     color: '#242A61',
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-SemiBold',
   },
   listItemWrapper: {
     display: 'flex',
@@ -149,6 +154,6 @@ const styles = StyleSheet.create({
   listItemContentMapel: {
     fontSize: 14,
     color: '#3330EE',
-    fontWeight: 'normal',
+    fontFamily: 'Quicksand-Medium',
   },
 });

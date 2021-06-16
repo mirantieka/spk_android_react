@@ -1,17 +1,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+  Image,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import IonIcons from 'react-native-vector-icons/Ionicons';
-import MaterialComunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {shadowButton} from '../../helper/DEFINED';
-import {httpGet, httpPost} from '../../helper/http';
+import {shadowButton, height} from '../../helper/DEFINED';
+import {httpPost} from '../../helper/http';
+import {CommonActions} from '@react-navigation/native';
+import {getFromAsyncStorage} from '../../helper/Storage';
 
 export default function Profile({navigation}) {
   const [user, setUser] = useState();
@@ -22,20 +24,24 @@ export default function Profile({navigation}) {
       await httpPost('auth/logout');
     } catch (error) {}
     // Remove token and user object in async storage
-    await AsyncStorage.removeItem('authToken');
-    await AsyncStorage.removeItem('user');
+    await AsyncStorage.multiRemove(['authToken', 'user']);
 
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{name: 'Home'}],
+      }),
+    );
     navigation.navigate('Login');
   };
 
   useEffect(async () => {
-    const fetchUser = async () => {
-      try {
-        const fetchedUser = await httpGet('user/profile');
-        setUser(fetchedUser);
-      } catch (error) {}
+    const getUser = async () => {
+      const userString = await getFromAsyncStorage('user');
+      const tempUser = JSON.parse(userString);
+      setUser(tempUser);
     };
-    fetchUser();
+    getUser();
   }, []);
 
   return (
@@ -52,17 +58,25 @@ export default function Profile({navigation}) {
         <View>
           <Text style={styles.sectionOneContentTitle}>Profile</Text>
         </View>
-        
+        <TouchableOpacity
+          onPress={() => navigation.navigate('EditProfile')}
+          style={styles.editButton}>
+          <MaterialIcons name="edit" size={35} color="#FDB242" />
+        </TouchableOpacity>
       </View>
       <View style={{backgroundColor: '#242A61'}}>
-      <Image
+        <Image
           style={styles.profilePhoto}
           source={require('../../assets/images/kemendikbud.png')}
-          />
+        />
       </View>
       {user && (
-        <ScrollView style={{backgroundColor: '#242A61'}}>
-          <View style={styles.sectionTwo}>
+        <SafeAreaView
+          style={{
+            backgroundColor: '#242A61',
+            display: 'flex',
+          }}>
+          <ScrollView style={styles.sectionTwo}>
             <View>
               <Text style={styles.listItemContentName}>Account Info</Text>
 
@@ -123,8 +137,9 @@ export default function Profile({navigation}) {
             <TouchableOpacity onPress={onLogoutClick} style={styles.button}>
               <Text style={styles.buttonText}>LOGOUT</Text>
             </TouchableOpacity>
-          </View>
-        </ScrollView>
+            <View style={{padding: 120}}></View>
+          </ScrollView>
+        </SafeAreaView>
       )}
     </>
   );
@@ -139,7 +154,7 @@ const styles = StyleSheet.create({
   },
   sectionOneContentTitle: {
     fontSize: 23,
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold',
     color: '#F0F2F5',
   },
   backButton: {
@@ -147,9 +162,6 @@ const styles = StyleSheet.create({
   },
   editButton: {
     marginLeft: 'auto',
-  },
-  profile: {
-    marginRight: 10,
   },
   profilePhoto: {
     width: 150,
@@ -162,6 +174,7 @@ const styles = StyleSheet.create({
   sectionTwo: {
     // height: height,
     // flex: 1,
+    height: height * 0.9,
     padding: 30,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
@@ -178,35 +191,35 @@ const styles = StyleSheet.create({
   listItemContentName: {
     fontSize: 20,
     color: '#242A61',
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold',
     marginBottom: 5,
     alignSelf: 'center',
   },
   listItemContentAttribute: {
     fontSize: 15,
     color: '#242A61',
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold',
     marginBottom: 5,
   },
   listItemContentValue: {
     fontSize: 17,
     color: '#3330EE',
-    fontWeight: 'normal',
+    fontFamily: 'Quicksand-Bold',
   },
   button: {
     height: 50,
-    width: 350,
+    width: '100%',
     backgroundColor: '#FDB242',
     marginTop: 20,
     marginBottom: 15,
-    borderRadius: 30,
     alignSelf: 'center',
+    borderRadius: 10,
     ...shadowButton,
   },
   buttonText: {
     alignSelf: 'center',
     marginTop: 13,
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold',
     fontSize: 17,
     color: '#fff',
   },

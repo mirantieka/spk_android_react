@@ -1,18 +1,18 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
 import {
   Image,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
   TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import {shadowButton} from '../../helper/DEFINED';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {shadowButton} from '../../helper/DEFINED';
 import {httpGet, httpPost} from '../../helper/http';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
   logo: {
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 50,
-    width: 350,
+    width: '100%',
     backgroundColor: '#FDB242',
     marginTop: 35,
     marginBottom: 15,

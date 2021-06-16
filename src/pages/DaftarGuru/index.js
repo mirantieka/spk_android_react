@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
+  Image,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {height} from '../../helper/DEFINED';
 import {httpGet} from '../../helper/http';
@@ -40,7 +41,7 @@ export default function DaftarGuru(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fetchedUsers = await httpGet('users');
+        const fetchedUsers = await httpGet('users/guru');
         setUsers(fetchedUsers);
       } catch (error) {}
     };
@@ -62,8 +63,12 @@ export default function DaftarGuru(props) {
           <Text style={styles.sectionOneContentTitle}>Daftar Guru</Text>
         </View>
       </View>
-      <ScrollView style={{backgroundColor: '#242A61', height: height * 0.85}}>
-        <View style={styles.sectionTwo}>
+      <SafeAreaView
+        style={{
+          backgroundColor: '#242A61',
+          display: 'flex',
+        }}>
+        <ScrollView style={styles.sectionTwo}>
           {users == null ? (
             <View style={[styles.loading]}>
               <ActivityIndicator
@@ -73,15 +78,15 @@ export default function DaftarGuru(props) {
               />
             </View>
           ) : users.length == 0 ? (
-            <View>
+            <View style={{ alignItems: 'center'}}>
               <Text>No Data Available</Text>
             </View>
           ) : (
             users.map((item, index) => renderItem({item, index}))
           )}
-          {/* {users.map((item, index) => renderItem({item, index}))} */}
-        </View>
-      </ScrollView>
+          <View style={{padding: 40}}></View>
+        </ScrollView>
+      </SafeAreaView>
     </>
   );
 }
@@ -95,11 +100,14 @@ const styles = StyleSheet.create({
   },
   sectionOneContentTitle: {
     fontSize: 23,
-    fontWeight: 'bold',
     color: '#F0F2F5',
-  },
+    fontFamily: 'Quicksand-Bold'
+  },  
   backButton: {
     marginRight: 10,
+  },
+  scrollview: {
+    flexGrow: 1,
   },
   profilePhoto: {
     width: 50,
@@ -127,11 +135,11 @@ const styles = StyleSheet.create({
   listItemContentName: {
     fontSize: 17,
     color: '#242A61',
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-SemiBold'
   },
   listItemContentMapel: {
     fontSize: 14,
     color: '#3330EE',
-    fontWeight: 'normal',
+    fontFamily: 'Quicksand-Medium'
   },
 });

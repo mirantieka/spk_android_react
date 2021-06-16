@@ -1,15 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  SectionList,
+  ScrollView, StyleSheet,
+  Text, TouchableOpacity, View
 } from 'react-native';
-import {height} from '../../helper/DEFINED';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {get, httpGet} from '../../helper/http';
+import { height } from '../../helper/DEFINED';
+import { httpGet } from '../../helper/http';
 
 const DATA = [
   {
@@ -44,7 +40,7 @@ const DATA = [
 // );
 
 export default function DetailKriteria({route, navigation}) {
-  const {kriAhpId} = route.params;
+  const kriAhpId = route.params.id;
   const [detailKriteria, setDetailKriteria] = React.useState([{}]);
   const renderItem = ({item, index}) => {
     return (
@@ -59,11 +55,11 @@ export default function DetailKriteria({route, navigation}) {
     );
   };
 
-  React.useEffect(async () => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        const kriteria = await httpGet(`kri_ahp/${kriAhpId}/detail`);
-        setDetailKriteria(kriteria);
+        const fetchedDetailKriteria = await httpGet(`kri_ahp/${kriAhpId}/detail`);
+        setDetailKriteria(fetchedDetailKriteria);
       } catch (error) {}
     };
     fetchData();
@@ -121,13 +117,10 @@ const styles = StyleSheet.create({
   },
   sectionOneContentTitle: {
     fontSize: 23,
-    fontWeight: 'bold',
     color: '#F0F2F5',
+    fontFamily: 'Quicksand-Bold',
   },
   backButton: {
-    marginRight: 10,
-  },
-  profile: {
     marginRight: 10,
   },
   sectionTwo: {
@@ -152,7 +145,7 @@ const styles = StyleSheet.create({
     marginEnd: -5,
     color: '#242A61',
     fontSize: 17,
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-SemiBold',
     // borderTopLeftRadius: 30,
     // borderTopRightRadius: 30,
     padding: 10,
@@ -162,6 +155,6 @@ const styles = StyleSheet.create({
     padding: 3,
     fontSize: 14,
     color: '#3330EE',
-    fontWeight: 'normal',
+    fontFamily: 'Quicksand-Medium',
   },
 });
