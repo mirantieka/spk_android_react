@@ -11,7 +11,9 @@ import {
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {shadowButton, height} from '../../helper/DEFINED';
-import {httpGet, httpPost} from '../../helper/http';
+import {httpPost} from '../../helper/http';
+import {CommonActions} from '@react-navigation/native';
+import {getFromAsyncStorage} from '../../helper/Storage';
 
 export default function Profile({navigation}) {
   const [user, setUser] = useState();
@@ -23,17 +25,23 @@ export default function Profile({navigation}) {
     } catch (error) {}
     // Remove token and user object in async storage
     await AsyncStorage.multiRemove(['authToken', 'user']);
-    await navigation.navigate('Login');
+
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{name: 'Home'}],
+      }),
+    );
+    navigation.navigate('Login');
   };
 
   useEffect(async () => {
-    const fetchUser = async () => {
-      try {
-        const fetchedUser = await httpGet('user/profile');
-        setUser(fetchedUser);
-      } catch (error) {}
+    const getUser = async () => {
+      const userString = await getFromAsyncStorage('user');
+      const tempUser = JSON.parse(userString);
+      setUser(tempUser);
     };
-    fetchUser();
+    getUser();
   }, []);
 
   return (
@@ -200,12 +208,12 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 50,
-    width: 350,
+    width: '100%',
     backgroundColor: '#FDB242',
     marginTop: 20,
     marginBottom: 15,
-    borderRadius: 30,
     alignSelf: 'center',
+    borderRadius: 10,
     ...shadowButton,
   },
   buttonText: {
