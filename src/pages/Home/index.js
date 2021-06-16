@@ -10,19 +10,23 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {height, shadow, width} from '../../helper/DEFINED';
 import {getFromAsyncStorage} from '../../helper/Storage';
+import {useIsFocused} from '@react-navigation/native';
 
 export default function Home(props) {
   const navigation = props.navigation;
-  const [nama, setNama] = useState('-');
-  const [jabatan, setJabatan] = useState('-');
+  const [nama, setNama] = useState();
+  const [jabatan, setJabatan] = useState();
+  const isFocused = useIsFocused();
 
   useEffect(async () => {
-    const user = await getFromAsyncStorage('user');
-    const nama = JSON.parse(user).nama;
-    const jabatan = JSON.parse(user).jabatan;
-    setNama(nama);
-    setJabatan(jabatan);
-  }, []);
+    const userString = await getFromAsyncStorage('user');
+    const user = JSON.parse(userString);
+    const userNama = user.nama;
+    const userJabatan = user.jabatan;
+
+    setNama(userNama);
+    setJabatan(userJabatan);
+  }, [isFocused]);
 
   return (
     <>
@@ -43,75 +47,75 @@ export default function Home(props) {
           display: 'flex',
         }}>
         <View style={styles.sectionTwo}>
-        {jabatan === 'Tim PKG' ? (
-          <View>
-            <View style={styles.wrapper}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('DaftarGuru')}
-                style={[
-                  styles.menu,
-                  {
-                    backgroundColor: '#FFD2F8',
-                  },
-                ]}>
-                <View style={styles.menuContent}>
-                  <View style={styles.iconWrapper}>
-                    <MaterialIcons
-                      name="people"
-                      size={35}
-                      color="#AC20DD"
-                      style={styles.menuIcon}
-                    />
+          {jabatan === 'Tim PKG' ? (
+            <View>
+              <View style={styles.wrapper}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('DaftarGuru')}
+                  style={[
+                    styles.menu,
+                    {
+                      backgroundColor: '#FFD2F8',
+                    },
+                  ]}>
+                  <View style={styles.menuContent}>
+                    <View style={styles.iconWrapper}>
+                      <MaterialIcons
+                        name="people"
+                        size={35}
+                        color="#AC20DD"
+                        style={styles.menuIcon}
+                      />
+                    </View>
+                    <Text style={[styles.menuText, {color: '#AC20DD'}]}>
+                      Daftar Guru
+                    </Text>
                   </View>
-                  <Text style={[styles.menuText, {color: '#AC20DD'}]}>
-                    Daftar Guru
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.wrapper}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('KriteriaStacks')}
-                style={[styles.menu, {backgroundColor: '#E4E9FF'}]}>
-                <View style={styles.menuContent}>
-                  <View style={styles.iconWrapper}>
-                    <MaterialIcons
-                      name="extension"
-                      size={35}
-                      color="#11CBBF"
-                      style={styles.menuIcon}
-                    />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.wrapper}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('KriteriaStacks')}
+                  style={[styles.menu, {backgroundColor: '#E4E9FF'}]}>
+                  <View style={styles.menuContent}>
+                    <View style={styles.iconWrapper}>
+                      <MaterialIcons
+                        name="extension"
+                        size={35}
+                        color="#11CBBF"
+                        style={styles.menuIcon}
+                      />
+                    </View>
+                    <Text style={[styles.menuText, {color: '#11CBBF'}]}>
+                      Daftar Kriteria
+                    </Text>
                   </View>
-                  <Text style={[styles.menuText, {color: '#11CBBF'}]}>
-                    Daftar Kriteria
-                  </Text>
-                </View>
-              </TouchableOpacity>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        ) : (
-          <View>
-            <View style={styles.wrapper}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('DaftarNilai')}
-                style={[styles.menu, {backgroundColor: '#FDDCDC'}]}>
-                <View style={styles.menuContent}>
-                  <View style={styles.iconWrapper}>
-                    <MaterialIcons
-                      name="show-chart"
-                      size={35}
-                      color="#F2475B"
-                      style={styles.menuIcon}
-                    />
+          ) : (
+            <View>
+              <View style={styles.wrapper}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('DaftarNilai')}
+                  style={[styles.menu, {backgroundColor: '#FDDCDC'}]}>
+                  <View style={styles.menuContent}>
+                    <View style={styles.iconWrapper}>
+                      <MaterialIcons
+                        name="show-chart"
+                        size={35}
+                        color="#F2475B"
+                        style={styles.menuIcon}
+                      />
+                    </View>
+                    <Text style={[styles.menuText, {color: '#F2475B'}]}>
+                      Daftar Nilai
+                    </Text>
                   </View>
-                  <Text style={[styles.menuText, {color: '#F2475B'}]}>
-                    Daftar Nilai
-                  </Text>
-                </View>
-              </TouchableOpacity>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        )}
+          )}
 
           <View
             style={{
