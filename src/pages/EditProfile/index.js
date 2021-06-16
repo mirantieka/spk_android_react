@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -6,11 +7,11 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { shadowButton } from '../../helper/DEFINED';
-import { httpGet, httpPut } from '../../helper/http';
+import {shadowButton} from '../../helper/DEFINED';
+import {httpGet, httpPut} from '../../helper/http';
 
 export default function EditProfile(props) {
   const navigation = props.navigation;
@@ -33,7 +34,9 @@ export default function EditProfile(props) {
     };
 
     try {
-      await httpPut(`user/update/${user.id}`, body);
+      const response = await httpPut(`user/update/${user.id}`, body);
+      await AsyncStorage.setItem('user', JSON.stringify(response));
+
       alert('Data berhasil diubah!');
       navigation.navigate('Profile');
     } catch (error) {
@@ -82,7 +85,7 @@ export default function EditProfile(props) {
                   <TextInput
                     style={styles.listItemContentValue}
                     editable={false}>
-                    {user.nip} 
+                    {user.nip}
                   </TextInput>
                 </View>
               </View>
@@ -104,7 +107,7 @@ export default function EditProfile(props) {
                     </Text>
                     <TextInput
                       style={styles.listItemContentValue}
-                      onChangeText={text => setUsernametext}
+                      onChangeText={text => setUsername(text)}
                       defaultValue={user.username}
                     />
                   </View>
