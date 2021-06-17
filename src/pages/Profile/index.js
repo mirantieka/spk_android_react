@@ -12,11 +12,12 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {shadowButton, height} from '../../helper/DEFINED';
 import {httpPost} from '../../helper/http';
-import {CommonActions} from '@react-navigation/native';
+import {CommonActions, useIsFocused} from '@react-navigation/native';
 import {getFromAsyncStorage} from '../../helper/Storage';
 
 export default function Profile({navigation}) {
   const [user, setUser] = useState();
+  const isFocused = useIsFocused();
 
   const onLogoutClick = async () => {
     // Do logout
@@ -42,7 +43,7 @@ export default function Profile({navigation}) {
       setUser(tempUser);
     };
     getUser();
-  }, []);
+  }, [isFocused]);
 
   return (
     <>
