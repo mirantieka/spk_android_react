@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
+  Image,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -20,12 +21,10 @@ export default function DaftarNilai(props) {
     return (
       <View key={`daftarNilai-${item.id}-${index}`}>
         <View style={styles.listItem}>
-          <IonIcons
-            name="person-circle"
-            size={50}
-            color="#C9CACE"
-            style={styles.profile}
-          />
+        {/* <Image
+              style={styles.profilePhoto}
+              source={require('../../assets/images/kemendikbud.png')}
+            /> */}
           <View>
             <Text style={styles.listItemContentName}>{item?.user?.nama}</Text>
             <View style={styles.listItemWrapper}>
@@ -119,7 +118,9 @@ const styles = StyleSheet.create({
   backButton: {
     marginRight: 10,
   },
-  profile: {
+  profilePhoto: {
+    width: 50,
+    height: 40,
     marginRight: 10,
   },
   sectionTwo: {
@@ -141,6 +142,7 @@ const styles = StyleSheet.create({
   },
   listItemContentName: {
     fontSize: 17,
+    borderBottomWidth: 2,
     color: colors.mainBlue,
     fontFamily: 'Quicksand-SemiBold',
   },

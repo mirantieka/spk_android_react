@@ -27,13 +27,14 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginTop: 30,
     marginBottom: 8,
-    fontSize: 18,
+    fontSize: 20,
     alignSelf: 'center',
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold',
   },
   description: {
-    fontSize: 15,
+    fontSize: 13,
     alignSelf: 'center',
+    fontFamily: 'Quicksand-Medium',
   },
   sectionOneContentTitle: {
     fontSize: 23,
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
   buttonText: {
     alignSelf: 'center',
     marginTop: 13,
-    fontWeight: 'bold',
+    fontFamily: 'Quicksand-Bold',
     fontSize: 17,
     color: '#fff',
   },
@@ -109,7 +110,7 @@ export default function Login(props) {
             style={styles.logo}
           />
           <Text style={[styles.title, {color: colors.mainBlue}]}>
-            WELCOME TO SPK PENILAIAN GURU
+            WELCOME TO SPK APP
           </Text>
           <Text style={[styles.description, {color: colors.mainBlue}]}>
             Please login to continue

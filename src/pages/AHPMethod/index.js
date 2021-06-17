@@ -206,8 +206,8 @@ const styles = StyleSheet.create({
   },
   menu: {
     height: 50,
-    borderRadius: 15,
-    width: 150,
+    borderRadius: 30,
+    width: 170,
     marginHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -242,6 +242,7 @@ const styles = StyleSheet.create({
   },
   listItemContentName: {
     fontSize: 17,
+    borderBottomWidth: 2,
     color: colors.mainBlue,
     fontFamily: 'Quicksand-SemiBold',
   },

@@ -29,8 +29,10 @@ export default function index(props) {
         <View style={styles.listItem}>
           <View>
             <Text style={styles.listItemContentName}>{item.user.nama}</Text>
-            <Text style={styles.listItemContentMapel}>Nilai: {item.nilai}</Text>
-            <Text style={styles.listItemContentMapel}>Rank: {item.rank}</Text>
+            <View style={{borderTopWidth: 2}}>
+            <Text style={styles.listItemContentMapel}>Nilai : {item.nilai}</Text>
+            <Text style={styles.listItemContentMapel}>Rank : {item.rank}</Text>
+            </View>
           </View>
         </View>
       </View>
@@ -223,8 +225,8 @@ const styles = StyleSheet.create({
   },
   menu: {
     height: 50,
-    borderRadius: 15,
-    width: 150,
+    borderRadius: 30,
+    width: 170,
     marginHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -263,7 +265,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Quicksand-SemiBold',
   },
   listItemContentMapel: {
-    fontSize: 14,
+    fontSize: 15,
     color: '#3330EE',
     fontFamily: 'Quicksand-Medium',
   },

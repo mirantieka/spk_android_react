@@ -125,14 +125,6 @@ export default function Profile({navigation}) {
                     </Text>
                   </View>
                 </View>
-                <View style={styles.listItem}>
-                  <View>
-                    <Text style={styles.listItemContentAttribute}>Jurusan</Text>
-                    <Text style={styles.listItemContentValue}>
-                      {user.jurusan}
-                    </Text>
-                  </View>
-                </View>
               </View>
             </View>
             <TouchableOpacity onPress={onLogoutClick} style={styles.button}>

@@ -136,16 +136,6 @@ export default function EditProfile(props) {
                     />
                   </View>
                 </View>
-                <View style={styles.listItem}>
-                  <View>
-                    <Text style={styles.listItemContentAttribute}>Jurusan</Text>
-                    <TextInput
-                      style={styles.listItemContentValue}
-                      onChangeText={text => setJurusan(text)}
-                      defaultValue={user.jurusan}
-                    />
-                  </View>
-                </View>
               </View>
             </View>
             <View
@@ -156,7 +146,7 @@ export default function EditProfile(props) {
                 <View
                   style={{
                     flexDirection: 'row',
-                    marginStart: 30,
+                    marginStart: 25,
                     marginTop: 10,
                   }}>
                   <MaterialIcons
@@ -165,7 +155,7 @@ export default function EditProfile(props) {
                     color="#fff"
                     style={styles.backButton}
                   />
-                  <Text style={styles.buttonText}>SAVE</Text>
+                  <Text style={styles.buttonText}>SIMPAN</Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
@@ -184,7 +174,7 @@ export default function EditProfile(props) {
                     style={styles.backButton}
                   />
                   <Text style={[styles.buttonText, {color: '#FDB242'}]}>
-                    CANCEL
+                    BATAL
                   </Text>
                 </View>
               </TouchableOpacity>
