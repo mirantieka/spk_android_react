@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {shadowButton, height} from '../../helper/DEFINED';
+import {shadowButton, height, colors} from '../../helper/DEFINED';
 
 export default function DetailGuru({route, navigation}) {
   const user = route.params.data;
@@ -29,7 +29,7 @@ export default function DetailGuru({route, navigation}) {
           <Text style={styles.sectionOneContentTitle}>Profile</Text>
         </View>
       </View>
-      <View style={{backgroundColor: '#242A61'}}>
+      <View style={{backgroundColor: colors.mainBlue}}>
         <Image
           style={styles.profilePhoto}
           source={require('../../assets/images/kemendikbud.png')}
@@ -38,7 +38,7 @@ export default function DetailGuru({route, navigation}) {
       {user && (
         <SafeAreaView
           style={{
-            backgroundColor: '#242A61',
+            backgroundColor: colors.mainBlue,
             display: 'flex',
           }}>
           <ScrollView style={styles.sectionTwo}>
@@ -109,7 +109,7 @@ export default function DetailGuru({route, navigation}) {
 
 const styles = StyleSheet.create({
   sectionOne: {
-    backgroundColor: '#242A61',
+    backgroundColor: colors.mainBlue,
     padding: 20,
     flexDirection: 'row',
     alignItems: 'center',
@@ -150,14 +150,14 @@ const styles = StyleSheet.create({
   },
   listItemContentName: {
     fontSize: 20,
-    color: '#242A61',
+    color: colors.mainBlue,
     fontFamily: 'Quicksand-Bold',
     marginBottom: 5,
     alignSelf: 'center',
   },
   listItemContentAttribute: {
     fontSize: 15,
-    color: '#242A61',
+    color: colors.mainBlue,
     fontFamily: 'Quicksand-Bold',
     marginBottom: 5,
   },

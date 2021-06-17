@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {height, shadow, width} from '../../helper/DEFINED';
+import {colors, height, shadow, width} from '../../helper/DEFINED';
 import {getFromAsyncStorage} from '../../helper/Storage';
 import {useIsFocused} from '@react-navigation/native';
 
@@ -42,7 +42,7 @@ export default function Home(props) {
       </View>
       <ScrollView
         style={{
-          backgroundColor: '#242A61',
+          backgroundColor: colors.mainBlue,
           height: height,
           display: 'flex',
         }}>
@@ -201,7 +201,7 @@ export default function Home(props) {
 
 const styles = StyleSheet.create({
   sectionOne: {
-    backgroundColor: '#242A61',
+    backgroundColor: colors.mainBlue,
     padding: 30,
     flexDirection: 'row',
     alignItems: 'center',

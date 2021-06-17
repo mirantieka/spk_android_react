@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {
-  ScrollView, StyleSheet,
-  Text, TouchableOpacity, View
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { height } from '../../helper/DEFINED';
-import { httpGet } from '../../helper/http';
+import {colors, height} from '../../helper/DEFINED';
+import {httpGet} from '../../helper/http';
 
 const DATA = [
   {
@@ -58,7 +61,9 @@ export default function DetailKriteria({route, navigation}) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fetchedDetailKriteria = await httpGet(`kri_ahp/${kriAhpId}/detail`);
+        const fetchedDetailKriteria = await httpGet(
+          `kri_ahp/${kriAhpId}/detail`,
+        );
         setDetailKriteria(fetchedDetailKriteria);
       } catch (error) {}
     };
@@ -80,7 +85,7 @@ export default function DetailKriteria({route, navigation}) {
           <Text style={styles.sectionOneContentTitle}>Detail Kriteria</Text>
         </View>
       </View>
-      <View style={{backgroundColor: '#242A61'}}>
+      <View style={{backgroundColor: colors.mainBlue}}>
         {/* <SectionList
         sections={DATA}
         keyExtractor={(item, index) => item + index}
@@ -93,7 +98,8 @@ export default function DetailKriteria({route, navigation}) {
           ...styles.sectionTwo,
         }}
       /> */}
-        <ScrollView style={{backgroundColor: '#242A61', height: height * 0.85}}>
+        <ScrollView
+          style={{backgroundColor: colors.mainBlue, height: height * 0.85}}>
           <View style={styles.sectionTwo}>
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -110,7 +116,7 @@ export default function DetailKriteria({route, navigation}) {
 
 const styles = StyleSheet.create({
   sectionOne: {
-    backgroundColor: '#242A61',
+    backgroundColor: colors.mainBlue,
     padding: 20,
     flexDirection: 'row',
     alignItems: 'center',
@@ -143,7 +149,7 @@ const styles = StyleSheet.create({
   listItemTitle: {
     marginStart: -5,
     marginEnd: -5,
-    color: '#242A61',
+    color: colors.mainBlue,
     fontSize: 17,
     fontFamily: 'Quicksand-SemiBold',
     // borderTopLeftRadius: 30,

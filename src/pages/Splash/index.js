@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {colors} from '../../helper/DEFINED';
 
 export default function Splash(props) {
   const navigation = props.navigation;
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    backgroundColor: '#242A61'
+    backgroundColor: colors.mainBlue,
   },
   title: {
     color: '#fff',

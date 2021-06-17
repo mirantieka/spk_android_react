@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {shadowButton, height} from '../../helper/DEFINED';
+import {shadowButton, height, colors} from '../../helper/DEFINED';
 import {httpPost} from '../../helper/http';
 import {CommonActions, useIsFocused} from '@react-navigation/native';
 import {getFromAsyncStorage} from '../../helper/Storage';
@@ -65,7 +65,7 @@ export default function Profile({navigation}) {
           <MaterialIcons name="edit" size={35} color="#FDB242" />
         </TouchableOpacity>
       </View>
-      <View style={{backgroundColor: '#242A61'}}>
+      <View style={{backgroundColor: colors.mainBlue}}>
         <Image
           style={styles.profilePhoto}
           source={require('../../assets/images/kemendikbud.png')}
@@ -74,7 +74,7 @@ export default function Profile({navigation}) {
       {user && (
         <SafeAreaView
           style={{
-            backgroundColor: '#242A61',
+            backgroundColor: colors.mainBlue,
             display: 'flex',
           }}>
           <ScrollView style={styles.sectionTwo}>
@@ -148,7 +148,7 @@ export default function Profile({navigation}) {
 
 const styles = StyleSheet.create({
   sectionOne: {
-    backgroundColor: '#242A61',
+    backgroundColor: colors.mainBlue,
     padding: 20,
     flexDirection: 'row',
     alignItems: 'center',
@@ -191,14 +191,14 @@ const styles = StyleSheet.create({
   },
   listItemContentName: {
     fontSize: 20,
-    color: '#242A61',
+    color: colors.mainBlue,
     fontFamily: 'Quicksand-Bold',
     marginBottom: 5,
     alignSelf: 'center',
   },
   listItemContentAttribute: {
     fontSize: 15,
-    color: '#242A61',
+    color: colors.mainBlue,
     fontFamily: 'Quicksand-Bold',
     marginBottom: 5,
   },

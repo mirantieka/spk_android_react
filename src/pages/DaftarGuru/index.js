@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {height} from '../../helper/DEFINED';
+import {colors, height} from '../../helper/DEFINED';
 import {httpGet} from '../../helper/http';
 
 export default function DaftarGuru(props) {
@@ -65,7 +65,7 @@ export default function DaftarGuru(props) {
       </View>
       <SafeAreaView
         style={{
-          backgroundColor: '#242A61',
+          backgroundColor: colors.mainBlue,
           display: 'flex',
         }}>
         <ScrollView style={styles.sectionTwo}>
@@ -74,8 +74,8 @@ export default function DaftarGuru(props) {
               <ActivityIndicator
                 animating={true}
                 size="large"
-                color="#0000ff"
-              />
+                color={colors.mainBlue}
+                />
             </View>
           ) : users.length == 0 ? (
             <View style={{ alignItems: 'center'}}>
@@ -93,7 +93,7 @@ export default function DaftarGuru(props) {
 
 const styles = StyleSheet.create({
   sectionOne: {
-    backgroundColor: '#242A61',
+    backgroundColor: colors.mainBlue,
     padding: 20,
     flexDirection: 'row',
     alignItems: 'center',
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
   listItemContentName: {
     fontSize: 17,
-    color: '#242A61',
+    color: colors.mainBlue,
     fontFamily: 'Quicksand-SemiBold'
   },
   listItemContentMapel: {

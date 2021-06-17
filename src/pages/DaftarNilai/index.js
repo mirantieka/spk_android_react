@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {height} from '../../helper/DEFINED';
+import {colors, height} from '../../helper/DEFINED';
 import {httpGet} from '../../helper/http';
 
 export default function DaftarNilai(props) {
@@ -69,7 +69,7 @@ export default function DaftarNilai(props) {
       </View>
       <SafeAreaView
         style={{
-          backgroundColor: '#242A61',
+          backgroundColor: colors.mainBlue,
           display: 'flex',
         }}>
         <ScrollView style={styles.sectionTwo}>
@@ -78,8 +78,8 @@ export default function DaftarNilai(props) {
               <ActivityIndicator
                 animating={true}
                 size="large"
-                color="#0000ff"
-              />
+                color={colors.mainBlue}
+                />
             </View>
           ) : penilaian.length == 0 ? (
             <View style={{ alignItems: 'center'}}>
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   sectionOne: {
-    backgroundColor: '#242A61',
+    backgroundColor: colors.mainBlue,
     padding: 20,
     flexDirection: 'row',
     alignItems: 'center',
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   },
   listItemContentName: {
     fontSize: 17,
-    color: '#242A61',
+    color: colors.mainBlue,
     fontFamily: 'Quicksand-SemiBold',
   },
   listItemWrapper: {

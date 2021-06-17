@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {shadowButton} from '../../helper/DEFINED';
+import {colors, shadowButton} from '../../helper/DEFINED';
 import {httpGet, httpPut} from '../../helper/http';
 
 export default function EditProfile(props) {
@@ -68,14 +68,14 @@ export default function EditProfile(props) {
           <Text style={styles.sectionOneContentTitle}>Edit Profile</Text>
         </View>
       </View>
-      <View style={{backgroundColor: '#242A61'}}>
+      <View style={{backgroundColor: colors.mainBlue}}>
         <Image
           style={styles.profilePhoto}
           source={require('../../assets/images/kemendikbud.png')}
         />
       </View>
       {user && (
-        <ScrollView style={{backgroundColor: '#242A61'}}>
+        <ScrollView style={{backgroundColor: colors.mainBlue}}>
           <View style={styles.sectionTwo}>
             <View>
               <Text style={styles.listItemContentName}>Account Info</Text>
@@ -198,7 +198,7 @@ export default function EditProfile(props) {
 
 const styles = StyleSheet.create({
   sectionOne: {
-    backgroundColor: '#242A61',
+    backgroundColor: colors.mainBlue,
     padding: 20,
     flexDirection: 'row',
     alignItems: 'center',
@@ -239,14 +239,14 @@ const styles = StyleSheet.create({
   },
   listItemContentName: {
     fontSize: 20,
-    color: '#242A61',
+    color: colors.mainBlue,
     fontFamily: 'Quicksand-Bold',
     marginBottom: 5,
     alignSelf: 'center',
   },
   listItemContentAttribute: {
     fontSize: 15,
-    color: '#242A61',
+    color: colors.mainBlue,
     fontFamily: 'Quicksand-Bold',
     marginTop: 20,
   },

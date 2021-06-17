@@ -12,7 +12,7 @@ import {
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import LoadingOverlay from '../../components/LoadingOverlay';
-import {shadowButton} from '../../helper/DEFINED';
+import {colors, shadowButton} from '../../helper/DEFINED';
 import {httpGet, httpPost} from '../../helper/http';
 
 const styles = StyleSheet.create({
@@ -108,10 +108,10 @@ export default function Login(props) {
             source={require('../../assets/images/login-image.png')}
             style={styles.logo}
           />
-          <Text style={[styles.title, {color: '#242A61'}]}>
+          <Text style={[styles.title, {color: colors.mainBlue}]}>
             WELCOME TO SPK PENILAIAN GURU
           </Text>
-          <Text style={[styles.description, {color: '#242A61'}]}>
+          <Text style={[styles.description, {color: colors.mainBlue}]}>
             Please login to continue
           </Text>
         </View>

@@ -7,7 +7,7 @@ import {
   ScrollView,
   SectionList,
 } from 'react-native';
-import {height, shadowButton} from '../../helper/DEFINED';
+import {colors, height, shadowButton} from '../../helper/DEFINED';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {get} from '../../helper/http';
 
@@ -86,9 +86,9 @@ export default function index(props) {
           <Text style={styles.sectionOneContentTitle}>Perankingan WP</Text>
         </View>
       </View>
-      <View style={{backgroundColor: '#242A61'}}>
+      <View style={{backgroundColor: colors.mainBlue}}>
         
-        <ScrollView style={{backgroundColor: '#242A61', height: height * 0.85}}>
+        <ScrollView style={{backgroundColor: colors.mainBlue, height: height * 0.85}}>
           <View style={styles.sectionTwo}>
           
             <View
@@ -147,7 +147,7 @@ export default function index(props) {
 
 const styles = StyleSheet.create({
   sectionOne: {
-    backgroundColor: '#242A61',
+    backgroundColor: colors.mainBlue,
     padding: 20,
     flexDirection: 'row',
     alignItems: 'center',
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   listItemTitle: {
     marginStart: -5,
     marginEnd: -5,
-    color: '#242A61',
+    color: colors.mainBlue,
     fontSize: 17,
     fontWeight: 'bold',
     // borderTopLeftRadius: 30,

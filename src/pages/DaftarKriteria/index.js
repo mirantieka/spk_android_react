@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {height, shadowButton} from '../../helper/DEFINED';
+import {colors, height, shadowButton} from '../../helper/DEFINED';
 import {httpGet} from '../../helper/http';
 
 const data = [
@@ -101,7 +101,7 @@ export default function DaftarKriteria(props) {
       </View>
       <SafeAreaView
         style={{
-          backgroundColor: '#242A61',
+          backgroundColor: colors.mainBlue,
           display: 'flex',
         }}>
         <ScrollView style={styles.sectionTwo}>
@@ -110,11 +110,11 @@ export default function DaftarKriteria(props) {
               <ActivityIndicator
                 animating={true}
                 size="large"
-                color="#0000ff"
+                color={colors.mainBlue}
               />
             </View>
           ) : kriteria.length == 0 ? (
-            <View style={{ alignItems: 'center'}}>
+            <View style={{alignItems: 'center'}}>
               <Text>No Data Available</Text>
             </View>
           ) : (
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   sectionOne: {
-    backgroundColor: '#242A61',
+    backgroundColor: colors.mainBlue,
     padding: 20,
     flexDirection: 'row',
     alignItems: 'center',
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   sectionOneContentTitle: {
     fontSize: 23,
     color: '#F0F2F5',
-    fontFamily: 'Quicksand-Bold'
+    fontFamily: 'Quicksand-Bold',
   },
   backButton: {
     marginRight: 10,
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 18,
     color: '#fff',
-    fontFamily: 'Quicksand-Bold'
+    fontFamily: 'Quicksand-Bold',
   },
   listItemContentAttribute: {
     padding: 3,
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'black',
     marginBottom: 5,
-    fontFamily: 'Quicksand-Medium'
+    fontFamily: 'Quicksand-Medium',
   },
   listItemContentValue: {
     padding: 3,
@@ -229,6 +229,6 @@ const styles = StyleSheet.create({
     marginTop: 13,
     fontSize: 15,
     color: '#11CBBF',
-    fontFamily: 'Quicksand-Medium'
+    fontFamily: 'Quicksand-Medium',
   },
 });

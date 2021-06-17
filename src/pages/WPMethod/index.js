@@ -13,7 +13,7 @@ import {DownloadDirectoryPath, writeFile} from 'react-native-fs';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import XLSX from 'xlsx';
-import {height, shadow, width} from '../../helper/DEFINED';
+import {colors, height, shadow, width} from '../../helper/DEFINED';
 import {httpGet} from '../../helper/http';
 import {getFromAsyncStorage} from '../../helper/Storage';
 
@@ -118,7 +118,7 @@ export default function index(props) {
       </View>
       <SafeAreaView
         style={{
-          backgroundColor: '#242A61',
+          backgroundColor: colors.mainBlue,
           display: 'flex',
         }}>
         <View style={styles.wrapper}>
@@ -160,7 +160,7 @@ export default function index(props) {
               <ActivityIndicator
                 animating={true}
                 size="large"
-                color="#0000ff"
+                color={colors.mainBlue}
               />
             </View>
           ) : WPs.length == 0 ? (
@@ -168,7 +168,9 @@ export default function index(props) {
               <Text>No Data Available</Text>
             </View>
           ) : (
-            WPs.sort((a, b) => a.rank - b.rank).map((item, index) => renderItem({item, index}))
+            WPs.sort((a, b) => a.rank - b.rank).map((item, index) =>
+              renderItem({item, index}),
+            )
           )}
           <View style={{padding: 70}}></View>
         </ScrollView>
@@ -179,7 +181,7 @@ export default function index(props) {
 
 const styles = StyleSheet.create({
   sectionOne: {
-    backgroundColor: '#242A61',
+    backgroundColor: colors.mainBlue,
     padding: 20,
     flexDirection: 'row',
     alignItems: 'center',
@@ -257,7 +259,7 @@ const styles = StyleSheet.create({
   },
   listItemContentName: {
     fontSize: 17,
-    color: '#242A61',
+    color: colors.mainBlue,
     fontFamily: 'Quicksand-SemiBold',
   },
   listItemContentMapel: {

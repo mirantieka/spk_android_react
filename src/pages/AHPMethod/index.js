@@ -13,9 +13,9 @@ import {DownloadDirectoryPath, writeFile} from 'react-native-fs';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import XLSX from 'xlsx';
-import {height, shadow, width} from '../../helper/DEFINED';
+import {colors, height, shadow, width} from '../../helper/DEFINED';
 import {httpGet} from '../../helper/http';
-import { getFromAsyncStorage } from '../../helper/Storage';
+import {getFromAsyncStorage} from '../../helper/Storage';
 
 export default function AHPMethod(props) {
   const navigation = props.navigation;
@@ -81,7 +81,7 @@ export default function AHPMethod(props) {
     const jabatan = JSON.parse(user).jabatan;
     setJabatan(jabatan);
   }, []);
-  
+
   console.log('jataban dari wp', jabatan);
 
   return (
@@ -101,7 +101,7 @@ export default function AHPMethod(props) {
       </View>
       <SafeAreaView
         style={{
-          backgroundColor: '#242A61',
+          backgroundColor: colors.mainBlue,
           display: 'flex',
         }}>
         <View style={styles.wrapper}>
@@ -143,15 +143,17 @@ export default function AHPMethod(props) {
               <ActivityIndicator
                 animating={true}
                 size="large"
-                color="#0000ff"
-              />
+                color={colors.mainBlue}
+                />
             </View>
           ) : AHPs.length == 0 ? (
             <View style={{alignItems: 'center'}}>
               <Text>No Data Available</Text>
             </View>
           ) : (
-            AHPs.sort((a, b) => a.rank - b.rank).map((item, index) => renderItem({item, index}))
+            AHPs.sort((a, b) => a.rank - b.rank).map((item, index) =>
+              renderItem({item, index}),
+            )
           )}
           <View style={{padding: 70}}></View>
         </ScrollView>
@@ -162,7 +164,7 @@ export default function AHPMethod(props) {
 
 const styles = StyleSheet.create({
   sectionOne: {
-    backgroundColor: '#242A61',
+    backgroundColor: colors.mainBlue,
     padding: 20,
     flexDirection: 'row',
     alignItems: 'center',
@@ -240,7 +242,7 @@ const styles = StyleSheet.create({
   },
   listItemContentName: {
     fontSize: 17,
-    color: '#242A61',
+    color: colors.mainBlue,
     fontFamily: 'Quicksand-SemiBold',
   },
   listItemContentMapel: {
