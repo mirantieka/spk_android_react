@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import LoadingOverlay from '../../components/LoadingOverlay';
 import {shadowButton} from '../../helper/DEFINED';
 import {httpGet, httpPost} from '../../helper/http';
 
@@ -72,14 +73,16 @@ const styles = StyleSheet.create({
 
 export default function Login(props) {
   const navigation = props.navigation;
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const onClick = React.useCallback(async () => {
+  const onLoginClick = async () => {
     let data = {
       username: username,
       password: password,
     };
+    setIsLoading(true);
     try {
       // Get an auth token
       const token = await httpPost('auth/login', data);
@@ -89,62 +92,67 @@ export default function Login(props) {
       const user = await httpGet('/user/profile');
       await AsyncStorage.setItem('user', JSON.stringify(user));
 
+      setIsLoading(false);
       navigation.navigate('Main');
     } catch (err) {
+      setIsLoading(false);
       alert(err?.message);
     }
-  });
+  };
 
   return (
-    <ScrollView style={{backgroundColor: 'white'}}>
-      <View style={{backgroundColor: 'white'}}>
-        <Image
-          source={require('../../assets/images/login-image.png')}
-          style={styles.logo}
-        />
-        <Text style={[styles.title, {color: '#242A61'}]}>
-          WELCOME TO SPK PENILAIAN GURU
-        </Text>
-        <Text style={[styles.description, {color: '#242A61'}]}>
-          Please login to continue
-        </Text>
-      </View>
-      <View style={{backgroundColor: 'white'}}>
-        <View style={styles.sectionTwo}>
-          <View style={styles.textInput}>
-            <IonIcons
-              name="person"
-              size={25}
-              color="#242A61"
-              style={{marginStart: 30}}
-            />
-            <TextInput
-              style={{paddingHorizontal: 20, fontSize: 15}}
-              placeholder="Username"
-              placeholderTextColor="#ADAFB2"
-              onChangeText={text => setUsername(text)}
-            />
-          </View>
-          <View style={[styles.textInput, {marginTop: 15}]}>
-            <MaterialIcons
-              name="lock"
-              size={25}
-              color="#242A61"
-              style={{marginStart: 30}}
-            />
-            <TextInput
-              style={{paddingHorizontal: 20, fontSize: 15}}
-              placeholder="Password"
-              placeholderTextColor="#ADAFB2"
-              secureTextEntry={true}
-              onChangeText={text => setPassword(text)}
-            />
-          </View>
-          <TouchableOpacity onPress={onClick} style={styles.button}>
-            <Text style={styles.buttonText}>LOGIN</Text>
-          </TouchableOpacity>
+    <>
+      <ScrollView style={{backgroundColor: 'white'}}>
+        <View style={{backgroundColor: 'white'}}>
+          <Image
+            source={require('../../assets/images/login-image.png')}
+            style={styles.logo}
+          />
+          <Text style={[styles.title, {color: '#242A61'}]}>
+            WELCOME TO SPK PENILAIAN GURU
+          </Text>
+          <Text style={[styles.description, {color: '#242A61'}]}>
+            Please login to continue
+          </Text>
         </View>
-      </View>
-    </ScrollView>
+        <View style={{backgroundColor: 'white'}}>
+          <View style={styles.sectionTwo}>
+            <View style={styles.textInput}>
+              <IonIcons
+                name="person"
+                size={25}
+                color="#242A61"
+                style={{marginStart: 30}}
+              />
+              <TextInput
+                style={{paddingHorizontal: 20, fontSize: 15}}
+                placeholder="Username"
+                placeholderTextColor="#ADAFB2"
+                onChangeText={text => setUsername(text)}
+              />
+            </View>
+            <View style={[styles.textInput, {marginTop: 15}]}>
+              <MaterialIcons
+                name="lock"
+                size={25}
+                color="#242A61"
+                style={{marginStart: 30}}
+              />
+              <TextInput
+                style={{paddingHorizontal: 20, fontSize: 15}}
+                placeholder="Password"
+                placeholderTextColor="#ADAFB2"
+                secureTextEntry={true}
+                onChangeText={text => setPassword(text)}
+              />
+            </View>
+            <TouchableOpacity onPress={onLoginClick} style={styles.button}>
+              <Text style={styles.buttonText}>LOGIN</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
+      {isLoading && <LoadingOverlay />}
+    </>
   );
 }
