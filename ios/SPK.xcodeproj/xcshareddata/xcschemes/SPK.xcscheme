@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "SkripsiProject.app"
-               BlueprintName = "SkripsiProject"
-               ReferencedContainer = "container:SkripsiProject.xcodeproj">
+               BuildableName = "SPK.app"
+               BlueprintName = "SPK"
+               ReferencedContainer = "container:SPK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "SkripsiProjectTests.xctest"
-               BlueprintName = "SkripsiProjectTests"
-               ReferencedContainer = "container:SkripsiProject.xcodeproj">
+               BuildableName = "SPKTests.xctest"
+               BlueprintName = "SPKTests"
+               ReferencedContainer = "container:SPK.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "SkripsiProject.app"
-            BlueprintName = "SkripsiProject"
-            ReferencedContainer = "container:SkripsiProject.xcodeproj">
+            BuildableName = "SPK.app"
+            BlueprintName = "SPK"
+            ReferencedContainer = "container:SPK.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "SkripsiProject.app"
-            BlueprintName = "SkripsiProject"
-            ReferencedContainer = "container:SkripsiProject.xcodeproj">
+            BuildableName = "SPK.app"
+            BlueprintName = "SPK"
+            ReferencedContainer = "container:SPK.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

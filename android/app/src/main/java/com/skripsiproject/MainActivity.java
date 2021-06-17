@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "SkripsiProject";
+    return "SPK";
   }
   @Override
    protected ReactActivityDelegate createReactActivityDelegate() {
