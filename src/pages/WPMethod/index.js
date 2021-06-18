@@ -128,7 +128,7 @@ export default function index(props) {
           display: 'flex',
         }}>
         <View style={styles.wrapper}>
-          {jabatan === userRoles.TIM_PKG ? (
+          {jabatan == userRoles.TIM_PKG ? (
             <TouchableOpacity
               onPress={generateWp}
               style={[

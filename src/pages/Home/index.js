@@ -14,21 +14,16 @@ import {useIsFocused} from '@react-navigation/native';
 
 export default function Home(props) {
   const navigation = props.navigation;
-  const [nama, setNama] = useState();
-  const [jabatan, setJabatan] = useState();
   const isFocused = useIsFocused();
+  const [user, setUser] = useState();
 
   useEffect(async () => {
     const userString = await getFromAsyncStorage('user');
-    const user = JSON.parse(userString);
-    const userNama = user.nama;
-    const userJabatan = user.jabatan;
-
-    setNama(userNama);
-    setJabatan(userJabatan);
+    const userObject = JSON.parse(userString);
+    setUser(userObject);
   }, [isFocused]);
 
-  return (
+  return user ? (
     <>
       <View style={styles.sectionOne}>
         <Image
@@ -37,7 +32,7 @@ export default function Home(props) {
         />
         <View>
           <Text style={styles.sectionOneContentHello}>Hello,</Text>
-          <Text style={styles.sectionOneContentName}>{nama}</Text>
+          <Text style={styles.sectionOneContentName}>{user.nama}</Text>
         </View>
       </View>
       <ScrollView
@@ -47,7 +42,7 @@ export default function Home(props) {
           display: 'flex',
         }}>
         <View style={styles.sectionTwo}>
-          {jabatan === userRoles.TIM_PKG ? (
+          {user.jabatan == userRoles.TIM_PKG ? (
             <View>
               <View style={styles.wrapper}>
                 <TouchableOpacity
@@ -196,6 +191,8 @@ export default function Home(props) {
         </View>
       </ScrollView>
     </>
+  ) : (
+    <></>
   );
 }
 

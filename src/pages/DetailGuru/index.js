@@ -9,7 +9,12 @@ import {
   View,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {shadowButton, height, colors} from '../../helper/DEFINED';
+import {
+  shadowButton,
+  height,
+  colors,
+  formatUserRoles,
+} from '../../helper/DEFINED';
 
 export default function DetailGuru({route, navigation}) {
   const user = route.params.data;
@@ -85,7 +90,7 @@ export default function DetailGuru({route, navigation}) {
                   <View>
                     <Text style={styles.listItemContentAttribute}>Jabatan</Text>
                     <Text style={styles.listItemContentValue}>
-                      {user.jabatan}
+                      {formatUserRoles(user.jabatan)}
                     </Text>
                   </View>
                 </View>

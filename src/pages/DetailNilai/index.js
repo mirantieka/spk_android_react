@@ -97,7 +97,6 @@ export default function index(props) {
   const userId = navigation.state.params.data.id;
   const [daftarNilai, setDaftarNilai] = React.useState([]);
   const renderItem = ({item, index}) => {
-      console.log("asdadsa", item);
     return (
       <View key={`daftarNilai-${item.id}-${index}`}>
         <View style={{marginBottom: 1}}>

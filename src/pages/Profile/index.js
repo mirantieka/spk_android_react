@@ -10,7 +10,12 @@ import {
   View,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {shadowButton, height, colors} from '../../helper/DEFINED';
+import {
+  shadowButton,
+  height,
+  colors,
+  formatUserRoles,
+} from '../../helper/DEFINED';
 import {httpPost} from '../../helper/http';
 import {CommonActions, useIsFocused} from '@react-navigation/native';
 import {getFromAsyncStorage} from '../../helper/Storage';
@@ -121,7 +126,7 @@ export default function Profile({navigation}) {
                   <View>
                     <Text style={styles.listItemContentAttribute}>Jabatan</Text>
                     <Text style={styles.listItemContentValue}>
-                      {user.jabatan}
+                      {formatUserRoles(user.jabatan)}
                     </Text>
                   </View>
                 </View>

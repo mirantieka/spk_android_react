@@ -81,9 +81,7 @@ export default function AHPMethod(props) {
     const jabatan = JSON.parse(user).jabatan;
     setJabatan(jabatan);
   }, []);
-
-  console.log('jataban dari wp', jabatan);
-
+  
   return (
     <>
       <View style={styles.sectionOne}>
@@ -105,7 +103,7 @@ export default function AHPMethod(props) {
           display: 'flex',
         }}>
         <View style={styles.wrapper}>
-          {jabatan === userRoles.TIM_PKG ? (
+          {jabatan == userRoles.TIM_PKG ? (
             <TouchableOpacity
               onPress={generateAhp}
               style={[

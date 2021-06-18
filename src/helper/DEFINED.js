@@ -34,3 +34,19 @@ export const userRoles = {
   KEPSEK: 'Kepsek',
   GURU: 'Guru',
 };
+
+export const formatUserRoles = role => {
+  let formattedRole = '';
+  switch (role) {
+    case userRoles.TIM_PKG:
+      formattedRole = 'Kepala Sekolah';
+      break;
+    case userRoles.KEPSEK:
+      formattedRole = 'Tim PKG';
+      break;
+    default:
+      formattedRole = role;
+      break;
+  }
+  return formattedRole;
+};
