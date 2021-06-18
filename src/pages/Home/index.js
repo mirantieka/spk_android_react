@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {colors, height, shadow, width} from '../../helper/DEFINED';
+import {colors, height, shadow, userRoles, width} from '../../helper/DEFINED';
 import {getFromAsyncStorage} from '../../helper/Storage';
 import {useIsFocused} from '@react-navigation/native';
 
@@ -47,7 +47,7 @@ export default function Home(props) {
           display: 'flex',
         }}>
         <View style={styles.sectionTwo}>
-          {jabatan === 'Tim PKG' ? (
+          {jabatan === userRoles.TIM_PKG ? (
             <View>
               <View style={styles.wrapper}>
                 <TouchableOpacity

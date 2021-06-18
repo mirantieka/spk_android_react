@@ -28,3 +28,9 @@ export const shadowButton = {
 export const colors = {
   mainBlue: '#242A61',
 };
+
+export const userRoles = {
+  TIM_PKG: 'Tim_PKG',
+  KEPSEK: 'Kepsek',
+  GURU: 'Guru',
+};

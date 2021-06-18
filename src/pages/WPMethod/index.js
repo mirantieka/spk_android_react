@@ -13,7 +13,7 @@ import {DownloadDirectoryPath, writeFile} from 'react-native-fs';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import XLSX from 'xlsx';
-import {colors, height, shadow, width} from '../../helper/DEFINED';
+import {colors, height, shadow, userRoles, width} from '../../helper/DEFINED';
 import {httpGet} from '../../helper/http';
 import {getFromAsyncStorage} from '../../helper/Storage';
 
@@ -30,8 +30,12 @@ export default function index(props) {
           <View>
             <Text style={styles.listItemContentName}>{item.user.nama}</Text>
             <View style={{borderTopWidth: 2}}>
-            <Text style={styles.listItemContentMapel}>Nilai : {item.nilai}</Text>
-            <Text style={styles.listItemContentMapel}>Rank : {item.rank}</Text>
+              <Text style={styles.listItemContentMapel}>
+                Nilai : {item.nilai}
+              </Text>
+              <Text style={styles.listItemContentMapel}>
+                Rank : {item.rank}
+              </Text>
             </View>
           </View>
         </View>
@@ -124,7 +128,7 @@ export default function index(props) {
           display: 'flex',
         }}>
         <View style={styles.wrapper}>
-          {jabatan === 'Tim PKG' ? (
+          {jabatan === userRoles.TIM_PKG ? (
             <TouchableOpacity
               onPress={generateWp}
               style={[

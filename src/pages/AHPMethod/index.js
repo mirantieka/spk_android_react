@@ -13,7 +13,7 @@ import {DownloadDirectoryPath, writeFile} from 'react-native-fs';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import XLSX from 'xlsx';
-import {colors, height, shadow, width} from '../../helper/DEFINED';
+import {colors, height, shadow, userRoles, width} from '../../helper/DEFINED';
 import {httpGet} from '../../helper/http';
 import {getFromAsyncStorage} from '../../helper/Storage';
 
@@ -105,7 +105,7 @@ export default function AHPMethod(props) {
           display: 'flex',
         }}>
         <View style={styles.wrapper}>
-          {jabatan === 'Tim PKG' ? (
+          {jabatan === userRoles.TIM_PKG ? (
             <TouchableOpacity
               onPress={generateAhp}
               style={[
@@ -144,7 +144,7 @@ export default function AHPMethod(props) {
                 animating={true}
                 size="large"
                 color={colors.mainBlue}
-                />
+              />
             </View>
           ) : AHPs.length == 0 ? (
             <View style={{alignItems: 'center'}}>
