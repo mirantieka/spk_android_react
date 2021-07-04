@@ -3,18 +3,17 @@ import {Dimensions} from 'react-native';
 export const {width, height} = Dimensions.get('window');
 
 export const shadow = {
-  shadowColor: '#E7EEEB',
+  shadowColor: '#D4D4D4',
   shadowOffset: {
-    width: 0,
+    width: 2,
     height: 5,
   },
-  shadowOpacity: 0.36,
+  shadowOpacity: 1,
   shadowRadius: 6.68,
-
   elevation: 7,
 };
 export const shadowButton = {
-  shadowColor: '#E7EEEB',
+  shadowColor: '#D4D4D4',
   shadowOffset: {
     width: 0,
     height: 5,
@@ -39,10 +38,10 @@ export const formatUserRoles = role => {
   let formattedRole = '';
   switch (role) {
     case userRoles.TIM_PKG:
-      formattedRole = 'Kepala Sekolah';
+      formattedRole = 'Tim PKG';
       break;
     case userRoles.KEPSEK:
-      formattedRole = 'Tim PKG';
+      formattedRole = 'Kepala Sekolah';
       break;
     default:
       formattedRole = role;

@@ -6,6 +6,7 @@ import DaftarGuru from '../../pages/DaftarGuru';
 import GuruStacks from '../../pages/DaftarGuru/GuruStacks';
 import KriteriaStacks from '../../pages/DaftarKriteria/KriteriaStacks';
 import DaftarNilai from '../../pages/DaftarNilai';
+import HasilAkhir from '../../pages/HasilAkhir';
 import Home from '../../pages/Home/index';
 import ProfileStacks from '../../pages/Profile/ProfileStacks';
 import WPMethod from '../../pages/WPMethod';
@@ -47,6 +48,11 @@ export default function Main() {
         name="AHPMethod"
         component={AHPMethod}
         options={{drawerLabel: 'AHP Method'}}
+      />
+      <Drawer.Screen
+        name="HasilAkhir"
+        component={HasilAkhir}
+        options={{drawerLabel: 'Hasil Akhir'}}
       />
       <Drawer.Screen
         name="ProfileStacks"

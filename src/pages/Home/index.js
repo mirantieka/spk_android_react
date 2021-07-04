@@ -42,152 +42,238 @@ export default function Home(props) {
           display: 'flex',
         }}>
         <View style={styles.sectionTwo}>
-          {user.jabatan == userRoles.TIM_PKG ? (
-            <View>
-              <View style={styles.wrapper}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('DaftarGuru')}
-                  style={[
-                    styles.menu,
-                    {
-                      backgroundColor: '#FFD2F8',
-                    },
-                  ]}>
-                  <View style={styles.menuContent}>
-                    <View style={styles.iconWrapper}>
-                      <MaterialIcons
-                        name="people"
-                        size={35}
-                        color="#AC20DD"
-                        style={styles.menuIcon}
-                      />
+          {(() => {
+            switch (user.jabatan) {
+              case userRoles.TIM_PKG:
+                return (
+                  <View>
+                    {/* Daftar Guru */}
+                    <View style={styles.wrapper}>
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate('DaftarGuru')}
+                        style={[
+                          styles.menu,
+                          {
+                            backgroundColor: '#FFD2F8',
+                          },
+                        ]}>
+                        <View style={styles.menuContent}>
+                          <View style={styles.iconWrapper}>
+                            <MaterialIcons
+                              name="people"
+                              size={35}
+                              color="#AC20DD"
+                              style={styles.menuIcon}
+                            />
+                          </View>
+                          <Text style={[styles.menuText, {color: '#AC20DD'}]}>
+                            Daftar Guru
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
                     </View>
-                    <Text style={[styles.menuText, {color: '#AC20DD'}]}>
-                      Daftar Guru
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.wrapper}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('KriteriaStacks')}
-                  style={[styles.menu, {backgroundColor: '#E4E9FF'}]}>
-                  <View style={styles.menuContent}>
-                    <View style={styles.iconWrapper}>
-                      <MaterialIcons
-                        name="extension"
-                        size={35}
-                        color="#11CBBF"
-                        style={styles.menuIcon}
-                      />
+                    {/* Daftar Kriteria */}
+                    <View style={styles.wrapper}>
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate('KriteriaStacks')}
+                        style={[styles.menu, {backgroundColor: '#E4E9FF'}]}>
+                        <View style={styles.menuContent}>
+                          <View style={styles.iconWrapper}>
+                            <MaterialIcons
+                              name="extension"
+                              size={35}
+                              color="#11CBBF"
+                              style={styles.menuIcon}
+                            />
+                          </View>
+                          <Text style={[styles.menuText, {color: '#11CBBF'}]}>
+                            Daftar Kriteria
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
                     </View>
-                    <Text style={[styles.menuText, {color: '#11CBBF'}]}>
-                      Daftar Kriteria
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            </View>
-          ) : (
-            <View>
-              <View style={styles.wrapper}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('DaftarNilai')}
-                  style={[styles.menu, {backgroundColor: '#FDDCDC'}]}>
-                  <View style={styles.menuContent}>
-                    <View style={styles.iconWrapper}>
-                      <MaterialIcons
-                        name="show-chart"
-                        size={35}
-                        color="#F2475B"
-                        style={styles.menuIcon}
-                      />
-                    </View>
-                    <Text style={[styles.menuText, {color: '#F2475B'}]}>
-                      Daftar Nilai
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            </View>
-          )}
 
-          <View
-            style={{
-              borderBottomColor: '#cecece',
-              borderBottomWidth: 1,
-              width: width * 0.85,
-              marginBottom: 25,
-            }}
-          />
-
-          {/* WP Method */}
-          <View style={styles.wrapper}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('WPMethod')}
-              style={[styles.menu, {backgroundColor: '#D9D2FF'}]}>
-              <View style={styles.menuContent}>
-                <View style={styles.iconWrapper}>
-                  <MaterialIcons
-                    name="assignment-turned-in"
-                    size={35}
-                    color="#3330EE"
-                    style={styles.menuIcon}
-                  />
-                </View>
-                <Text style={[styles.menuText, {color: '#3330EE'}]}>
-                  WP Method
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          {/* AHP Method */}
-          <View style={styles.wrapper}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('AHPMethod')}
-              style={[styles.menu, {backgroundColor: '#FFF0D2'}]}>
-              <View style={styles.menuContent}>
-                <View style={styles.iconWrapper}>
-                  <MaterialIcons
-                    name="assignment"
-                    size={35}
-                    color="#EC9615"
-                    style={styles.menuIcon}
-                  />
-                </View>
-                <Text style={[styles.menuText, {color: '#EC9615'}]}>
-                  AHP Method
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              borderBottomColor: '#cecece',
-              borderBottomWidth: 1,
-              width: width * 0.85,
-              marginBottom: 25,
-            }}
-          />
-          <View style={styles.wrapper}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('ProfileStacks')}
-              style={[styles.menu, {backgroundColor: '#FFD2E2'}]}>
-              <View style={styles.menuContent}>
-                <View style={styles.iconWrapper}>
-                  <MaterialIcons
-                    name="person"
-                    size={35}
-                    color="#E81B7D"
-                    style={styles.menuIcon}
-                  />
-                </View>
-                <Text style={[styles.menuText, {color: '#E81B7D'}]}>
-                  Profile
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+                    <View
+                      style={{
+                        borderBottomColor: '#cecece',
+                        borderBottomWidth: 1,
+                        width: width * 0.85,
+                        marginBottom: 25,
+                      }}
+                    />
+                    {/* WP Method */}
+                    <View style={styles.wrapper}>
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate('WPMethod')}
+                        style={[styles.menu, {backgroundColor: '#FDDCDC'}]}>
+                        <View style={styles.menuContent}>
+                          <View style={styles.iconWrapper}>
+                            <MaterialIcons
+                              name="assignment"
+                              size={35}
+                              color="#F2475B"
+                              style={styles.menuIcon}
+                            />
+                          </View>
+                          <Text style={[styles.menuText, {color: '#F2475B'}]}>
+                            WP Method
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                    {/* AHP Method */}
+                    <View style={styles.wrapper}>
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate('AHPMethod')}
+                        style={[styles.menu, {backgroundColor: '#D9D2FF'}]}>
+                        <View style={styles.menuContent}>
+                          <View style={styles.iconWrapper}>
+                            <MaterialIcons
+                              name="assignment"
+                              size={35}
+                              color="#3330EE"
+                              style={styles.menuIcon}
+                            />
+                          </View>
+                          <Text style={[styles.menuText, {color: '#3330EE'}]}>
+                            AHP Method
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                    {/* Hasil Akhir */}
+                    <View style={styles.wrapper}>
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate('HasilAkhir')}
+                        style={[styles.menu, {backgroundColor: '#FFF0D2'}]}>
+                        <View style={styles.menuContent}>
+                          <View style={styles.iconWrapper}>
+                            <MaterialIcons
+                              name="assignment-turned-in"
+                              size={35}
+                              color="#EC9615"
+                              style={styles.menuIcon}
+                            />
+                          </View>
+                          <Text style={[styles.menuText, {color: '#EC9615'}]}>
+                            Hasil Akhir
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                    <View
+                      style={{
+                        borderBottomColor: '#cecece',
+                        borderBottomWidth: 1,
+                        width: width * 0.85,
+                        marginBottom: 25,
+                      }}
+                    />
+                    {/* Profile */}
+                    <View style={styles.wrapper}>
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate('ProfileStacks')}
+                        style={[styles.menu, {backgroundColor: '#FFD2E2'}]}>
+                        <View style={styles.menuContent}>
+                          <View style={styles.iconWrapper}>
+                            <MaterialIcons
+                              name="person"
+                              size={35}
+                              color="#E81B7D"
+                              style={styles.menuIcon}
+                            />
+                          </View>
+                          <Text style={[styles.menuText, {color: '#E81B7D'}]}>
+                            Profile
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                );
+              default:
+                return (
+                  <View>
+                    {/* Daftar Nilai */}
+                    <View style={styles.wrapper}>
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate('DaftarNilai')}
+                        style={[styles.menu, {backgroundColor: '#FDDCDC'}]}>
+                        <View style={styles.menuContent}>
+                          <View style={styles.iconWrapper}>
+                            <MaterialIcons
+                              name="show-chart"
+                              size={35}
+                              color="#F2475B"
+                              style={styles.menuIcon}
+                            />
+                          </View>
+                          <Text style={[styles.menuText, {color: '#F2475B'}]}>
+                            Daftar Nilai
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                    <View
+                      style={{
+                        borderBottomColor: '#cecece',
+                        borderBottomWidth: 1,
+                        width: width * 0.85,
+                        marginBottom: 25,
+                      }}
+                    />
+                    {/* Hasil Akhir */}
+                    <View style={styles.wrapper}>
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate('HasilAkhir')}
+                        style={[styles.menu, {backgroundColor: '#FFF0D2'}]}>
+                        <View style={styles.menuContent}>
+                          <View style={styles.iconWrapper}>
+                            <MaterialIcons
+                              name="assignment-turned-in"
+                              size={35}
+                              color="#EC9615"
+                              style={styles.menuIcon}
+                            />
+                          </View>
+                          <Text style={[styles.menuText, {color: '#EC9615'}]}>
+                            Hasil Akhir
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                    <View
+                      style={{
+                        borderBottomColor: '#cecece',
+                        borderBottomWidth: 1,
+                        width: width * 0.85,
+                        marginBottom: 25,
+                      }}
+                    />
+                    {/* Profile */}
+                    <View style={styles.wrapper}>
+                      <TouchableOpacity
+                        onPress={() => navigation.navigate('ProfileStacks')}
+                        style={[styles.menu, {backgroundColor: '#FFD2E2'}]}>
+                        <View style={styles.menuContent}>
+                          <View style={styles.iconWrapper}>
+                            <MaterialIcons
+                              name="person"
+                              size={35}
+                              color="#E81B7D"
+                              style={styles.menuIcon}
+                            />
+                          </View>
+                          <Text style={[styles.menuText, {color: '#E81B7D'}]}>
+                            Profile
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                );
+            }
+          })()}
         </View>
       </ScrollView>
     </>
