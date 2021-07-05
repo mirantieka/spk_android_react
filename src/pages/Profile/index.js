@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 15,
     alignSelf: 'center',
-    borderRadius: 10,
+    borderRadius: 30,
     ...shadowButton,
   },
   buttonText: {
