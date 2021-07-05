@@ -154,24 +154,28 @@ export default function HasilAkhir(props) {
             <>
               <View
                 style={{display: 'flex', flexDirection: 'row', fontSize: 22}}>
-                <Text>SPK Method :</Text>
+                <Text style={styles.title}>SPK Method :</Text>
                 <Text
                   style={{
                     textTransform: 'uppercase',
-                    fontWeight: 'bold',
+                    marginTop: 10,
                     paddingStart: 8,
+                    fontSize: 17,
+                    fontFamily: 'Quicksand-Bold',
                   }}>
                   {hasilAkhir.method}
                 </Text>
               </View>
               <View
                 style={{display: 'flex', flexDirection: 'row', fontSize: 22}}>
-                <Text>Senitivity :</Text>
+                <Text style={styles.title}>Sensitivity :</Text>
                 <Text
                   style={{
                     textTransform: 'uppercase',
-                    fontWeight: 'bold',
+                    marginTop: 10,
                     paddingStart: 8,
+                    fontSize: 17,
+                    fontFamily: 'Quicksand-Bold',
                   }}>
                   {hasilAkhir.sensitivity}
                 </Text>
@@ -286,4 +290,9 @@ const styles = StyleSheet.create({
     color: '#3330EE',
     fontFamily: 'Quicksand-Medium',
   },
+  title:{
+    fontSize: 17,
+    fontFamily: 'Quicksand-Medium',
+    marginTop: 10,
+  }
 });
