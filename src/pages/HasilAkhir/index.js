@@ -13,6 +13,7 @@ import {DownloadDirectoryPath, writeFile} from 'react-native-fs';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import XLSX from 'xlsx';
+import LoadingOverlay from '../../components/LoadingOverlay';
 import {colors, height, shadow, userRoles, width} from '../../helper/DEFINED';
 import {httpGet} from '../../helper/http';
 import {getFromAsyncStorage} from '../../helper/Storage';
@@ -21,6 +22,7 @@ export default function HasilAkhir(props) {
   const navigation = props.navigation;
   const [hasilAkhir, setHasilAkhir] = useState();
   const [jabatan, setJabatan] = useState('-');
+  const [isLoading, setIsLoading] = useState(false);
 
   const renderItem = ({item, index}) => {
     return (
@@ -37,10 +39,16 @@ export default function HasilAkhir(props) {
   };
 
   const generateHasilAkhir = async () => {
+    setIsLoading(true);
     try {
       const fetchedHasilAkhir = await httpGet('hasil-akhir/generate');
       setHasilAkhir(fetchedHasilAkhir);
-    } catch (error) {}
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.error(error);
+      alert(error.message);
+    }
   };
 
   const exportFile = () => {
@@ -68,14 +76,29 @@ export default function HasilAkhir(props) {
       });
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const fetchedHasilAkhir = await httpGet('hasil-akhir');
-        setHasilAkhir(fetchedHasilAkhir);
-      } catch (error) {}
+  useEffect(async () => {
+    let jabatan = '';
+    const getUserRole = async () => {
+      const user = await getFromAsyncStorage('user');
+      jabatan = JSON.parse(user).jabatan;
     };
-    fetchData();
+    const fetchData = async () => {
+      if (jabatan == userRoles.TIM_PKG) {
+        setHasilAkhir({
+          values: [],
+          method: '-',
+          sensitivity: null,
+        });
+      } else {
+        try {
+          const fetchedHasilAkhir = await httpGet('hasil-akhir');
+          setHasilAkhir(fetchedHasilAkhir);
+        } catch (error) {}
+      }
+    };
+
+    await getUserRole();
+    await fetchData();
   }, []);
 
   useEffect(async () => {
@@ -197,6 +220,7 @@ export default function HasilAkhir(props) {
           <View style={{padding: 70}}></View>
         </ScrollView>
       </SafeAreaView>
+      {isLoading && <LoadingOverlay />}
     </>
   );
 }
@@ -290,9 +314,9 @@ const styles = StyleSheet.create({
     color: '#3330EE',
     fontFamily: 'Quicksand-Medium',
   },
-  title:{
+  title: {
     fontSize: 17,
     fontFamily: 'Quicksand-Medium',
     marginTop: 10,
-  }
+  },
 });
